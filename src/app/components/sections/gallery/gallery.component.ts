@@ -12,7 +12,6 @@ type FolderFilter = 'all' | 'ember' | 'casey';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
-      id="gallery"
       class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       aria-labelledby="gallery-heading"
     >
@@ -33,6 +32,7 @@ type FolderFilter = 'all' | 'ember' | 'casey';
             [class]="activeFilter() === filter.value
               ? 'bg-neon-magenta text-white'
               : 'bg-[#14141f] border border-[#1e1e2e] text-[#e0e0e0] hover:border-neon-magenta'"
+            [attr.aria-pressed]="activeFilter() === filter.value"
             (click)="setFilter(filter.value)"
           >
             {{ filter.label }}
@@ -43,8 +43,9 @@ type FolderFilter = 'all' | 'ember' | 'casey';
       <!-- Masonry grid -->
       <div class="columns-2 sm:columns-3 gap-4 space-y-4">
         @for (image of filteredImages(); track image.src) {
-          <div
-            class="break-inside-avoid rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02]"
+          <button
+            type="button"
+            class="break-inside-avoid rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent"
             (click)="openLightbox(image)"
           >
             <img
@@ -54,7 +55,7 @@ type FolderFilter = 'all' | 'ember' | 'casey';
               class="w-full h-auto block bg-[#14141f]"
               (error)="onImageError($event)"
             />
-          </div>
+          </button>
         }
       </div>
 

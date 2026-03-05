@@ -107,10 +107,11 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
   `,
   template: `
     <section
-      id="experience"
       class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      aria-labelledby="experience-heading"
     >
       <h2
+        id="experience-heading"
         class="text-3xl font-bold text-center mb-12 text-[#e0e0e0]"
         style="font-family: 'Montserrat', sans-serif"
       >
@@ -118,7 +119,7 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
       </h2>
 
       <div class="timeline flex flex-col items-center">
-        @for (exp of experiences; track exp.role) {
+        @for (exp of experiences; track exp.company) {
           <div class="timeline-entry">
             <div class="timeline-node"></div>
             <div

@@ -2,7 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   ElementRef,
-  OnInit,
+  AfterViewInit,
   OnDestroy,
   PLATFORM_ID,
   inject,
@@ -31,7 +31,7 @@ interface Particle {
     ></canvas>
   `,
 })
-export class ParticleCanvasComponent implements OnInit, OnDestroy {
+export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
 
@@ -41,7 +41,7 @@ export class ParticleCanvasComponent implements OnInit, OnDestroy {
   private canvasWidth = 0;
   private canvasHeight = 0;
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.initCanvas();
       this.resizeHandler = () => this.handleResize();

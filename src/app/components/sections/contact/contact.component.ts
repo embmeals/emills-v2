@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 interface ContactLink {
   readonly label: string;
   readonly url: string;
-  readonly icon: string;
+  readonly icon: 'email' | 'github' | 'linkedin' | 'codepen' | 'gallery';
 }
 
 @Component({
@@ -79,6 +79,22 @@ interface ContactLink {
                   <circle cx="4" cy="4" r="2" />
                 </svg>
               }
+              <!-- Gallery -->
+              @if (link.icon === 'gallery') {
+                <svg
+                  class="w-10 h-10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                  <circle cx="9" cy="9" r="2" />
+                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                </svg>
+              }
               <!-- CodePen -->
               @if (link.icon === 'codepen') {
                 <svg
@@ -130,6 +146,11 @@ export class ContactComponent {
       label: 'CodePen',
       url: 'https://codepen.io/ambmeals',
       icon: 'codepen',
+    },
+    {
+      label: 'Gallery',
+      url: '/gallery',
+      icon: 'gallery',
     },
   ] as const;
 }

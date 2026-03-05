@@ -111,7 +111,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     { label: 'Skills', id: 'skills' },
     { label: 'Projects', id: 'projects' },
     { label: 'Experience', id: 'experience' },
-    { label: 'Gallery', id: 'gallery' },
     { label: 'Contact', id: 'contact' },
   ] as const;
 

@@ -43,6 +43,15 @@ interface SocialLink {
     .animate-fade-in-right {
       animation: fadeInRight 0.8s ease-out 0.3s both;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-fade-in-up,
+      .animate-fade-in-right {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
   `,
   template: `
     <section
@@ -73,8 +82,10 @@ interface SocialLink {
           </p>
 
           <!-- Social links -->
-          <div class="mt-8 flex items-center gap-6" aria-label="Social links">
+          <nav class="mt-8" aria-label="Social links">
+            <ul class="flex items-center gap-6 list-none m-0 p-0">
             @for (link of socialLinks; track link.label) {
+              <li>
               <a
                 [href]="link.url"
                 [attr.aria-label]="link.label"
@@ -105,8 +116,10 @@ interface SocialLink {
                   </svg>
                 }
               </a>
+              </li>
             }
-          </div>
+            </ul>
+          </nav>
         </div>
 
         <!-- Right: Dev Card -->

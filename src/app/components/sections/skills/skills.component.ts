@@ -8,10 +8,11 @@ import { SKILL_CATEGORIES, type SkillCategory } from '@/data/skills.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
-      id="skills"
       class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      aria-labelledby="skills-heading"
     >
       <h2
+        id="skills-heading"
         class="text-3xl font-bold text-center mb-12 text-[#e0e0e0]"
         style="font-family: 'Montserrat', sans-serif"
       >

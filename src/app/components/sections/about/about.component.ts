@@ -8,7 +8,6 @@ import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
-      id="about"
       class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       aria-labelledby="about-heading"
     >
@@ -59,7 +58,9 @@ import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
           @for (fact of funFacts; track fact.label) {
             <div
               class="bg-card rounded-lg p-4 border border-border flex flex-col items-center justify-center gap-2 text-center transition-colors duration-200"
-              [class]="getHoverClass(fact.color)"
+              [class.hover:border-neon-cyan]="fact.color === 'cyan'"
+              [class.hover:border-neon-magenta]="fact.color === 'magenta'"
+              [class.hover:border-neon-amber]="fact.color === 'amber'"
             >
               <span class="text-3xl" role="img" [attr.aria-label]="fact.label">
                 {{ fact.icon }}
@@ -78,12 +79,4 @@ export class AboutComponent {
   readonly paragraphs = ABOUT_TEXT.split('\n\n');
   readonly funFacts = FUN_FACTS;
 
-  getHoverClass(color: 'cyan' | 'magenta' | 'amber'): string {
-    const hoverMap: Record<string, string> = {
-      cyan: 'bg-card rounded-lg p-4 border border-border flex flex-col items-center justify-center gap-2 text-center transition-colors duration-200 hover:border-neon-cyan',
-      magenta: 'bg-card rounded-lg p-4 border border-border flex flex-col items-center justify-center gap-2 text-center transition-colors duration-200 hover:border-neon-magenta',
-      amber: 'bg-card rounded-lg p-4 border border-border flex flex-col items-center justify-center gap-2 text-center transition-colors duration-200 hover:border-neon-amber',
-    };
-    return hoverMap[color] ?? '';
-  }
 }

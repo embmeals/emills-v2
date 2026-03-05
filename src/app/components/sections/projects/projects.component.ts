@@ -25,10 +25,11 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
-      id="projects"
       class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      aria-labelledby="projects-heading"
     >
       <h2
+        id="projects-heading"
         class="text-3xl font-bold text-center mb-12 text-[#e0e0e0]"
         style="font-family: 'Montserrat', sans-serif"
       >
@@ -43,6 +44,7 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
             [class]="activeFilter() === btn.value
               ? 'bg-[#00e5ff] text-black'
               : 'bg-[#14141f] text-[#e0e0e0] border border-[#1e1e2e] hover:border-[#00e5ff]/50'"
+            [attr.aria-pressed]="activeFilter() === btn.value"
             (click)="setFilter(btn.value)"
           >
             {{ btn.label }}

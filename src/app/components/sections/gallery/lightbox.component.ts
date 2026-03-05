@@ -23,6 +23,7 @@ import {
       <div
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
         role="dialog"
+        aria-modal="true"
         aria-label="Image lightbox"
         (click)="onBackdropClick($event)"
       >

@@ -6,7 +6,6 @@ import { AboutComponent } from '@/components/sections/about/about.component';
 import { SkillsComponent } from '@/components/sections/skills/skills.component';
 import { ProjectsComponent } from '@/components/sections/projects/projects.component';
 import { ExperienceComponent } from '@/components/sections/experience/experience.component';
-import { GalleryComponent } from '@/components/sections/gallery/gallery.component';
 import { ContactComponent } from '@/components/sections/contact/contact.component';
 
 @Component({
@@ -20,7 +19,6 @@ import { ContactComponent } from '@/components/sections/contact/contact.componen
     SkillsComponent,
     ProjectsComponent,
     ExperienceComponent,
-    GalleryComponent,
     ContactComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

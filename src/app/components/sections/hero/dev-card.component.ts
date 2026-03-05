@@ -53,6 +53,15 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       animation: shimmer 6s linear infinite;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .dev-card {
+        animation: none;
+      }
+      .holographic {
+        animation: none;
+      }
+    }
+
     .barcode {
       display: flex;
       gap: 1px;
@@ -64,12 +73,38 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       display: block;
       background: rgba(0, 229, 255, 0.3);
     }
+
+    .noise {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+    }
+
+    .corner-cut {
+      clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+    }
+
+    .glitch-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(0, 229, 255, 0.15);
+      z-index: 15;
+      pointer-events: none;
+    }
   `,
   template: `
     <div
       class="dev-card relative w-full max-w-md border-2 rounded-xl overflow-hidden"
       style="background: linear-gradient(135deg, #14141f 0%, #0a0a0f 100%);"
     >
+      <!-- Film grain noise -->
+      <div class="noise absolute inset-0 z-10 pointer-events-none"></div>
+
+      <!-- Glitch accent lines -->
+      <div class="glitch-line" style="top: 22%;" aria-hidden="true"></div>
+      <div class="glitch-line" style="top: 68%; width: 60%;" aria-hidden="true"></div>
+
       <!-- Scanline overlay -->
       <div class="scanlines absolute inset-0 z-10 pointer-events-none"></div>
 
@@ -97,7 +132,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
               style="box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);"
             >
               <img
-                src="assets/ember_avatar.png"
+                src="assets/ember_avatar.jpg"
                 alt="Ember Mills avatar"
                 class="w-full h-full object-cover"
               />
