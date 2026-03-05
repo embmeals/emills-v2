@@ -1,0 +1,24 @@
+language: en-US
+reviews:
+  profile: assertive
+  path_instructions:
+    - path: "src/app/components/**"
+      instructions: |
+        Review Angular components for:
+        - Standalone component pattern (no NgModules)
+        - OnPush change detection
+        - Signal-based inputs/outputs
+        - Accessibility (ARIA labels, keyboard nav)
+        - Responsive design patterns
+    - path: "src/app/**/*.spec.ts"
+      instructions: |
+        Review tests for:
+        - Meaningful test descriptions
+        - Component testing best practices
+        - Accessibility testing
+    - path: "src/styles.css"
+      instructions: |
+        Review styles for:
+        - Consistent use of design tokens
+        - No hardcoded colors (use Tailwind classes)
+        - Dark theme contrast ratios (WCAG AA)
