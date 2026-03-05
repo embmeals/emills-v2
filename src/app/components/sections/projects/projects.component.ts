@@ -77,9 +77,9 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
             </div>
 
             <div class="flex gap-3">
-              @if (project.type === 'public' && project.githubUrl) {
+              @if ($any(project).githubUrl) {
                 <a
-                  [href]="project.githubUrl"
+                  [href]="$any(project).githubUrl"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-[#1e1e2e] text-neon-cyan border border-[#1e1e2e] hover:border-[#00e5ff]/50 transition-colors duration-200"
