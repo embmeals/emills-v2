@@ -68,15 +68,4 @@ export const PROJECTS: readonly Project[] = [
       outcome: 'Reliable bi-directional sync with Bridgit API, with proper error handling and date validation that prevents invalid scheduling states.',
     },
   },
-  {
-    title: 'Bulk Job Import System',
-    type: 'case-study',
-    description: 'High-volume job processing pipeline with template-based validation.',
-    techStack: ['C#', '.NET', 'SQL Server', 'Background Services'],
-    caseStudy: {
-      problem: 'Needed to import large batches of jobs from templates with varying formats, handling validation errors gracefully and providing detailed feedback on each job\'s import status.',
-      approach: 'Built a validation pipeline that processes jobs against templates, with per-job error tracking and a results summary showing success rates. Used immutable data patterns and comprehensive error handling throughout.',
-      outcome: 'Went from 10% success rate (9/10 failures) to 100% success rate on bulk imports. The system processes batches of 10+ jobs with detailed reporting on new vs. existing records.',
-    },
-  },
 ];
