@@ -1,0 +1,722 @@
+# emills.net Portfolio Redesign - Implementation Plan
+# For Claude: REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+#
+# Goal: Redesign emills.net as Angular 19+ app with Zard UI, dark neon aesthetic, deployed to GitHub Pages with CodeRabbit reviews.
+# Architecture: Angular standalone components + Zard UI + TailwindCSS v4, static build to gh-pages branch via GitHub Actions.
+# Tech Stack: Angular 19+, Zard UI (@ngzard/ui), TailwindCSS v4, Lucide Icons, GitHub Pages, CodeRabbit
+
+# =============================================================================
+# PHASE 1: Project Scaffold & Tooling
+# =============================================================================
+
+phase_1:
+  name: Project Scaffold & Tooling
+
+  task_1:
+    name: Create Angular project on a feature branch
+    files:
+      create: [angular project via ng new]
+    steps:
+      - step: 1
+        action: Install Angular CLI globally
+        command: npm install -g @angular/cli@latest
+        expected: Angular CLI 19.x installed
+
+      - step: 2
+        action: Create new branch for redesign (preserve current site on master)
+        command: |
+          cd C:/Users/Ember/source/repos/embmeals.github.io
+          git checkout -b feat/angular-redesign
+        expected: On branch feat/angular-redesign
+
+      - step: 3
+        action: Scaffold Angular project in a temp directory
+        command: |
+          cd C:/Users/Ember/source/repos
+          ng new emills-angular --style=css --routing=false --ssr=false --skip-git
+        expected: Angular 19 project created with standalone components
+
+      - step: 4
+        action: Copy Angular project files into repo (keep existing assets)
+        notes: |
+          Move Angular scaffold files (src/, angular.json, package.json, tsconfig.json, etc.)
+          into the repo root. Preserve img/, project-gifs/, CNAME, docs/ folders.
+          Remove the temp emills-angular directory after copying.
+        expected: Repo has Angular project structure with existing assets preserved
+
+      - step: 5
+        action: Verify Angular project builds
+        command: |
+          cd C:/Users/Ember/source/repos/embmeals.github.io
+          npm install && ng build
+        expected: Build succeeds, output in dist/
+
+      - step: 6
+        action: Commit scaffold
+        command: "git add -A && git commit -m 'feat: scaffold Angular 19 project for portfolio redesign'"
+
+  task_2:
+    name: Initialize Zard UI and TailwindCSS
+    files:
+      modify: [angular.json, src/styles.css, src/app/app.config.ts]
+    steps:
+      - step: 1
+        action: Initialize Zard UI
+        command: npx @ngzard/ui init
+        notes: |
+          Interactive prompts - select:
+          - app.config.ts location: src/app/app.config.ts
+          - index.html location: src/index.html
+          - Theme: Neutral (we will customize)
+          - Global CSS: src/styles.css
+          - Alias: default (@components, @utils)
+        expected: Zard UI initialized, tailwind configured, components.json created
+
+      - step: 2
+        action: Add core Zard UI components we will need
+        command: |
+          npx @ngzard/ui add button card badge dialog tabs tooltip avatar icon skeleton
+        expected: Components copied into project under components directory
+
+      - step: 3
+        action: Install Lucide icons for Angular
+        command: npm install lucide-angular
+        expected: lucide-angular in package.json
+
+      - step: 4
+        action: Verify build still works
+        command: ng build
+        expected: Clean build
+
+      - step: 5
+        action: Commit
+        command: "git add -A && git commit -m 'feat: initialize Zard UI with core components and Lucide icons'"
+
+  task_3:
+    name: Configure dark neon theme
+    files:
+      modify: [src/styles.css, tailwind config]
+    steps:
+      - step: 1
+        action: Configure custom color palette in global styles / tailwind config
+        colors:
+          background: "#0a0a0f"
+          surface: "#14141f"
+          border: "#1e1e2e"
+          primary_cyan: "#00e5ff"
+          secondary_magenta: "#ff2d7b"
+          tertiary_amber: "#ffb300"
+          text_primary: "#e0e0e0"
+          text_muted: "#6b7280"
+        notes: |
+          Extend Tailwind theme with custom colors.
+          Set body background to #0a0a0f, default text to #e0e0e0.
+          Add neon glow utilities (box-shadow with color spread).
+          Import fonts: Mulish and Montserrat (keep from current site).
+
+      - step: 2
+        action: Verify dark theme renders correctly
+        command: ng serve
+        expected: Dark background, light text, no visual issues
+
+      - step: 3
+        action: Commit
+        command: "git add -A && git commit -m 'feat: configure dark neon color palette and theme'"
+
+  task_4:
+    name: Set up GitHub Actions CI/CD and CodeRabbit
+    files:
+      create:
+        - .github/workflows/deploy.yml
+        - .coderabbit.yaml
+    steps:
+      - step: 1
+        action: Create GitHub Actions deploy workflow
+        code: |
+          # .github/workflows/deploy.yml
+          name: Deploy to GitHub Pages
+          on:
+            push:
+              branches: [main]
+            pull_request:
+              branches: [main]
+          permissions:
+            contents: read
+            pages: write
+            id-token: write
+          concurrency:
+            group: "pages"
+            cancel-in-progress: false
+          jobs:
+            build:
+              runs-on: ubuntu-latest
+              steps:
+                - uses: actions/checkout@v4
+                - uses: actions/setup-node@v4
+                  with:
+                    node-version: 20
+                    cache: npm
+                - run: npm ci
+                - run: npx ng build --base-href /
+                - name: Copy CNAME
+                  run: cp CNAME dist/emills-angular/browser/CNAME 2>/dev/null || true
+                - uses: actions/upload-pages-artifact@v3
+                  with:
+                    path: dist/emills-angular/browser
+            deploy:
+              if: github.ref == 'refs/heads/main'
+              needs: build
+              runs-on: ubuntu-latest
+              environment:
+                name: github-pages
+                url: ${{ steps.deployment.outputs.page_url }}
+              steps:
+                - id: deployment
+                  uses: actions/deploy-pages@v4
+        notes: |
+          The dist path may need adjusting based on angular.json output path.
+          CNAME file must be in the deployed directory for custom domain.
+
+      - step: 2
+        action: Create CodeRabbit config
+        code: |
+          # .coderabbit.yaml
+          language: en-US
+          reviews:
+            profile: assertive
+            path_instructions:
+              - path: "src/app/components/**"
+                instructions: |
+                  Review Angular components for:
+                  - Standalone component pattern (no NgModules)
+                  - OnPush change detection
+                  - Signal-based inputs/outputs
+                  - Accessibility (ARIA labels, keyboard nav)
+                  - Responsive design patterns
+              - path: "src/app/**/*.spec.ts"
+                instructions: |
+                  Review tests for:
+                  - Meaningful test descriptions
+                  - Component testing best practices
+                  - Accessibility testing
+              - path: "src/styles.css"
+                instructions: |
+                  Review styles for:
+                  - Consistent use of design tokens
+                  - No hardcoded colors (use Tailwind classes)
+                  - Dark theme contrast ratios (WCAG AA)
+
+      - step: 3
+        action: Add .nojekyll file (prevents GitHub Pages from ignoring _files)
+        command: touch .nojekyll
+
+      - step: 4
+        action: Commit
+        command: "git add -A && git commit -m 'ci: add GitHub Actions deploy workflow and CodeRabbit config'"
+
+# =============================================================================
+# PHASE 2: Layout Shell & Navigation
+# =============================================================================
+
+phase_2:
+  name: Layout Shell & Navigation
+
+  task_5:
+    name: Create app shell with scroll-based navigation
+    files:
+      create:
+        - src/app/components/layout/navbar/navbar.component.ts
+        - src/app/components/layout/navbar/navbar.component.html
+        - src/app/components/layout/navbar/navbar.component.css
+        - src/app/components/layout/navbar/navbar.component.spec.ts
+        - src/app/components/layout/footer/footer.component.ts
+        - src/app/components/layout/footer/footer.component.html
+      modify:
+        - src/app/app.component.ts
+        - src/app/app.component.html
+        - src/index.html
+    steps:
+      - step: 1
+        action: Write failing test for navbar component
+        test: |
+          - Renders nav links for all sections (Home, About, Skills, Projects, Experience, Gallery, Contact)
+          - Has correct ARIA labels
+          - Highlights active section
+          - Is responsive (hamburger menu on mobile)
+        expected: Test FAILS (component does not exist yet)
+
+      - step: 2
+        action: Run test to verify it fails
+        command: ng test --watch=false --browsers=ChromeHeadless
+        expected: FAIL
+
+      - step: 3
+        action: Implement navbar component
+        notes: |
+          Fixed position top navbar, dark transparent background with blur.
+          Section links scroll smoothly to anchors.
+          Hamburger menu on mobile (use Zard UI sheet for mobile menu).
+          Active section detection via IntersectionObserver.
+          Cyan accent on active link.
+
+      - step: 4
+        action: Run test to verify it passes
+        command: ng test --watch=false --browsers=ChromeHeadless
+        expected: PASS
+
+      - step: 5
+        action: Implement footer (simple, no test needed)
+        notes: |
+          Dark footer with muted text.
+          "Built with Angular & Zard UI" credit.
+          Social links (GitHub, LinkedIn, CodePen).
+
+      - step: 6
+        action: Wire up app.component with navbar, section containers, footer
+        notes: |
+          app.component.html is the single-page shell.
+          Each section is a div with an id for scroll targeting.
+          Preserve SEO meta tags and structured data from current index.html.
+
+      - step: 7
+        action: Verify in browser
+        command: ng serve
+        expected: Dark page with working nav, smooth scroll, all section placeholders
+
+      - step: 8
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add app shell with navbar, footer, and scroll navigation'"
+
+# =============================================================================
+# PHASE 3: Content Sections
+# =============================================================================
+
+phase_3:
+  name: Content Sections
+
+  task_6:
+    name: Hero section with particle canvas background
+    files:
+      create:
+        - src/app/components/sections/hero/hero.component.ts
+        - src/app/components/sections/hero/hero.component.html
+        - src/app/components/sections/hero/hero.component.css
+        - src/app/components/sections/hero/hero.component.spec.ts
+        - src/app/components/sections/hero/particle-canvas.component.ts
+    steps:
+      - step: 1
+        action: Write failing test for hero component
+        test: |
+          - Renders name "Ember Mills"
+          - Renders title "Senior Full Stack Engineer"
+          - Renders tagline
+          - Contains canvas element for particle background
+          - Has social links (GitHub, LinkedIn, CodePen)
+        expected: FAIL
+
+      - step: 2
+        action: Implement particle-canvas component
+        notes: |
+          Standalone component with a <canvas> element.
+          Lightweight particle system: small dots floating with subtle connections.
+          Colors: cyan (#00e5ff) particles with faint connecting lines.
+          Use requestAnimationFrame, clean up on destroy.
+          Responsive canvas sizing.
+
+      - step: 3
+        action: Implement hero component
+        notes: |
+          Full viewport height section.
+          particle-canvas as absolute positioned background.
+          Centered content: name (large, white), title (cyan accent), tagline.
+          Social icons using Lucide icons (github, linkedin, codepen).
+          Subtle fade-in animation on load.
+
+      - step: 4
+        action: Run tests
+        command: ng test --watch=false --browsers=ChromeHeadless
+        expected: PASS
+
+      - step: 5
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add hero section with particle canvas background'"
+
+  task_7:
+    name: About section
+    files:
+      create:
+        - src/app/components/sections/about/about.component.ts
+        - src/app/components/sections/about/about.component.html
+        - src/app/components/sections/about/about.component.css
+        - src/app/components/sections/about/about.component.spec.ts
+        - src/app/data/about.data.ts
+    steps:
+      - step: 1
+        action: Write failing test
+        test: |
+          - Renders about text (MySpace origin story)
+          - Renders fun fact cards (Amateur Artist, Proud Pomchi Parent, Avid Gamer, Virgo, Lover of Bicycles)
+          - Two-column layout on desktop
+        expected: FAIL
+
+      - step: 2
+        action: Create about data file
+        notes: |
+          Export const with about text and fun facts array.
+          Each fun fact: { label, icon (lucide icon name), color (accent color) }
+          Map: Artist->magenta, Pomchi->amber, Gamer->cyan, Virgo->magenta, Bicycle->cyan
+
+      - step: 3
+        action: Implement about component
+        notes: |
+          Two-column: left = story text, right = fun facts grid.
+          Fun facts as small Zard UI cards with colored icon + label.
+          Include "View Resume" link (keep resume.html or link to PDF).
+          Responsive: stacks on mobile.
+
+      - step: 4
+        action: Run tests
+        expected: PASS
+
+      - step: 5
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add about section with fun facts cards'"
+
+  task_8:
+    name: Skills section
+    files:
+      create:
+        - src/app/components/sections/skills/skills.component.ts
+        - src/app/components/sections/skills/skills.component.html
+        - src/app/components/sections/skills/skills.component.css
+        - src/app/components/sections/skills/skills.component.spec.ts
+        - src/app/data/skills.data.ts
+    steps:
+      - step: 1
+        action: Write failing test
+        test: |
+          - Renders 5 skill categories (Languages, Frontend, Backend, DevOps, Tools)
+          - Each category contains correct skills
+          - Cards have hover glow effect class
+        expected: FAIL
+
+      - step: 2
+        action: Create skills data file
+        notes: |
+          Export typed array of skill categories.
+          Each category: { name, accentColor, skills: { name, icon }[] }
+          Colors: Languages->cyan, Frontend->magenta, Backend->amber, DevOps->cyan, Tools->magenta
+          Use Lucide icons or simple-icons for tech logos.
+
+      - step: 3
+        action: Implement skills component
+        notes: |
+          Section title "Skills & Technologies"
+          Grid of Zard UI cards, one per category.
+          Inside each card: category title + grid of skill badges.
+          Each badge: icon + name, dark bg with subtle border.
+          Hover: card gets colored glow (box-shadow with category accent).
+
+      - step: 4
+        action: Run tests
+        expected: PASS
+
+      - step: 5
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add skills section with categorized neon cards'"
+
+  task_9:
+    name: Projects section with case study dialogs
+    files:
+      create:
+        - src/app/components/sections/projects/projects.component.ts
+        - src/app/components/sections/projects/projects.component.html
+        - src/app/components/sections/projects/projects.component.css
+        - src/app/components/sections/projects/projects.component.spec.ts
+        - src/app/components/sections/projects/project-dialog/project-dialog.component.ts
+        - src/app/components/sections/projects/project-dialog/project-dialog.component.html
+        - src/app/data/projects.data.ts
+    steps:
+      - step: 1
+        action: Write failing test
+        test: |
+          - Renders filter buttons (All, Public, Case Study)
+          - Renders project cards
+          - Clicking case study card opens dialog
+          - Dialog shows problem, approach, outcome, diagram
+          - Public repo cards have GitHub link
+        expected: FAIL
+
+      - step: 2
+        action: Create projects data file
+        notes: |
+          Two types: 'public' and 'case-study'
+          Public repos:
+            - C# URL Validator (github link, tags: C#, .NET)
+            - React & .NET Task Manager (github + live link, tags: React, .NET, API)
+          Case studies:
+            - Spectrum API (problem: scheduling system integration, approach: .NET services architecture, outcome: bulk import processing)
+            - Bridgit Integration (problem: third-party API date handling, approach: go-back date logic, outcome: reliable scheduling sync)
+            - Bulk Job Import System (problem: importing jobs from templates, approach: validation pipeline with error reporting, outcome: 100% success rate processing)
+          Each case study: { title, problem, approach, outcome, techStack[], diagramUrl? }
+
+      - step: 3
+        action: Implement projects component with filter
+        notes: |
+          Filter tabs using Zard UI tabs or button group.
+          Grid of project cards.
+          Public: card with image/screenshot, title, tech badges, GitHub link button.
+          Case study: card with title, brief description, "View Case Study" button.
+          Clicking case study opens Zard UI dialog with full details.
+
+      - step: 4
+        action: Implement project-dialog component
+        notes: |
+          Zard UI dialog component.
+          Sections: Problem, Approach, Outcome, Tech Stack badges.
+          Optional architecture diagram (placeholder image for now, can add SVGs later).
+
+      - step: 5
+        action: Run tests
+        expected: PASS
+
+      - step: 6
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add projects section with filterable grid and case study dialogs'"
+
+  task_10:
+    name: Experience timeline
+    files:
+      create:
+        - src/app/components/sections/experience/experience.component.ts
+        - src/app/components/sections/experience/experience.component.html
+        - src/app/components/sections/experience/experience.component.css
+        - src/app/components/sections/experience/experience.component.spec.ts
+        - src/app/data/experience.data.ts
+    steps:
+      - step: 1
+        action: Write failing test
+        test: |
+          - Renders timeline with experience entries
+          - Each entry has role, company, dates, accomplishments
+          - Timeline has glowing connector line
+        expected: FAIL
+
+      - step: 2
+        action: Create experience data file
+        notes: |
+          Export array of experience entries.
+          Each: { role, company, startDate, endDate?, accomplishments: string[] }
+          Ember will need to provide actual work history.
+          Use placeholder data that she can fill in.
+
+      - step: 3
+        action: Implement experience component
+        notes: |
+          Vertical timeline, centered connector line with cyan glow.
+          Alternating left/right cards on desktop, all left on mobile.
+          Each card: Zard UI card with role (bold), company, date range, bullet points.
+          Glowing cyan dot at each timeline node.
+          Subtle fade-in animation as user scrolls (IntersectionObserver).
+
+      - step: 4
+        action: Run tests
+        expected: PASS
+
+      - step: 5
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add experience timeline section with glowing connector'"
+
+  task_11:
+    name: Gallery section (masonry grid)
+    files:
+      create:
+        - src/app/components/sections/gallery/gallery.component.ts
+        - src/app/components/sections/gallery/gallery.component.html
+        - src/app/components/sections/gallery/gallery.component.css
+        - src/app/components/sections/gallery/gallery.component.spec.ts
+        - src/app/components/sections/gallery/lightbox/lightbox.component.ts
+        - src/app/data/gallery.data.ts
+    steps:
+      - step: 1
+        action: Write failing test
+        test: |
+          - Renders gallery images in grid
+          - Clicking image opens lightbox
+          - Lightbox has close button, next/prev navigation
+          - Images organized by folder (Ember, Casey)
+        expected: FAIL
+
+      - step: 2
+        action: Create gallery data file
+        notes: |
+          Import existing image paths from img/collages/ember/ and img/collages/casey/.
+          Each: { src, title, folder }
+
+      - step: 3
+        action: Implement gallery component
+        notes: |
+          CSS grid masonry layout (CSS columns or grid with auto-fill).
+          Images with magenta hover border glow.
+          Optional folder filter tabs.
+          Click opens lightbox overlay.
+
+      - step: 4
+        action: Implement lightbox component
+        notes: |
+          Full-screen overlay, dark semi-transparent backdrop.
+          Centered image with magenta border glow.
+          Close button (X), arrow nav, keyboard support (Esc, Left, Right).
+          Accessible: focus trap, ARIA labels.
+
+      - step: 5
+        action: Run tests
+        expected: PASS
+
+      - step: 6
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add gallery section with masonry grid and lightbox'"
+
+  task_12:
+    name: Contact section
+    files:
+      create:
+        - src/app/components/sections/contact/contact.component.ts
+        - src/app/components/sections/contact/contact.component.html
+        - src/app/components/sections/contact/contact.component.spec.ts
+    steps:
+      - step: 1
+        action: Write failing test
+        test: |
+          - Renders email link
+          - Renders GitHub, LinkedIn, CodePen links
+          - All links have correct href and ARIA labels
+          - Links open in new tab
+        expected: FAIL
+
+      - step: 2
+        action: Implement contact component
+        notes: |
+          Simple centered section.
+          "Let's Connect" heading.
+          Row of icon buttons (Lucide icons) for email, GitHub, LinkedIn, CodePen.
+          Subtle neon hover glow on each icon.
+          No contact form (static hosting).
+
+      - step: 3
+        action: Run tests
+        expected: PASS
+
+      - step: 4
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add contact section with social links'"
+
+# =============================================================================
+# PHASE 4: Polish & Deploy
+# =============================================================================
+
+phase_4:
+  name: Polish & Deploy
+
+  task_13:
+    name: SEO, meta tags, and accessibility audit
+    files:
+      modify:
+        - src/index.html
+        - src/app/app.component.ts
+    steps:
+      - step: 1
+        action: Port SEO meta tags from current index.html
+        notes: |
+          Copy over: Open Graph tags, Twitter card, JSON-LD structured data,
+          canonical URL, description, keywords.
+          Update if needed (same content, new design).
+          Keep CNAME file for custom domain.
+
+      - step: 2
+        action: Add page title service
+        notes: |
+          Set document title to "Ember Mills | Senior Full Stack Engineer"
+          This is a single-page app so just set it once in index.html.
+
+      - step: 3
+        action: Accessibility pass
+        notes: |
+          - Verify all images have alt text
+          - Verify color contrast ratios (WCAG AA) for all text on dark bg
+          - Verify keyboard navigation works through all sections
+          - Verify screen reader announces sections correctly
+          - Add skip-to-content link
+
+      - step: 4
+        action: Commit
+        command: "git add -A && git commit -m 'feat: add SEO meta tags and accessibility improvements'"
+
+  task_14:
+    name: Responsive testing and final polish
+    steps:
+      - step: 1
+        action: Test responsive breakpoints
+        notes: |
+          Verify at: 320px (small phone), 375px (iPhone), 768px (tablet), 1024px (laptop), 1440px (desktop)
+          Fix any layout issues.
+
+      - step: 2
+        action: Performance check
+        notes: |
+          - Lazy load gallery images (loading="lazy")
+          - Optimize particle canvas (reduce particles on mobile)
+          - Verify bundle size is reasonable (< 500KB initial)
+
+      - step: 3
+        action: Final visual review
+        command: ng serve
+        notes: Check all sections match design spec colors and layout.
+
+      - step: 4
+        action: Commit
+        command: "git add -A && git commit -m 'fix: responsive layout and performance polish'"
+
+  task_15:
+    name: Push branch, create PR, and deploy
+    steps:
+      - step: 1
+        action: Push feature branch
+        command: git push -u origin feat/angular-redesign
+        expected: Branch pushed, CodeRabbit will review the PR
+
+      - step: 2
+        action: Create PR to main
+        command: |
+          gh pr create --title "feat: Angular + Zard UI portfolio redesign" --body "## Summary
+          - Complete redesign of emills.net using Angular 19+ and Zard UI
+          - Dark futuristic theme with neon accents (cyan, magenta, amber)
+          - 7 sections: Hero, About, Skills, Projects, Experience, Gallery, Contact
+          - Case study dialogs for professional projects
+          - Particle canvas hero background
+          - GitHub Actions CI/CD for deployment
+          - CodeRabbit configured for PR reviews
+
+          ## Test Plan
+          - [ ] All unit tests pass
+          - [ ] Responsive on mobile, tablet, desktop
+          - [ ] Accessibility audit (WCAG AA contrast, keyboard nav, screen reader)
+          - [ ] All links work (GitHub, LinkedIn, CodePen, email)
+          - [ ] Gallery lightbox keyboard navigation
+          - [ ] Project filter works correctly
+          - [ ] Particle canvas performs well on mobile
+          - [ ] Custom domain (emills.net) resolves after deploy"
+        expected: PR created, CodeRabbit begins review
+
+      - step: 3
+        action: Address CodeRabbit feedback
+        notes: Fix any issues CodeRabbit raises before merging.
+
+      - step: 4
+        action: Merge and verify deployment
+        notes: |
+          After PR approved and CI passes, merge to main.
+          GitHub Actions deploys to GitHub Pages.
+          Verify emills.net loads the new site.
+          Note: may need to configure GitHub Pages to use GitHub Actions as source
+          in repo Settings > Pages.

@@ -1,0 +1,87 @@
+# emills.net Portfolio Redesign - Design Document
+# Date: 2026-03-05
+
+overview: >
+  Redesign emills.net from static HTML/CSS/JS to Angular 19+ with Zard UI,
+  dark futuristic aesthetic inspired by Git City, deployed to GitHub Pages.
+  CodeRabbit enabled for automated PR reviews.
+
+architecture:
+  framework: Angular 19+ (standalone components, signals, OnPush)
+  ui_library: Zard UI (shadcn/ui for Angular)
+  styling: TailwindCSS v4, dark theme
+  hosting: GitHub Pages (static build via ng build)
+  ci_cd: GitHub Actions (build + deploy to gh-pages branch)
+  code_review: CodeRabbit on all PRs
+
+color_palette:
+  background: "#0a0a0f"      # Page base
+  surface: "#14141f"          # Cards, sections
+  border: "#1e1e2e"           # Dividers, card edges
+  primary_cyan: "#00e5ff"     # Links, highlights, active states
+  secondary_magenta: "#ff2d7b" # Hover states, tags, gallery accents
+  tertiary_amber: "#ffb300"   # Badges, CTAs, skill category accents
+  text_primary: "#e0e0e0"     # Body text
+  text_muted: "#6b7280"       # Secondary text
+  note: >
+    Multi-color neon with restraint. Cyan dominates,
+    magenta and amber used sparingly for accents and category differentiation.
+
+sections:
+  - name: Hero
+    order: 1
+    details: >
+      Full-viewport dark scene. Name (Ember Mills), title (Senior Full Stack Engineer),
+      one-line tagline. Subtle animated particle/grid canvas background (no Three.js).
+
+  - name: About
+    order: 2
+    details: >
+      Two-column layout. Left: story (MySpace 2004 origin, accessibility focus).
+      Right: fun facts as neon-accented icon cards (art, pets, gaming, cycling).
+
+  - name: Skills
+    order: 3
+    details: >
+      Grid of categorized cards (Languages, Frontend, Backend, DevOps, Tools).
+      Dark Zard UI cards with icon + label. Subtle glow on hover, accent color per category.
+
+  - name: Projects
+    order: 4
+    details: >
+      Filterable grid with two card types.
+      Public repos: GitHub link, tech tags, description.
+      Case studies: dialog/detail with problem, approach, outcome + architecture diagram.
+    keep: [C# URL Validator, React/.NET Task Manager]
+    drop: [jQuery Pagination, SASS Landing Page, Christmas Charities 2022]
+    add: [Spectrum API (case study), Bridgit integration (case study), bulk import system (case study)]
+
+  - name: Experience
+    order: 5
+    details: >
+      Vertical timeline with glowing cyan connector. Each node has role, company, dates,
+      key accomplishments.
+
+  - name: Gallery
+    order: 6
+    details: >
+      Masonry grid of collage artwork. Magenta accent for hover/lightbox border.
+
+  - name: Contact
+    order: 7
+    details: >
+      Email link, GitHub, LinkedIn. No form (static hosting).
+
+technical_decisions:
+  - No SSR (GitHub Pages is static only)
+  - No Three.js (canvas particle background is lighter, mobile-friendly)
+  - Responsive mobile-first with Tailwind breakpoints
+  - Accessible (ARIA labels, keyboard nav, contrast ratios on dark theme)
+  - CSS transitions + lightweight canvas only for animations
+
+out_of_scope:
+  - Blog
+  - CMS / admin panel
+  - Contact form with backend
+  - Three.js 3D scene
+  - SSR / prerendering
