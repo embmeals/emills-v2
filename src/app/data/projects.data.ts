@@ -51,12 +51,12 @@ export const PROJECTS: readonly Project[] = [
   {
     title: 'Spectrum Scheduling API',
     type: 'case-study',
-    description: 'Enterprise scheduling system integration for workforce management.',
+    description: 'Legacy scheduling API rescue and stabilization for construction workforce management.',
     techStack: ['C#', '.NET', 'SQL Server', 'REST API', 'Azure DevOps'],
     caseStudy: {
-      problem: 'Needed to build a robust scheduling system that integrates with third-party APIs for workforce allocation, handling complex date logic and bulk data processing across multiple service layers.',
-      approach: 'Designed a layered .NET service architecture with dedicated services for phases, roles, and needs. Implemented a bulk job import pipeline with comprehensive validation, error reporting, and template-based processing.',
-      outcome: 'Achieved 100% success rate on bulk job imports after iterative improvements. The system reliably processes scheduling data with detailed error reporting and handles edge cases in date validation.',
+      problem: 'Inherited a legacy .NET scheduling API that was silently failing. Broad try-catch blocks were swallowing exceptions across the codebase, masking bugs in third-party API integrations and date logic. The application appeared functional but was producing incorrect data.',
+      approach: 'Systematically removed blanket exception swallowing and replaced it with targeted .NET error handling that surfaced the real issues. Traced failures through service layers for phases, roles, and needs scheduling. Fixed date validation logic and bulk data processing bugs that had been hidden.',
+      outcome: 'Transformed an unreliable, silently-failing system into one with proper error visibility and correct data processing. Bulk job imports went from a hidden failure state to 100% verified success rate with detailed error reporting.',
     },
   },
   {
