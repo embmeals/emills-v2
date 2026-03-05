@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>Ember Mills | Resume</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --color-primary: #2563eb;
+                --color-text: #1a1a1a;
+                --color-text-muted: #555;
+                --color-text-light: #666;
+                --color-text-lighter: #777;
+                --color-text-body: #444;
+                --color-text-dark: #333;
+                --color-border: #e5e5e5;
+                --color-border-light: #ccc;
+                --color-bg: #f5f5f5;
+                --color-bg-white: white;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    sans-serif;
+                font-size: 11pt;
+                line-height: 1.5;
+                color: var(--color-text);
+                background: var(--color-bg);
+                padding: 20px;
+            }
+
+            .resume {
+                max-width: 8.5in;
+                margin: 0 auto;
+                background: var(--color-bg-white);
+                padding: 0.6in 0.7in;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Header */
+            .header {
+                text-align: center;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid var(--color-primary);
+            }
+
+            .header h1 {
+                font-size: 28pt;
+                font-weight: 700;
+                color: var(--color-text);
+                margin-bottom: 4px;
+                letter-spacing: -0.5px;
+            }
+
+            .header .title {
+                font-size: 14pt;
+                font-weight: 500;
+                color: var(--color-primary);
+                margin-bottom: 10px;
+            }
+
+            .header .contact {
+                font-size: 10pt;
+                color: var(--color-text-muted);
+            }
+
+            .header .contact a {
+                color: var(--color-primary);
+                text-decoration: none;
+            }
+
+            .header .contact span {
+                margin: 0 8px;
+                color: var(--color-border-light);
+            }
+
+            /* Sections */
+            .section {
+                margin-bottom: 18px;
+            }
+
+            .section-title {
+                font-size: 12pt;
+                font-weight: 700;
+                color: var(--color-text);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                border-bottom: 1px solid var(--color-border);
+                padding-bottom: 5px;
+                margin-bottom: 12px;
+            }
+
+            /* Summary */
+            .summary {
+                font-size: 10.5pt;
+                color: var(--color-text-body);
+                line-height: 1.6;
+            }
+
+            /* Skills */
+            .skills-grid {
+                display: grid;
+                grid-template-columns: 140px 1fr;
+                gap: 6px 15px;
+                font-size: 10pt;
+            }
+
+            .skills-grid .label {
+                font-weight: 600;
+                color: var(--color-text-dark);
+            }
+
+            .skills-grid .value {
+                color: var(--color-text-body);
+            }
+
+            /* Experience */
+            .job {
+                margin-bottom: 16px;
+            }
+
+            .job:last-child {
+                margin-bottom: 0;
+            }
+
+            .job-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 2px;
+            }
+
+            .job-title {
+                font-size: 11pt;
+                font-weight: 600;
+                color: var(--color-text);
+            }
+
+            .job-date {
+                font-size: 10pt;
+                color: var(--color-text-light);
+                font-style: italic;
+            }
+
+            .job-company {
+                font-size: 10pt;
+                color: var(--color-text-muted);
+                margin-bottom: 6px;
+            }
+
+            .job ul {
+                padding-left: 18px;
+                font-size: 10pt;
+                color: var(--color-text-dark);
+            }
+
+            .job li {
+                margin-bottom: 3px;
+            }
+
+            .job li:last-child {
+                margin-bottom: 0;
+            }
+
+            /* Education & Certifications */
+            .education-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .edu-item {
+                font-size: 10pt;
+            }
+
+            .edu-item .degree {
+                font-weight: 600;
+                color: var(--color-text);
+            }
+
+            .edu-item .school {
+                color: var(--color-text-muted);
+            }
+
+            .edu-item .year {
+                color: var(--color-text-lighter);
+                font-style: italic;
+            }
+
+            .cert-item {
+                font-size: 10pt;
+            }
+
+            .cert-item + .cert-item {
+                margin-top: 6px;
+            }
+
+            .cert-item .cert-name {
+                font-weight: 600;
+                color: var(--color-text);
+            }
+
+            /* Print styles */
+            @media print {
+                body {
+                    background: var(--color-bg-white);
+                    padding: 0;
+                }
+
+                .resume {
+                    box-shadow: none;
+                    padding: 0;
+                    max-width: none;
+                }
+
+                .header .contact a {
+                    color: var(--color-text);
+                }
+
+                @page {
+                    margin: 0.5in;
+                    size: letter;
+                }
+            }
+
+            /* Back to site link */
+            .back-link {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .back-link a,
+            .back-link button {
+                color: var(--color-primary);
+                text-decoration: none;
+                font-size: 10pt;
+            }
+
+            .back-link button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-family: inherit;
+            }
+
+            .back-link button:hover {
+                text-decoration: underline;
+            }
+
+            .back-link a:hover {
+                text-decoration: underline;
+            }
+
+            @media print {
+                .back-link {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="back-link">
+            <a href="https://www.emills.net/">← Back to emills.net</a> ·
+            <button type="button" onclick="window.print()" aria-label="Print or save as PDF">🖨️ Print / Save as PDF</button>
+        </div>
+
+        <main class="resume">
+            <header class="header">
+                <h1>Ember Mills</h1>
+                <div class="title">Senior Full Stack Engineer</div>
+                <div class="contact">
+                    St. Louis, MO
+                    <span>·</span>
+                    <a href="mailto:emberdmills@gmail.com">emberdmills@gmail.com</a>
+                    <span>·</span>
+                    <a href="https://github.com/embmeals">github.com/embmeals</a>
+                    <span>·</span>
+                    <a href="https://www.emills.net">www.emills.net</a>
+                </div>
+            </header>
+
+            <section class="section">
+                <h2 class="section-title">Professional Summary</h2>
+                <p class="summary">
+                    Dynamic Senior Full Stack Engineer with 6+ years of experience building and maintaining full-stack
+                    applications across diverse technologies. Skilled in modernizing legacy systems, integrating
+                    headless CMS solutions, and optimizing CI/CD pipelines. Strong advocate for accessibility and clean
+                    code practices, focused on delivering reliable, scalable software.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="label">Languages</div>
+                    <div class="value">C#, Python, PHP, JavaScript, TypeScript, SQL</div>
+
+                    <div class="label">Backend</div>
+                    <div class="value">.NET Core, ASP.NET MVC/Web API, Django, Entity Framework</div>
+
+                    <div class="label">Frontend</div>
+                    <div class="value">React, Next.js, Vue.js, Angular, Tailwind CSS, Bootstrap, Kendo UI</div>
+
+                    <div class="label">Data & APIs</div>
+                    <div class="value">SQL Server, REST, GraphQL, Salesforce</div>
+
+                    <div class="label">DevOps</div>
+                    <div class="value">Docker, Azure DevOps, GitHub Actions, Hangfire, CI/CD</div>
+
+                    <div class="label">Tools</div>
+                    <div class="value">Postman, Swagger, Auth0, Google Search Console API, Cloudflare</div>
+
+                    <div class="label">Standards</div>
+                    <div class="value">WCAG 2.1/ARIA Accessibility, SOLID Principles</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Professional Experience</h2>
+
+                <div class="job">
+                    <div class="job-header">
+                        <span class="job-title">Senior .NET React Developer</span>
+                        <span class="job-date">Jan 2025 – Present</span>
+                    </div>
+                    <div class="job-company">Integrity · St. Louis, MO</div>
+                    <ul>
+                        <li>
+                            Served as Technical Lead for spectrum-web-api, a C# application enabling construction job
+                            scheduling through third-party integrations including Bridgit
+                        </li>
+                        <li>
+                            Designed and implemented bulk update and bulk import APIs, streamlining data operations for
+                            construction scheduling workflows
+                        </li>
+                        <li>
+                            Integrated Bridgit testing environment with development infrastructure, enabling reliable
+                            end-to-end testing of scheduling features
+                        </li>
+                        <li>
+                            Maintained and enhanced React/Next.js components for enterprise applications, ensuring WCAG
+                            2.1 accessibility compliance
+                        </li>
+                        <li>Worked with Django tools to process analytics and reporting tasks</li>
+                        <li>
+                            Executed Python scripts on development and production servers to generate and update website
+                            content data
+                        </li>
+                        <li>
+                            Deployed and maintained Dockerized applications via Docker Desktop for local and staging
+                            environments
+                        </li>
+                        <li>
+                            Authored and maintained RESTful Web API endpoints; collaborated with backend and DevOps
+                            teams to improve scalability
+                        </li>
+                        <li>
+                            Contributed to CI/CD pipelines using GitHub Actions, optimizing build and deployment
+                            workflows
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <span class="job-title">.NET Developer</span>
+                        <span class="job-date">Dec 2021 – Jan 2025</span>
+                    </div>
+                    <div class="job-company">Pryor Learning · Kansas City, MO (Remote)</div>
+                    <ul>
+                        <li>
+                            Upgraded an ASP.NET 4 application to .NET 6, rewriting legacy modules and reducing page load
+                            times by 40%
+                        </li>
+                        <li>
+                            Developed learning path portals with ASP.NET Core, Vue.js, Kendo UI, and Angular Material to
+                            enhance user engagement
+                        </li>
+                        <li>
+                            Authored and maintained Web API endpoints; documented endpoints in Postman and Swagger for
+                            internal and partner use
+                        </li>
+                        <li>
+                            Replaced jQuery components with Vue.js, decreasing frontend bundle size and improving
+                            maintainability
+                        </li>
+                        <li>
+                            Spearheaded frontend accessibility initiative, implementing WCAG 2.1 guidelines and ARIA
+                            attributes across key workflows
+                        </li>
+                        <li>
+                            Utilized MS SQL to author SELECT statements powering data retrieval for authenticated users,
+                            including quiz results and personalized course information
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <span class="job-title">Contract .NET Developer</span>
+                        <span class="job-date">Jul 2017 – Apr 2020</span>
+                    </div>
+                    <div class="job-company">Rose International · St. Louis, MO</div>
+                    <ul>
+                        <li>
+                            Customized multitenant ASP.NET MVC applications, adding client-specific features using C#
+                            and JavaScript
+                        </li>
+                        <li>
+                            Built and consumed REST APIs for third-party integrations, improving data exchange
+                            reliability by 30%
+                        </li>
+                        <li>
+                            Refactored legacy code to adhere to SOLID principles, reducing technical debt and lowering
+                            maintenance costs
+                        </li>
+                        <li>
+                            Utilized Kendo UI grids to develop intuitive admin dashboards, enhancing data accuracy and
+                            reporting capabilities
+                        </li>
+                        <li>
+                            Maintained internal recruitment software, implementing updates and fixes to support HR
+                            workflows
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-grid">
+                    <div class="edu-item">
+                        <div class="degree">B.S. in Computer Science</div>
+                        <div class="school">University of Missouri–St. Louis</div>
+                        <div class="year">Expected 2026</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="degree">Associate of Applied Science</div>
+                        <div class="school">St. Louis Community College</div>
+                        <div class="year">2025</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Certifications</h2>
+                <div class="cert-item">
+                    <span class="cert-name">Salesforce Administrator</span>
+                </div>
+                <div class="cert-item">
+                    <span class="cert-name">Full-Stack .NET Bootcamp</span>
+                    <span class="cert-details"> · Centriq Training · 2021–2022</span>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
