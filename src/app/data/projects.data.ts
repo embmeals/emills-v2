@@ -29,10 +29,14 @@ export type { CaseStudyProject };
 export const PROJECTS: readonly Project[] = [
   {
     title: 'C# URL Validator',
-    type: 'public',
-    description: 'Console application that validates URLs and checks HTTP response status codes with comprehensive error handling.',
-    techStack: ['C#', '.NET'],
-    githubUrl: 'https://github.com/embmeals/URLValidator',
+    type: 'case-study',
+    description: 'Console tool that validates URLs and checks HTTP status codes, built to verify SEO compliance for job listing indexing.',
+    techStack: ['C#', '.NET', 'HTTP', 'SEO'],
+    caseStudy: {
+      problem: 'Job listings were being indexed by Google when they should not have been. Needed a reliable way to bulk-validate URLs and verify that correct HTTP status codes and noindex directives were being returned.',
+      approach: 'Built a C# console application that crawls provided URLs, checks HTTP response status codes, and validates headers for SEO directives. Includes comprehensive error handling for timeouts, redirects, and malformed URLs.',
+      outcome: 'Successfully identified and reported URLs with incorrect indexing configurations, enabling the team to fix SEO compliance issues across job listing pages.',
+    },
   },
   {
     title: 'React & .NET Task Manager',
