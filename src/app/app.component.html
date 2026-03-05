@@ -1,23 +1,54 @@
 <app-navbar />
 
-<!-- Spacer for fixed navbar -->
-<div class="h-16"></div>
+<!-- Hero - no spacer needed, hero is full viewport -->
+<section id="home">
+  <app-hero />
+</section>
 
-@for (section of sections; track section.id) {
-  <section
-    [id]="section.id"
-    class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
-  >
-    <div class="max-w-5xl w-full mx-auto py-20">
-      <h2
-        class="text-3xl sm:text-4xl font-bold text-center text-[#e0e0e0]"
-        style="font-family: 'Montserrat', sans-serif"
-      >
-        {{ section.label }}
-      </h2>
-      <p class="text-center text-[#606070] mt-4">Section placeholder</p>
-    </div>
-  </section>
-}
+<!-- Spacer for fixed navbar on remaining sections -->
+<section id="about" class="px-4 sm:px-6 lg:px-8 py-20">
+  <div class="max-w-5xl w-full mx-auto">
+    <app-about />
+  </div>
+</section>
+
+<section id="skills" class="px-4 sm:px-6 lg:px-8 py-20">
+  <div class="max-w-5xl w-full mx-auto">
+    <app-skills />
+  </div>
+</section>
+
+<section id="projects" class="min-h-screen px-4 sm:px-6 lg:px-8 py-20">
+  <div class="max-w-5xl w-full mx-auto">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center text-foreground" style="font-family: 'Montserrat', sans-serif">
+      Projects
+    </h2>
+    <p class="text-center text-muted-foreground mt-4">Coming soon</p>
+  </div>
+</section>
+
+<section id="experience" class="min-h-screen px-4 sm:px-6 lg:px-8 py-20">
+  <div class="max-w-5xl w-full mx-auto">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center text-foreground" style="font-family: 'Montserrat', sans-serif">
+      Experience
+    </h2>
+    <p class="text-center text-muted-foreground mt-4">Coming soon</p>
+  </div>
+</section>
+
+<section id="gallery" class="min-h-screen px-4 sm:px-6 lg:px-8 py-20">
+  <div class="max-w-5xl w-full mx-auto">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center text-foreground" style="font-family: 'Montserrat', sans-serif">
+      Gallery
+    </h2>
+    <p class="text-center text-muted-foreground mt-4">Coming soon</p>
+  </div>
+</section>
+
+<section id="contact" class="px-4 sm:px-6 lg:px-8 py-20">
+  <div class="max-w-5xl w-full mx-auto">
+    <app-contact />
+  </div>
+</section>
 
 <app-footer />
