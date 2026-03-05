@@ -134,6 +134,9 @@ export class ProjectsComponent {
   }
 
   openCaseStudy(project: Project): void {
+    if (project.type !== 'case-study') {
+      return;
+    }
     const options = new ZardDialogOptions();
     options.zTitle = project.title;
     options.zContent = ProjectDialogComponent;

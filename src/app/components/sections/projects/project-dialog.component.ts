@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 
 import { ZardBadgeComponent } from '@/shared/components/badge/badge.component';
 import { Z_MODAL_DATA } from '@/shared/components/dialog/dialog.service';
-import type { Project } from '@/data/projects.data';
+import type { CaseStudyProject } from '@/data/projects.data';
 
 @Component({
   selector: 'app-project-dialog',
@@ -19,7 +19,7 @@ import type { Project } from '@/data/projects.data';
           The Problem
         </h3>
         <p class="text-[#e0e0e0] text-sm leading-relaxed">
-          {{ project.caseStudy?.problem }}
+          {{ project.caseStudy.problem }}
         </p>
       </div>
 
@@ -31,7 +31,7 @@ import type { Project } from '@/data/projects.data';
           The Approach
         </h3>
         <p class="text-[#e0e0e0] text-sm leading-relaxed">
-          {{ project.caseStudy?.approach }}
+          {{ project.caseStudy.approach }}
         </p>
       </div>
 
@@ -43,7 +43,7 @@ import type { Project } from '@/data/projects.data';
           The Outcome
         </h3>
         <p class="text-[#e0e0e0] text-sm leading-relaxed">
-          {{ project.caseStudy?.outcome }}
+          {{ project.caseStudy.outcome }}
         </p>
       </div>
 
@@ -56,5 +56,5 @@ import type { Project } from '@/data/projects.data';
   `,
 })
 export class ProjectDialogComponent {
-  readonly project: Project = inject(Z_MODAL_DATA);
+  readonly project: CaseStudyProject = inject(Z_MODAL_DATA);
 }

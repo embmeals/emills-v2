@@ -88,4 +88,24 @@ describe('GalleryComponent', () => {
       expect(img.getAttribute('loading')).toBe('lazy');
     });
   });
+
+  it('should close lightbox when Escape key is pressed', () => {
+    component.openLightbox(GALLERY_IMAGES[0]);
+    fixture.detectChanges();
+    expect(component.lightboxOpen()).toBe(true);
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+
+    expect(component.lightboxOpen()).toBe(false);
+  });
+
+  it('should have aria-pressed on filter buttons', () => {
+    const buttons = Array.from(element.querySelectorAll('button'));
+    const allButton = buttons.find((btn) => btn.textContent?.trim() === 'All');
+    expect(allButton?.getAttribute('aria-pressed')).toBe('true');
+
+    const emberButton = buttons.find((btn) => btn.textContent?.trim() === 'Ember');
+    expect(emberButton?.getAttribute('aria-pressed')).toBe('false');
+  });
 });

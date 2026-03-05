@@ -1,18 +1,30 @@
 export type ProjectType = 'public' | 'case-study';
 
-export interface Project {
+interface CaseStudy {
+  readonly problem: string;
+  readonly approach: string;
+  readonly outcome: string;
+}
+
+interface PublicProject {
   readonly title: string;
-  readonly type: ProjectType;
+  readonly type: 'public';
   readonly description: string;
   readonly techStack: readonly string[];
   readonly githubUrl?: string;
   readonly liveUrl?: string;
-  readonly caseStudy?: {
-    readonly problem: string;
-    readonly approach: string;
-    readonly outcome: string;
-  };
 }
+
+interface CaseStudyProject {
+  readonly title: string;
+  readonly type: 'case-study';
+  readonly description: string;
+  readonly techStack: readonly string[];
+  readonly caseStudy: CaseStudy;
+}
+
+export type Project = PublicProject | CaseStudyProject;
+export type { CaseStudyProject };
 
 export const PROJECTS: readonly Project[] = [
   {

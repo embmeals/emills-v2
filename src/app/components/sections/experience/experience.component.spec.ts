@@ -81,4 +81,16 @@ describe('ExperienceComponent', () => {
       }
     }
   });
+
+  it('should have aria-labelledby linking section to heading', () => {
+    const section = element.querySelector('section');
+    const heading = element.querySelector('h2');
+    expect(section?.getAttribute('aria-labelledby')).toBe('experience-heading');
+    expect(heading?.id).toBe('experience-heading');
+  });
+
+  it('should render timeline nodes for each entry', () => {
+    const nodes = element.querySelectorAll('.timeline-node');
+    expect(nodes.length).toBe(EXPERIENCES.length);
+  });
 });

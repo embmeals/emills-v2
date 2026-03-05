@@ -24,9 +24,16 @@ describe('SkillsComponent', () => {
     expect(heading?.textContent?.trim()).toBe('Skills & Technologies');
   });
 
-  it('should render 5 category cards', () => {
-    const cards = element.querySelectorAll('[class*="bg-\\[\\#14141f\\]"]');
-    expect(cards.length).toBe(5);
+  it('should render all category cards', () => {
+    const cards = element.querySelectorAll('h3');
+    expect(cards.length).toBe(SKILL_CATEGORIES.length);
+  });
+
+  it('should have aria-labelledby linking section to heading', () => {
+    const section = element.querySelector('section');
+    const heading = element.querySelector('h2');
+    expect(section?.getAttribute('aria-labelledby')).toBe('skills-heading');
+    expect(heading?.id).toBe('skills-heading');
   });
 
   it('should render each category with expected skill names', () => {

@@ -110,4 +110,29 @@ describe('ProjectsComponent', () => {
     const caseStudyProjects = PROJECTS.filter((p) => p.type === 'case-study');
     expect(viewCaseStudyButtons.length).toBe(caseStudyProjects.length);
   });
+
+  it('should call openCaseStudy when "View Case Study" button is clicked', () => {
+    const spy = spyOn(component, 'openCaseStudy');
+    fixture.detectChanges();
+
+    const caseStudyButtons = Array.from(
+      element.querySelectorAll<HTMLButtonElement>('button'),
+    ).filter((btn) => btn.textContent?.trim() === 'View Case Study');
+
+    expect(caseStudyButtons.length).toBeGreaterThan(0);
+    caseStudyButtons[0].click();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should have aria-pressed on filter buttons', () => {
+    const filterButtons = Array.from(
+      element.querySelectorAll<HTMLButtonElement>('button'),
+    ).filter((btn) => ['All', 'Public', 'Case Studies'].includes(btn.textContent?.trim() ?? ''));
+
+    const allButton = filterButtons.find((btn) => btn.textContent?.trim() === 'All');
+    expect(allButton?.getAttribute('aria-pressed')).toBe('true');
+
+    const publicButton = filterButtons.find((btn) => btn.textContent?.trim() === 'Public');
+    expect(publicButton?.getAttribute('aria-pressed')).toBe('false');
+  });
 });

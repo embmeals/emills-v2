@@ -11,10 +11,10 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 
 interface Particle {
-  readonly x: number;
-  readonly y: number;
-  readonly vx: number;
-  readonly vy: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
   readonly radius: number;
   readonly opacity: number;
 }
@@ -101,28 +101,15 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
     };
   }
 
-  private updateParticle(p: Particle): Particle {
-    let nextX = p.x + p.vx;
-    let nextY = p.y + p.vy;
-    let nextVx = p.vx;
-    let nextVy = p.vy;
-
-    if (nextX < 0 || nextX > this.canvasWidth) {
-      nextVx = -nextVx;
-      nextX = p.x + nextVx;
+  private updateParticle(p: Particle): void {
+    if (p.x + p.vx < 0 || p.x + p.vx > this.canvasWidth) {
+      p.vx = -p.vx;
     }
-    if (nextY < 0 || nextY > this.canvasHeight) {
-      nextVy = -nextVy;
-      nextY = p.y + nextVy;
+    if (p.y + p.vy < 0 || p.y + p.vy > this.canvasHeight) {
+      p.vy = -p.vy;
     }
-
-    return {
-      ...p,
-      x: nextX,
-      y: nextY,
-      vx: nextVx,
-      vy: nextVy,
-    };
+    p.x += p.vx;
+    p.y += p.vy;
   }
 
   private animate(canvas: HTMLCanvasElement): void {
@@ -134,8 +121,9 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
     const draw = (): void => {
       ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-      // Update particles immutably
-      this.particles = this.particles.map((p) => this.updateParticle(p));
+      for (const p of this.particles) {
+        this.updateParticle(p);
+      }
 
       // Draw connecting lines
       for (let i = 0; i < this.particles.length; i++) {
