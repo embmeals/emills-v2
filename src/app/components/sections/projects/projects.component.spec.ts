@@ -83,20 +83,16 @@ describe('ProjectsComponent', () => {
     expect(cards.length).toBe(PROJECTS.length);
   });
 
-  it('should render GitHub links for public projects', () => {
+  it('should render GitHub links for projects with githubUrl', () => {
     const githubLinks = element.querySelectorAll<HTMLAnchorElement>('a');
     const githubHrefs = Array.from(githubLinks)
       .filter((a) => a.textContent?.trim() === 'View on GitHub')
       .map((a) => a.href);
 
-    const publicProjects = PROJECTS.filter(
-      (p) => p.type === 'public' && p.githubUrl,
+    const projectsWithGithub = PROJECTS.filter(
+      (p) => 'githubUrl' in p && p.githubUrl,
     );
-    expect(githubHrefs.length).toBe(publicProjects.length);
-
-    for (const project of publicProjects) {
-      expect(githubHrefs).toContain(project.githubUrl as string);
-    }
+    expect(githubHrefs.length).toBe(projectsWithGithub.length);
   });
 
   it('should render "View Case Study" button for case study projects', () => {

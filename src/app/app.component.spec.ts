@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -8,7 +9,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, RouterModule.forRoot([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
@@ -35,32 +36,8 @@ describe('AppComponent', () => {
     expect(footer).toBeTruthy();
   });
 
-  it('should have all section IDs', () => {
-    const sectionIds = [
-      'home',
-      'about',
-      'skills',
-      'projects',
-      'experience',
-      'gallery',
-      'contact',
-    ];
-
-    for (const id of sectionIds) {
-      const section = compiled.querySelector(`#${id}`);
-      expect(section).toBeTruthy(`Section #${id} should exist`);
-    }
-  });
-
-  it('should have min-h-screen on all sections', () => {
-    const sections = compiled.querySelectorAll('section');
-    expect(sections.length).toBe(7);
-    sections.forEach((section) => {
-      expect(section.classList.contains('min-h-screen')).toBeTrue();
-    });
-  });
-
-  it('should have 7 sections defined', () => {
-    expect(app.sections.length).toBe(7);
+  it('should render router outlet', () => {
+    const outlet = compiled.querySelector('router-outlet');
+    expect(outlet).toBeTruthy();
   });
 });

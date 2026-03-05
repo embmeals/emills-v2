@@ -12,6 +12,7 @@ export const FUN_FACTS: readonly FunFact[] = [
   { label: 'Amateur Artist', icon: '\u{1F3A8}', color: 'magenta' },
   { label: 'Proud Pomchi Parent', icon: '\u{1F415}', color: 'amber' },
   { label: 'Avid Gamer', icon: '\u{1F3AE}', color: 'cyan' },
+  { label: 'Cat Mom x5', icon: '\u{1F408}', color: 'amber' },
   { label: 'Virgo', icon: '\u264D', color: 'magenta' },
   { label: 'Lover of Bicycles', icon: '\u{1F6B2}', color: 'cyan' },
 ];

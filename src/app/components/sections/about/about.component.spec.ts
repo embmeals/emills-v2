@@ -26,11 +26,12 @@ describe('AboutComponent', () => {
     expect(text).toContain('MySpace');
   });
 
-  it('should render all 5 fun fact labels', () => {
+  it('should render all fun fact labels', () => {
     const expectedLabels = [
       'Amateur Artist',
       'Proud Pomchi Parent',
       'Avid Gamer',
+      'Cat Mom x5',
       'Virgo',
       'Lover of Bicycles',
     ];
@@ -41,14 +42,14 @@ describe('AboutComponent', () => {
   });
 
   it('should have a "View Resume" link', () => {
-    const link = compiled.querySelector('a[href="/resume.html"]');
+    const link = compiled.querySelector('a[href="resume.html"]');
     expect(link).toBeTruthy();
     expect(link?.textContent?.trim()).toContain('View Resume');
     expect(link?.getAttribute('target')).toBe('_blank');
   });
 
   it('should have section with proper aria-labelledby', () => {
-    const section = compiled.querySelector('section#about');
+    const section = compiled.querySelector('section');
     expect(section).toBeTruthy();
     expect(section?.getAttribute('aria-labelledby')).toBe('about-heading');
   });

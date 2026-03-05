@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { ContactComponent } from './contact.component';
 
 describe('ContactComponent', () => {
@@ -8,7 +9,7 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactComponent],
+      imports: [ContactComponent, RouterModule.forRoot([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactComponent);
@@ -52,7 +53,10 @@ describe('ContactComponent', () => {
 
   it('should have target="_blank" on all external links', () => {
     const externalLinks = Array.from(compiled.querySelectorAll('a')).filter(
-      (link) => !link.getAttribute('href')?.startsWith('mailto:')
+      (link) => {
+        const href = link.getAttribute('href');
+        return href && !href.startsWith('mailto:') && !href.startsWith('/');
+      }
     );
     expect(externalLinks.length).toBe(3);
     externalLinks.forEach((link) => {
@@ -62,7 +66,7 @@ describe('ContactComponent', () => {
 
   it('should have aria-label on all links', () => {
     const links = compiled.querySelectorAll('a');
-    expect(links.length).toBe(4);
+    expect(links.length).toBe(5);
     const labels = Array.from(links).map((link) =>
       link.getAttribute('aria-label')
     );
@@ -70,11 +74,15 @@ describe('ContactComponent', () => {
     expect(labels).toContain('GitHub');
     expect(labels).toContain('LinkedIn');
     expect(labels).toContain('CodePen');
+    expect(labels).toContain('Gallery');
   });
 
   it('should have rel="noopener noreferrer" on external links', () => {
     const externalLinks = Array.from(compiled.querySelectorAll('a')).filter(
-      (link) => !link.getAttribute('href')?.startsWith('mailto:')
+      (link) => {
+        const href = link.getAttribute('href');
+        return href && !href.startsWith('mailto:') && !href.startsWith('/');
+      }
     );
     externalLinks.forEach((link) => {
       expect(link.getAttribute('rel')).toBe('noopener noreferrer');
