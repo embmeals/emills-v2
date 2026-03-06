@@ -13,7 +13,7 @@ interface ContactLink {
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="py-24 px-4">
+    <section class="px-4">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="font-heading text-3xl font-bold text-foreground mb-4">
           Let's Connect

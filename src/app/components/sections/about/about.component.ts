@@ -8,7 +8,7 @@ import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
-      class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       aria-labelledby="about-heading"
     >
       <h2

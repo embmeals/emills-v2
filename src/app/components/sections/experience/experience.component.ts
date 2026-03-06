@@ -107,7 +107,7 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
   `,
   template: `
     <section
-      class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      class="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       aria-labelledby="experience-heading"
     >
       <h2

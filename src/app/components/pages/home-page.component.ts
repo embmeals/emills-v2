@@ -23,31 +23,31 @@ import { ContactComponent } from '@/components/sections/contact/contact.componen
       <app-hero />
     </section>
 
-    <section id="about" class="px-4 sm:px-6 lg:px-8 py-20">
+    <section id="about" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-about />
       </div>
     </section>
 
-    <section id="skills" class="px-4 sm:px-6 lg:px-8 py-20">
+    <section id="skills" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-skills />
       </div>
     </section>
 
-    <section id="projects" class="px-4 sm:px-6 lg:px-8 py-20">
+    <section id="projects" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-projects />
       </div>
     </section>
 
-    <section id="experience" class="px-4 sm:px-6 lg:px-8 py-20">
+    <section id="experience" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-experience />
       </div>
     </section>
 
-    <section id="contact" class="px-4 sm:px-6 lg:px-8 py-20">
+    <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-contact />
       </div>

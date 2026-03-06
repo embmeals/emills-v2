@@ -8,7 +8,7 @@ import { SKILL_CATEGORIES, type SkillCategory } from '@/data/skills.data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section
-      class="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      class="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       aria-labelledby="skills-heading"
     >
       <h2
