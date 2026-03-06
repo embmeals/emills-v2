@@ -43,6 +43,11 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        this.initStaticCanvas();
+        return;
+      }
       this.initCanvas();
       this.resizeHandler = () => this.handleResize();
       window.addEventListener('resize', this.resizeHandler);
@@ -57,6 +62,20 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
     if (this.resizeHandler) {
       window.removeEventListener('resize', this.resizeHandler);
       this.resizeHandler = null;
+    }
+  }
+
+  private initStaticCanvas(): void {
+    const canvas = this.canvasRef().nativeElement;
+    this.updateCanvasDimensions(canvas);
+    this.particles = this.createParticles();
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    for (const p of this.particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
+      ctx.fill();
     }
   }
 

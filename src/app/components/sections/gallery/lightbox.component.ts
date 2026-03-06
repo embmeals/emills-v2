@@ -32,7 +32,7 @@ import {
           type="button"
           class="absolute top-4 right-4 z-50 text-white text-3xl leading-none cursor-pointer transition-colors duration-200 hover:text-neon-magenta focus:outline-none focus:ring-2 focus:ring-neon-magenta rounded"
           aria-label="Close lightbox"
-          (click)="closed.emit()"
+          (click)="onCloseClick($event)"
         >
           &#10005;
         </button>
@@ -74,6 +74,11 @@ export class LightboxComponent {
     if (this.isOpen()) {
       this.closed.emit();
     }
+  }
+
+  onCloseClick(event: MouseEvent): void {
+    event.stopPropagation();
+    this.closed.emit();
   }
 
   onBackdropClick(event: MouseEvent): void {
