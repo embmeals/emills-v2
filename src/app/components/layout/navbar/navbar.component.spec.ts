@@ -29,7 +29,6 @@ describe('NavbarComponent', () => {
       'Skills',
       'Projects',
       'Experience',
-      'Gallery',
       'Contact',
     ];
     const visibleButtons = Array.from(buttons).filter(

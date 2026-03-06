@@ -26,6 +26,8 @@ jobs:
         run: cp CNAME dist/emills-v2/browser/CNAME 2>/dev/null || true
       - name: Add .nojekyll
         run: touch dist/emills-v2/browser/.nojekyll
+      - name: Copy index.html to 404.html for SPA routing
+        run: cp dist/emills-v2/browser/index.html dist/emills-v2/browser/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist/emills-v2/browser
