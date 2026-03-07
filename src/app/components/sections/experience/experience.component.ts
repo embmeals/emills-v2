@@ -38,8 +38,8 @@ const STATION_COLORS = [
       content: '';
       position: absolute;
       top: 1.75rem;
-      left: 2rem;
-      right: 2rem;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
       height: 2px;
       background: repeating-linear-gradient(
         90deg,
@@ -60,8 +60,8 @@ const STATION_COLORS = [
       content: '';
       position: absolute;
       top: 1.75rem;
-      left: 2rem;
-      right: 2rem;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
       height: 2px;
       background: repeating-linear-gradient(
         90deg,
@@ -113,9 +113,9 @@ const STATION_COLORS = [
     @media (max-width: 767px) {
       .route::before,
       .route::after {
-        top: 0;
-        bottom: 0;
-        left: 1.25rem;
+        top: 1.25rem;
+        bottom: 1.25rem;
+        left: calc(1.25rem + 1px);
         right: auto;
         width: 2px;
         height: auto;
@@ -183,7 +183,7 @@ const STATION_COLORS = [
               </div>
 
               <!-- Station card -->
-              <div class="station-card rounded-lg p-4 w-full">
+              <div class="station-card rounded-lg p-4 w-full flex-1">
                 <div class="mb-3">
                   <span
                     class="text-[10px] tracking-wider uppercase text-[#00e5ff]/50 block mb-1"
@@ -212,12 +212,16 @@ const STATION_COLORS = [
         </div>
 
         <!-- Mobile: vertical route -->
-        <div class="route md:hidden flex flex-col gap-8 relative pl-10">
+        <div class="md:hidden flex flex-col gap-8 relative pl-10">
+          <!-- Vertical line anchored to node column center -->
+          <div class="absolute"
+               style="left: calc(1.25rem - 1px); width: 2px; top: 0; bottom: 0; background: repeating-linear-gradient(180deg, rgba(0,170,255,0.5) 0px, rgba(0,170,255,0.5) 8px, transparent 8px, transparent 16px); box-shadow: 0 0 6px rgba(0,170,255,0.3);">
+          </div>
           @for (station of stations; track station.company; let i = $index) {
             <div class="timeline-entry relative">
               <!-- Station node (on the left line) -->
-              <div class="absolute -left-10 top-0 flex flex-col items-center">
-                <div class="station-ring absolute w-10 h-10 rounded-full border-2 -translate-x-[0.1rem]" [style.border-color]="station.colorGlow"></div>
+              <div class="absolute -left-10 top-0 flex flex-col items-center w-10">
+                <div class="station-ring absolute w-10 h-10 rounded-full border-2" [style.border-color]="station.colorGlow"></div>
                 <div class="timeline-node station-node w-4 h-4 rounded-full mt-3" [style.background]="station.color" [style.box-shadow]="'0 0 10px ' + station.colorGlow + ', 0 0 25px ' + station.colorGlow"></div>
               </div>
 
