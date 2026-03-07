@@ -113,9 +113,9 @@ const STATION_COLORS = [
     @media (max-width: 767px) {
       .route::before,
       .route::after {
-        top: 1.25rem;
-        bottom: 1.25rem;
-        left: calc(1.25rem + 1px);
+        top: 0;
+        bottom: 0;
+        left: calc(1.25rem - 1px);
         right: auto;
         width: 2px;
         height: auto;
@@ -212,11 +212,7 @@ const STATION_COLORS = [
         </div>
 
         <!-- Mobile: vertical route -->
-        <div class="md:hidden flex flex-col gap-8 relative pl-10">
-          <!-- Vertical line anchored to node column center -->
-          <div class="absolute"
-               style="left: calc(1.25rem - 1px); width: 2px; top: 0; bottom: 0; background: repeating-linear-gradient(180deg, rgba(0,170,255,0.5) 0px, rgba(0,170,255,0.5) 8px, transparent 8px, transparent 16px); box-shadow: 0 0 6px rgba(0,170,255,0.3);">
-          </div>
+        <div class="route md:hidden flex flex-col gap-8 relative pl-10">
           @for (station of stations; track station.company; let i = $index) {
             <div class="timeline-entry relative">
               <!-- Station node (on the left line) -->
