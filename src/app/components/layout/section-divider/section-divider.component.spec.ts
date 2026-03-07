@@ -21,8 +21,8 @@ describe('SectionDividerComponent', () => {
   it('should be aria-hidden', () => {
     fixture.detectChanges();
     compiled = fixture.nativeElement as HTMLElement;
-    const wrapper = compiled.querySelector('[aria-hidden="true"]');
-    expect(wrapper).toBeTruthy();
+    const wrapper = compiled.firstElementChild;
+    expect(wrapper?.getAttribute('aria-hidden')).toBe('true');
   });
 
   it('should render label when provided', () => {

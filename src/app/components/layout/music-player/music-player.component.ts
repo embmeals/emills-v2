@@ -131,6 +131,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   private readonly START_OFFSET = 83;
   private onLoadedMetadata: (() => void) | null = null;
   private onDurationChange: (() => void) | null = null;
+  private destroyed = false;
 
   readonly isPlaying = signal(false);
   readonly currentTime = signal(0);
@@ -155,6 +156,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroyed = true;
     this.stopUpdating();
     if (isPlatformBrowser(this.platformId)) {
       const audio = this.audioRef().nativeElement;
@@ -171,9 +173,11 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
     const audio = this.audioRef().nativeElement;
     if (audio.paused) {
       audio.play().then(() => {
+        if (this.destroyed) return;
         this.isPlaying.set(true);
         this.startUpdating();
       }).catch(() => {
+        if (this.destroyed) return;
         audio.pause();
       });
     } else {
@@ -184,8 +188,10 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   }
 
   onEnded(): void {
+    const audio = this.audioRef().nativeElement;
     this.isPlaying.set(false);
     this.currentTime.set(0);
+    audio.currentTime = 0;
     this.stopUpdating();
   }
 

@@ -77,12 +77,15 @@ describe('MusicPlayerComponent', () => {
     expect(component.progressPercent()).toBe(25);
   });
 
-  it('should reset state on ended', () => {
+  it('should reset state and audio element on ended', () => {
+    const audioEl = compiled.querySelector('audio')!;
+    Object.defineProperty(audioEl, 'currentTime', { writable: true, value: 200 });
     component.isPlaying.set(true);
     component.currentTime.set(100);
     component.onEnded();
     expect(component.isPlaying()).toBe(false);
     expect(component.currentTime()).toBe(0);
+    expect(audioEl.currentTime).toBe(0);
   });
 
   it('should update button aria-label when playing', () => {
@@ -118,6 +121,17 @@ describe('MusicPlayerComponent', () => {
       tick();
       expect(component.isPlaying()).toBe(false);
       expect(audioEl.pause).toHaveBeenCalled();
+    }));
+
+    it('should not activate if component is destroyed before play resolves', fakeAsync(() => {
+      let resolvePlay!: () => void;
+      const deferred = new Promise<void>(r => { resolvePlay = r; });
+      spyOn(audioEl, 'play').and.returnValue(deferred);
+      component.togglePlay();
+      fixture.destroy();
+      resolvePlay();
+      tick();
+      expect(component.isPlaying()).toBe(false);
     }));
 
     it('should pause and set isPlaying false when playing', () => {
