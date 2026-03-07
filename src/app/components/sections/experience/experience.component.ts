@@ -4,7 +4,15 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
 
 interface Station extends Experience {
   readonly id: string;
+  readonly color: string;
+  readonly colorGlow: string;
 }
+
+const STATION_COLORS = [
+  { color: '#00e5ff', glow: 'rgba(0, 229, 255, 0.6)' },
+  { color: '#ff2d7b', glow: 'rgba(255, 45, 123, 0.6)' },
+  { color: '#ffb300', glow: 'rgba(255, 179, 0, 0.6)' },
+];
 
 @Component({
   selector: 'app-experience',
@@ -65,21 +73,22 @@ interface Station extends Experience {
     }
 
     /* Station node */
-    @keyframes stationPulse {
-      0%, 100% {
-        box-shadow: 0 0 8px rgba(0, 229, 255, 0.6), 0 0 20px rgba(0, 229, 255, 0.2);
-      }
-      50% {
-        box-shadow: 0 0 12px rgba(0, 229, 255, 0.8), 0 0 30px rgba(0, 229, 255, 0.4);
-      }
+    @keyframes stationNodePulse {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @keyframes stationRingPulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
     }
 
     .station-node {
-      animation: stationPulse 3s ease-in-out infinite;
+      animation: stationNodePulse 3s ease-in-out infinite;
     }
 
     .station-ring {
-      animation: stationPulse 3s ease-in-out infinite;
+      animation: stationRingPulse 3s ease-in-out infinite;
       animation-delay: 0.5s;
     }
 
@@ -162,10 +171,10 @@ interface Station extends Experience {
             <div class="timeline-entry flex flex-col items-center">
               <!-- Station node -->
               <div class="relative flex flex-col items-center mb-6">
-                <div class="station-ring absolute w-10 h-10 rounded-full border-2 border-[#00e5ff]/30"></div>
-                <div class="timeline-node station-node w-4 h-4 rounded-full bg-[#00e5ff] mt-3"></div>
+                <div class="station-ring absolute w-10 h-10 rounded-full border-2" [style.border-color]="station.colorGlow"></div>
+                <div class="timeline-node station-node w-4 h-4 rounded-full mt-3" [style.background]="station.color" [style.box-shadow]="'0 0 10px ' + station.colorGlow + ', 0 0 25px ' + station.colorGlow"></div>
                 <span
-                  class="mt-3 text-[10px] tracking-[0.3em] uppercase text-[#00e5ff]/60"
+                  class="mt-3 text-[10px] tracking-[0.3em] uppercase" [style.color]="station.color" style="opacity: 0.6"
                   style="font-family: 'Montserrat', sans-serif"
                   aria-hidden="true"
                 >
@@ -208,15 +217,16 @@ interface Station extends Experience {
             <div class="timeline-entry relative">
               <!-- Station node (on the left line) -->
               <div class="absolute -left-10 top-0 flex flex-col items-center">
-                <div class="station-ring absolute w-10 h-10 rounded-full border-2 border-[#00e5ff]/30 -translate-x-[0.1rem]"></div>
-                <div class="timeline-node station-node w-4 h-4 rounded-full bg-[#00e5ff] mt-3"></div>
+                <div class="station-ring absolute w-10 h-10 rounded-full border-2 -translate-x-[0.1rem]" [style.border-color]="station.colorGlow"></div>
+                <div class="timeline-node station-node w-4 h-4 rounded-full mt-3" [style.background]="station.color" [style.box-shadow]="'0 0 10px ' + station.colorGlow + ', 0 0 25px ' + station.colorGlow"></div>
               </div>
 
               <!-- Station card -->
               <div class="station-card rounded-lg p-4">
                 <span
-                  class="text-[9px] tracking-[0.3em] uppercase text-[#00e5ff]/50 block mb-1"
-                  style="font-family: 'Montserrat', sans-serif"
+                  class="text-[9px] tracking-[0.3em] uppercase block mb-1"
+                  style="font-family: 'Montserrat', sans-serif; opacity: 0.5"
+                  [style.color]="station.color"
                   aria-hidden="true"
                 >
                   {{ station.id }}
@@ -254,5 +264,7 @@ export class ExperienceComponent {
     .map((exp, i, arr) => ({
       ...exp,
       id: `REC-${String(arr.length - i).padStart(2, '0')}`,
+      color: STATION_COLORS[i % STATION_COLORS.length].color,
+      colorGlow: STATION_COLORS[i % STATION_COLORS.length].glow,
     }));
 }
