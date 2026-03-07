@@ -128,6 +128,8 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   private readonly audioRef = viewChild.required<ElementRef<HTMLAudioElement>>('audioEl');
   private updateInterval: ReturnType<typeof setInterval> | null = null;
   private readonly START_OFFSET = 83;
+  private onLoadedMetadata: (() => void) | null = null;
+  private onDurationChange: (() => void) | null = null;
 
   readonly isPlaying = signal(false);
   readonly currentTime = signal(0);
@@ -141,16 +143,27 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
     if (!isPlatformBrowser(this.platformId)) return;
 
     const audio = this.audioRef().nativeElement;
-    audio.addEventListener('loadedmetadata', () => {
+    this.onLoadedMetadata = () => {
       this.duration.set(audio.duration);
       audio.currentTime = this.START_OFFSET;
       this.currentTime.set(this.START_OFFSET);
-    });
-    audio.addEventListener('durationchange', () => this.duration.set(audio.duration));
+    };
+    this.onDurationChange = () => this.duration.set(audio.duration);
+    audio.addEventListener('loadedmetadata', this.onLoadedMetadata);
+    audio.addEventListener('durationchange', this.onDurationChange);
   }
 
   ngOnDestroy(): void {
     this.stopUpdating();
+    if (isPlatformBrowser(this.platformId)) {
+      const audio = this.audioRef().nativeElement;
+      if (this.onLoadedMetadata) {
+        audio.removeEventListener('loadedmetadata', this.onLoadedMetadata);
+      }
+      if (this.onDurationChange) {
+        audio.removeEventListener('durationchange', this.onDurationChange);
+      }
+    }
   }
 
   togglePlay(): void {
