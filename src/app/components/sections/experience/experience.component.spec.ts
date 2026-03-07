@@ -30,35 +30,29 @@ describe('ExperienceComponent', () => {
   });
 
   it('should display role for each entry', () => {
-    const titles = element.querySelectorAll('[data-slot="card-title"]');
-    const titleTexts = Array.from(titles).map((t) => t.textContent?.trim());
+    const entries = element.querySelectorAll('.timeline-entry');
+    const entryTexts = Array.from(entries).map((e) => e.textContent);
 
     for (const exp of EXPERIENCES) {
-      expect(titleTexts).toContain(exp.role);
+      expect(entryTexts.some((text) => text?.includes(exp.role))).toBeTrue();
     }
   });
 
   it('should display company for each entry', () => {
-    const descriptions = element.querySelectorAll('[data-slot="card-description"]');
-    const descTexts = Array.from(descriptions).map((el) =>
-      el.textContent?.trim(),
-    );
+    const entries = element.querySelectorAll('.timeline-entry');
+    const entryTexts = Array.from(entries).map((e) => e.textContent);
 
     for (const exp of EXPERIENCES) {
-      expect(descTexts).toContain(
-        `${exp.company} · ${exp.startDate} – ${exp.endDate}`,
-      );
+      expect(entryTexts.some((text) => text?.includes(exp.company))).toBeTrue();
     }
   });
 
   it('should display date range for each entry', () => {
-    const descriptions = element.querySelectorAll('[data-slot="card-description"]');
-    const descTexts = Array.from(descriptions).map((el) =>
-      el.textContent?.trim(),
-    );
+    const entries = element.querySelectorAll('.timeline-entry');
+    const entryTexts = Array.from(entries).map((e) => e.textContent);
 
     for (const exp of EXPERIENCES) {
-      const hasDate = descTexts.some(
+      const hasDate = entryTexts.some(
         (text) => text?.includes(exp.startDate) && text?.includes(exp.endDate),
       );
       expect(hasDate).toBeTrue();

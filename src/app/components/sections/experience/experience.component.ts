@@ -143,7 +143,7 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
             <z-card
               [zTitle]="exp.role"
               [zDescription]="exp.company + ' · ' + exp.startDate + ' – ' + exp.endDate"
-              class="timeline-card !bg-[#14141f] !border-[#1e1e2e] hover:!border-neon-cyan/30 transition-all duration-300"
+              class="timeline-card bg-[#14141f]! border-[#1e1e2e]! hover:border-neon-cyan/30! transition-all duration-300"
             >
               <ul class="accomplishments space-y-2 list-disc pl-4 text-foreground text-sm">
                 @for (item of exp.accomplishments; track item) {
