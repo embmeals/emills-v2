@@ -21,9 +21,10 @@ describe('FooterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render copyright text', () => {
+  it('should render copyright text with current year', () => {
     const text = compiled.textContent;
-    expect(text).toContain('2026 Ember Mills');
+    const year = new Date().getFullYear();
+    expect(text).toContain(`${year} Ember Mills`);
   });
 
   it('should render "Built with" text', () => {

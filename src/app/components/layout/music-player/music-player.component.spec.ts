@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { MusicPlayerComponent } from './music-player.component';
 
 describe('MusicPlayerComponent', () => {
@@ -95,5 +95,67 @@ describe('MusicPlayerComponent', () => {
   it('should have keyboard-accessible progress bar', () => {
     const slider = compiled.querySelector('[role="slider"]');
     expect(slider?.getAttribute('tabindex')).toBe('0');
+  });
+
+  describe('togglePlay', () => {
+    let audioEl: HTMLAudioElement;
+
+    beforeEach(() => {
+      audioEl = compiled.querySelector('audio')!;
+    });
+
+    it('should set isPlaying true on successful play', fakeAsync(() => {
+      spyOn(audioEl, 'play').and.returnValue(Promise.resolve());
+      component.togglePlay();
+      tick();
+      expect(component.isPlaying()).toBe(true);
+    }));
+
+    it('should not set isPlaying on rejected play', fakeAsync(() => {
+      spyOn(audioEl, 'play').and.returnValue(Promise.reject(new DOMException('NotAllowed')));
+      spyOn(audioEl, 'pause');
+      component.togglePlay();
+      tick();
+      expect(component.isPlaying()).toBe(false);
+      expect(audioEl.pause).toHaveBeenCalled();
+    }));
+
+    it('should pause and set isPlaying false when playing', () => {
+      component.isPlaying.set(true);
+      spyOnProperty(audioEl, 'paused').and.returnValue(false);
+      spyOn(audioEl, 'pause');
+      component.togglePlay();
+      expect(component.isPlaying()).toBe(false);
+      expect(audioEl.pause).toHaveBeenCalled();
+    });
+  });
+
+  describe('onSeekKey', () => {
+    it('should advance time on ArrowRight', () => {
+      const audioEl = compiled.querySelector('audio')!;
+      spyOnProperty(audioEl, 'duration').and.returnValue(200);
+      Object.defineProperty(audioEl, 'currentTime', { writable: true, value: 50 });
+
+      component.onSeekKey(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+      expect(component.currentTime()).toBe(55);
+    });
+
+    it('should rewind time on ArrowLeft', () => {
+      const audioEl = compiled.querySelector('audio')!;
+      spyOnProperty(audioEl, 'duration').and.returnValue(200);
+      Object.defineProperty(audioEl, 'currentTime', { writable: true, value: 50 });
+
+      component.onSeekKey(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+      expect(component.currentTime()).toBe(45);
+    });
+
+    it('should not go below 0 on ArrowLeft', () => {
+      const audioEl = compiled.querySelector('audio')!;
+      spyOnProperty(audioEl, 'duration').and.returnValue(200);
+      Object.defineProperty(audioEl, 'currentTime', { writable: true, value: 2 });
+
+      component.onSeekKey(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+      expect(component.currentTime()).toBe(0);
+    });
   });
 });

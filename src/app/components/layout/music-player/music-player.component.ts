@@ -127,6 +127,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly audioRef = viewChild.required<ElementRef<HTMLAudioElement>>('audioEl');
   private updateInterval: ReturnType<typeof setInterval> | null = null;
+  /** Skip to 1:23 where the instrumental builds up */
   private readonly START_OFFSET = 83;
   private onLoadedMetadata: (() => void) | null = null;
   private onDurationChange: (() => void) | null = null;
@@ -169,9 +170,12 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   togglePlay(): void {
     const audio = this.audioRef().nativeElement;
     if (audio.paused) {
-      audio.play();
-      this.isPlaying.set(true);
-      this.startUpdating();
+      audio.play().then(() => {
+        this.isPlaying.set(true);
+        this.startUpdating();
+      }).catch(() => {
+        audio.pause();
+      });
     } else {
       audio.pause();
       this.isPlaying.set(false);

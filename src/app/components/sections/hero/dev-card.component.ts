@@ -34,13 +34,19 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
 
     .crew-card {
-      animation: float 4s ease-in-out infinite, borderGlow 4s ease-in-out infinite;
-      transition: transform 0.3s ease;
+      animation: borderGlow 4s ease-in-out infinite;
     }
 
-    .crew-card:hover {
-      animation-play-state: paused;
-      transform: perspective(800px) rotateX(4deg) rotateY(-3deg) scale(1.02);
+    @media (pointer: fine) {
+      .crew-card {
+        animation: float 4s ease-in-out infinite, borderGlow 4s ease-in-out infinite;
+        transition: transform 0.3s ease;
+      }
+
+      .crew-card:hover {
+        animation-play-state: paused;
+        transform: perspective(800px) rotateX(4deg) rotateY(-3deg) scale(1.02);
+      }
     }
 
     .scanlines {
@@ -67,7 +73,15 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .crew-card { animation: none; }
+      .crew-card {
+        animation: none;
+        transition: none;
+        transform: none;
+      }
+      .crew-card:hover {
+        animation-play-state: running;
+        transform: none;
+      }
       .holographic { animation: none; }
       .cant-watermark { animation: none; opacity: 0.12; }
     }
