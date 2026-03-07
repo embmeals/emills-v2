@@ -33,7 +33,7 @@ import { SectionDividerComponent } from '@/components/layout/section-divider/sec
       </div>
     </section>
 
-    <app-section-divider label="Ship Systems" />
+    <app-section-divider label="Systems Check" />
 
     <section id="skills" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
@@ -49,7 +49,7 @@ import { SectionDividerComponent } from '@/components/layout/section-divider/sec
       </div>
     </section>
 
-    <app-section-divider label="Flight Record" />
+    <app-section-divider label="Service Record" />
 
     <section id="experience" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">

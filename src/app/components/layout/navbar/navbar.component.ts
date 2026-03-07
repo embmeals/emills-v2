@@ -33,7 +33,7 @@ interface NavLink {
         >
           EM
           <span class="text-[9px] font-normal tracking-[0.2em] text-foreground/30 uppercase hidden sm:inline" aria-hidden="true">
-            MCRN // Rocinante
+            OPA // Rocinante
           </span>
         </button>
 

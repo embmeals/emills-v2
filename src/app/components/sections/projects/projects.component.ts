@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, computed, signal, inject } from '@angular/core';
 
 import { ZardBadgeComponent } from '@/shared/components/badge/badge.component';
+import { ZardCardComponent } from '@/shared/components/card/card.component';
 import { ZardDialogService, ZardDialogOptions } from '@/shared/components/dialog';
 import { PROJECTS, type Project, type ProjectType } from '@/data/projects.data';
 import { ProjectDialogComponent } from './project-dialog.component';
@@ -21,8 +22,20 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [ZardBadgeComponent],
+  imports: [ZardBadgeComponent, ZardCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `
+    z-card {
+      background: #14141f;
+      border-color: #1e1e2e;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    z-card:hover {
+      border-color: rgba(0, 170, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 170, 255, 0.08);
+    }
+  `,
   template: `
     <section
       class="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
@@ -40,7 +53,7 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
         @for (btn of filterButtons; track btn.value) {
           <button
             type="button"
-            class="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+            class="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer"
             [class]="activeFilter() === btn.value
               ? 'bg-[#00e5ff] text-black'
               : 'bg-[#14141f] text-[#e0e0e0] border border-[#1e1e2e] hover:border-[#00e5ff]/50'"
@@ -54,22 +67,7 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         @for (project of filteredProjects(); track project.title) {
-          <div
-            class="bg-[#14141f] rounded-xl border border-[#1e1e2e] p-6 transition-all duration-300"
-            [class.hover:glow-cyan]="project.type === 'public'"
-            [class.hover:glow-amber]="project.type === 'case-study'"
-          >
-            <h3
-              class="text-lg font-semibold mb-2 text-[#e0e0e0]"
-              style="font-family: 'Montserrat', sans-serif"
-            >
-              {{ project.title }}
-            </h3>
-
-            <p class="text-sm text-[#a0a0b0] mb-4 line-clamp-2">
-              {{ project.description }}
-            </p>
-
+          <z-card [zTitle]="project.title" [zDescription]="project.description">
             <div class="flex flex-wrap gap-2 mb-4">
               @for (tech of project.techStack; track tech) {
                 <z-badge zType="secondary" zShape="pill">{{ tech }}</z-badge>
@@ -102,14 +100,14 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
               @if (project.type === 'case-study') {
                 <button
                   type="button"
-                  class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-[#1e1e2e] text-neon-amber border border-[#1e1e2e] hover:border-[#ffb300]/50 transition-colors duration-200"
+                  class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-[#1e1e2e] text-neon-amber border border-[#1e1e2e] hover:border-[#ffb300]/50 transition-colors duration-200 cursor-pointer"
                   (click)="openCaseStudy(project)"
                 >
                   View Case Study
                 </button>
               }
             </div>
-          </div>
+          </z-card>
         }
       </div>
     </section>

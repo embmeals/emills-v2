@@ -36,7 +36,7 @@ import { SKILL_CATEGORIES, type SkillCategory } from '@/data/skills.data';
       <p class="text-center text-[9px] tracking-[0.35em] uppercase text-[#00aaff]/30 mb-12" aria-hidden="true"
         style="font-family: 'Montserrat', sans-serif"
       >
-        Ship Systems Online
+        All Systems Nominal
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
