@@ -147,7 +147,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
           <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#00aaff] font-semibold">
             Crew Ident
           </span>
-          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-foreground/50" aria-hidden="true">
             STL // Sol Sector
           </span>
         </div>
@@ -179,7 +179,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
               </p>
             </div>
             <div>
-              <span class="text-[9px] uppercase tracking-widest text-muted-foreground">Systems</span>
+              <span class="text-[9px] uppercase tracking-widest text-foreground/50" aria-hidden="true">Systems</span>
               <p class="text-sm text-foreground/85 leading-relaxed mt-0.5">
                 .NET &middot; Angular &middot; Python<br/>
                 SQL &middot; TypeScript &middot; C#
@@ -191,7 +191,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <!-- Bottom strip -->
         <div class="flex items-end justify-between mt-4 pt-3 border-t border-[#00aaff]/10">
           <div class="flex items-center gap-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" aria-hidden="true"></span>
             <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">Active since 2017</span>
           </div>
 
@@ -215,7 +215,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 
         <!-- Legitimate salvage footer -->
         <div class="mt-3 flex justify-center">
-          <span class="registry-text text-[8px] tracking-[0.4em] text-[#00aaff]/20 uppercase">
+          <span class="registry-text text-[8px] tracking-[0.4em] text-[#00aaff]/20 uppercase" aria-hidden="true">
             Legitimate Salvage
           </span>
         </div>

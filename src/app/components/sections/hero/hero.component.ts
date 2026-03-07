@@ -50,6 +50,7 @@ import { DevCardComponent } from './dev-card.component';
   template: `
     <section
       class="relative min-h-screen flex items-center justify-center overflow-hidden"
+      aria-labelledby="hero-heading"
     >
       <!-- Particle background -->
       <app-particle-canvas class="absolute inset-0 z-0" />
@@ -61,6 +62,7 @@ import { DevCardComponent } from './dev-card.component';
         <!-- Left: text content -->
         <div class="flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-in-up">
           <h1
+            id="hero-heading"
             class="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground tracking-tight"
             style="font-family: 'Montserrat', sans-serif"
           >

@@ -1,6 +1,6 @@
 # emills.net
 
-Personal portfolio for **Ember Mills** — Senior Full Stack Engineer.
+Personal portfolio for **Ember Mills** — Senior Full-Stack Engineer.
 
 **Live:** [www.emills.net](https://www.emills.net)
 
@@ -20,7 +20,7 @@ Personal portfolio for **Ember Mills** — Senior Full Stack Engineer.
 - Project showcase with case study dialogs
 - Experience timeline with alternating layout
 - Art gallery with lightbox viewer
-- WCAG 2.1 accessible (ARIA attributes, keyboard navigation)
+- Accessibility-minded — ARIA attributes, keyboard navigation, reduced-motion support
 - Responsive design (mobile-first)
 
 ## Development
