@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, computed, signal, inject } from '@angular/core';
 
 import { ZardBadgeComponent } from '@/shared/components/badge/badge.component';
+import { ZardButtonComponent } from '@/shared/components/button/button.component';
 import { ZardCardComponent } from '@/shared/components/card/card.component';
 import { ZardDialogService, ZardDialogOptions } from '@/shared/components/dialog';
 import { PROJECTS, type Project, type ProjectType } from '@/data/projects.data';
@@ -22,7 +23,7 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [ZardBadgeComponent, ZardCardComponent],
+  imports: [ZardBadgeComponent, ZardButtonComponent, ZardCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     z-card {
@@ -34,6 +35,17 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
     z-card:hover {
       border-color: rgba(0, 170, 255, 0.3);
       box-shadow: 0 0 20px rgba(0, 170, 255, 0.08);
+    }
+
+    .btn-cyber {
+      background: #1e1e2e !important;
+      border: 1px solid #1e1e2e !important;
+      transition: border-color 0.2s, box-shadow 0.2s !important;
+    }
+
+    .btn-cyber:hover {
+      box-shadow: 0 0 12px var(--btn-glow) !important;
+      border-color: var(--btn-glow) !important;
     }
   `,
   template: `
@@ -52,11 +64,12 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
       <div class="flex justify-center gap-3 mb-10">
         @for (btn of filterButtons; track btn.value) {
           <button
-            type="button"
-            class="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 cursor-pointer"
+            z-button
+            [zType]="activeFilter() === btn.value ? 'default' : 'ghost'"
+            zSize="sm"
             [class]="activeFilter() === btn.value
-              ? 'bg-[#00e5ff] text-black'
-              : 'bg-[#14141f] text-[#e0e0e0] border border-[#1e1e2e] hover:border-[#00e5ff]/50'"
+              ? 'bg-[#00e5ff]! text-black! cursor-pointer'
+              : 'text-[#e0e0e0]! border-[#1e1e2e]! hover:bg-[#1e1e2e]! cursor-pointer'"
             [attr.aria-pressed]="activeFilter() === btn.value"
             (click)="setFilter(btn.value)"
           >
@@ -77,10 +90,12 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
             <div class="flex gap-3">
               @if ($any(project).githubUrl) {
                 <a
+                  z-button zType="ghost" zSize="sm"
                   [href]="$any(project).githubUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-[#1e1e2e] text-neon-cyan border border-[#1e1e2e] hover:border-[#00e5ff]/50 transition-colors duration-200"
+                  class="btn-cyber text-[#00e5ff]!"
+                  style="--btn-glow: rgba(0, 229, 255, 0.5)"
                 >
                   View on GitHub
                 </a>
@@ -88,10 +103,12 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
 
               @if (project.type === 'public' && project.liveUrl) {
                 <a
+                  z-button zType="ghost" zSize="sm"
                   [href]="project.liveUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-[#1e1e2e] text-neon-magenta border border-[#1e1e2e] hover:border-[#ff2d7b]/50 transition-colors duration-200"
+                  class="btn-cyber text-[#ff2d7b]!"
+                  style="--btn-glow: rgba(255, 45, 123, 0.5)"
                 >
                   Live Demo
                 </a>
@@ -99,8 +116,9 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
 
               @if (project.type === 'case-study') {
                 <button
-                  type="button"
-                  class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium bg-[#1e1e2e] text-neon-amber border border-[#1e1e2e] hover:border-[#ffb300]/50 transition-colors duration-200 cursor-pointer"
+                  z-button zType="ghost" zSize="sm"
+                  class="btn-cyber text-[#ffb300]! cursor-pointer"
+                  style="--btn-glow: rgba(255, 179, 0, 0.5)"
                   (click)="openCaseStudy(project)"
                 >
                   View Case Study
