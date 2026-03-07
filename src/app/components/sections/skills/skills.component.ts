@@ -42,11 +42,11 @@ import { SKILL_CATEGORIES, type SkillCategory } from '@/data/skills.data';
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @for (category of categories; track category.name) {
           <z-card [zTitle]="category.name">
-            <div class="flex flex-wrap gap-2">
+            <ul class="flex flex-wrap gap-2 list-none m-0 p-0" [attr.aria-label]="'Skills for ' + category.name">
               @for (skill of category.skills; track skill.name) {
-                <z-badge zType="secondary" zShape="pill">{{ skill.name }}</z-badge>
+                <li><z-badge zType="secondary" zShape="pill">{{ skill.name }}</z-badge></li>
               }
-            </div>
+            </ul>
           </z-card>
         }
       </div>
