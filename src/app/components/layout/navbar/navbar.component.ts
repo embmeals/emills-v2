@@ -26,12 +26,15 @@ interface NavLink {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <!-- Site name -->
         <button
-          class="font-heading text-xl font-bold text-neon-cyan tracking-wide cursor-pointer bg-transparent border-none"
+          class="flex items-center gap-2 font-heading text-xl font-bold text-neon-cyan tracking-wide cursor-pointer bg-transparent border-none"
           style="font-family: 'Montserrat', sans-serif"
           (click)="scrollTo('home')"
           aria-label="Scroll to top"
         >
           EM
+          <span class="text-[9px] font-normal tracking-[0.2em] text-foreground/30 uppercase hidden sm:inline" aria-hidden="true">
+            MCRN // Rocinante
+          </span>
         </button>
 
         <!-- Desktop nav links -->
