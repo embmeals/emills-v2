@@ -39,36 +39,28 @@ describe('HeroComponent', () => {
     );
   });
 
-  it('should have GitHub link with correct href', () => {
-    const link = compiled.querySelector('a[aria-label="GitHub"]');
-    expect(link).toBeTruthy();
-    expect(link?.getAttribute('href')).toBe('https://github.com/embmeals');
-  });
-
-  it('should have LinkedIn link with correct href', () => {
-    const link = compiled.querySelector('a[aria-label="LinkedIn"]');
-    expect(link).toBeTruthy();
-    expect(link?.getAttribute('href')).toBe(
-      'https://www.linkedin.com/in/ember-d-mills'
-    );
-  });
-
-  it('should have CodePen link with correct href', () => {
-    const link = compiled.querySelector('a[aria-label="CodePen"]');
-    expect(link).toBeTruthy();
-    expect(link?.getAttribute('href')).toBe('https://codepen.io/ambmeals');
-  });
-
   it('should contain a canvas element', () => {
     const canvas = compiled.querySelector('canvas');
     expect(canvas).toBeTruthy();
   });
 
-  it('should have social links that open in new tab', () => {
-    const links = compiled.querySelectorAll('a[target="_blank"]');
-    expect(links.length).toBe(3);
-    links.forEach((link) => {
-      expect(link.getAttribute('rel')).toBe('noopener noreferrer');
-    });
+  it('should have aria-hidden on the canvas', () => {
+    const canvas = compiled.querySelector('canvas');
+    expect(canvas?.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('should have aria-labelledby on the hero section', () => {
+    const section = compiled.querySelector('section');
+    expect(section?.getAttribute('aria-labelledby')).toBe('hero-heading');
+  });
+
+  it('should have an id on the h1 matching aria-labelledby', () => {
+    const h1 = compiled.querySelector('h1');
+    expect(h1?.id).toBe('hero-heading');
+  });
+
+  it('should render the dev card', () => {
+    const card = compiled.querySelector('app-dev-card');
+    expect(card).toBeTruthy();
   });
 });
