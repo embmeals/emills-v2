@@ -1,24 +1,26 @@
 # emills.net
 
-Personal portfolio for Ember Mills — Senior Full Stack Engineer.
+Personal portfolio for **Ember Mills** — Senior Full Stack Engineer.
 
 **Live:** [www.emills.net](https://www.emills.net)
 
 ## Tech Stack
 
-- **Framework:** Angular 19 (standalone components, signals, OnPush)
-- **UI Library:** Zard UI (@ngzard/ui)
-- **Styling:** TailwindCSS v4 with custom dark neon theme
-- **Hosting:** GitHub Pages with GitHub Actions CI/CD
+| Layer | Technology |
+|-------|-----------|
+| Framework | Angular 19 (standalone components, signals, OnPush) |
+| UI Library | Zard UI (@ngzard/ui) |
+| Styling | TailwindCSS v4 with custom dark neon theme |
+| Hosting | GitHub Pages via GitHub Actions CI/CD |
 
 ## Features
 
-- Dark cyberpunk aesthetic with neon cyan/magenta/amber accents
-- Interactive particle canvas background
+- **Protomolecule particle background** — organic tendrils with bezier-curved connections, pulsing node particles, and chaotic drift (inspired by The Expanse)
+- **Crew manifest dev card** — Rocinante-themed holographic ID with scanlines, shimmer, and floating animation
 - Project showcase with case study dialogs
-- Experience timeline
+- Experience timeline with alternating layout
 - Art gallery with lightbox viewer
-- WCAG 2.1 accessible (ARIA attributes, keyboard navigation, reduced motion support)
+- WCAG 2.1 accessible (ARIA attributes, keyboard navigation)
 - Responsive design (mobile-first)
 
 ## Development
