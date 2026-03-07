@@ -21,7 +21,7 @@ describe('ProjectsComponent', () => {
   });
 
   it('should render all projects by default', () => {
-    const cards = element.querySelectorAll('h3');
+    const cards = element.querySelectorAll('[data-slot="card-title"]');
     expect(cards.length).toBe(PROJECTS.length);
 
     const titles = Array.from(cards).map((h) => h.textContent?.trim());
@@ -43,7 +43,7 @@ describe('ProjectsComponent', () => {
     fixture.detectChanges();
 
     const publicProjects = PROJECTS.filter((p) => p.type === 'public');
-    const cards = element.querySelectorAll('h3');
+    const cards = element.querySelectorAll('[data-slot="card-title"]');
     expect(cards.length).toBe(publicProjects.length);
   });
 
@@ -60,7 +60,7 @@ describe('ProjectsComponent', () => {
     fixture.detectChanges();
 
     const caseStudyProjects = PROJECTS.filter((p) => p.type === 'case-study');
-    const cards = element.querySelectorAll('h3');
+    const cards = element.querySelectorAll('[data-slot="card-title"]');
     expect(cards.length).toBe(caseStudyProjects.length);
   });
 
@@ -79,7 +79,7 @@ describe('ProjectsComponent', () => {
     allButton!.click();
     fixture.detectChanges();
 
-    const cards = element.querySelectorAll('h3');
+    const cards = element.querySelectorAll('[data-slot="card-title"]');
     expect(cards.length).toBe(PROJECTS.length);
   });
 

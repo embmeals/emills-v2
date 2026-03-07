@@ -1,11 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ParticleCanvasComponent } from './particle-canvas.component';
 import { DevCardComponent } from './dev-card.component';
+import { ZardTooltipImports } from '@/shared/components/tooltip';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [ParticleCanvasComponent, DevCardComponent],
+  imports: [ParticleCanvasComponent, DevCardComponent, ...ZardTooltipImports],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     @keyframes fadeInUp {
@@ -88,6 +89,8 @@ import { DevCardComponent } from './dev-card.component';
                   <a
                     [href]="link.url"
                     [attr.aria-label]="link.label"
+                    [zTooltip]="link.label"
+                    zPosition="bottom"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-muted-foreground hover:text-neon-cyan transition-colors duration-200"
