@@ -162,7 +162,7 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   private getParticleCount(): number {
-    return window.innerWidth < 768 ? 50 : 120;
+    return window.innerWidth < 768 ? 100 : 450;
   }
 
   private createParticles(): ProtoParticle[] {
@@ -176,8 +176,8 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
     return {
       x: Math.random() * this.canvasWidth,
       y: Math.random() * this.canvasHeight,
-      vx: (Math.random() - 0.5) * (isNode ? 0.6 : 1.0),
-      vy: (Math.random() - 0.5) * (isNode ? 0.6 : 1.0),
+      vx: (Math.random() - 0.5) * (isNode ? 0.9 : 1.4),
+      vy: (Math.random() - 0.5) * (isNode ? 0.9 : 1.4),
       radius: baseRadius,
       baseRadius,
       opacity,
@@ -199,7 +199,7 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
 
       // Update particle positions with organic drift
       for (const p of this.particles) {
-        const drift = p.isNode ? 0.6 : 0.9;
+        const drift = p.isNode ? 0.8 : 1.2;
         p.x += p.vx + Math.sin(this.time * 2.0 + p.phase) * drift
                      + Math.sin(this.time * 5.3 + p.phase * 2.7) * drift * 0.3;
         p.y += p.vy + Math.cos(this.time * 1.7 + p.phase * 1.3) * drift
