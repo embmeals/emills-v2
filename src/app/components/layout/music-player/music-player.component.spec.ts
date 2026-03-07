@@ -58,7 +58,9 @@ describe('MusicPlayerComponent', () => {
   it('should format time correctly', () => {
     expect(component.formatTime(0)).toBe('0:00');
     expect(component.formatTime(65)).toBe('1:05');
+    expect(component.formatTime(125)).toBe('2:05');
     expect(component.formatTime(NaN)).toBe('0:00');
+    expect(component.formatTime(3661)).toBe('61:01');
   });
 
   it('should start with isPlaying false', () => {
@@ -67,5 +69,31 @@ describe('MusicPlayerComponent', () => {
 
   it('should start with progressPercent at 0', () => {
     expect(component.progressPercent()).toBe(0);
+  });
+
+  it('should calculate progressPercent from currentTime and duration', () => {
+    component.currentTime.set(50);
+    component.duration.set(200);
+    expect(component.progressPercent()).toBe(25);
+  });
+
+  it('should reset state on ended', () => {
+    component.isPlaying.set(true);
+    component.currentTime.set(100);
+    component.onEnded();
+    expect(component.isPlaying()).toBe(false);
+    expect(component.currentTime()).toBe(0);
+  });
+
+  it('should update button aria-label when playing', () => {
+    component.isPlaying.set(true);
+    fixture.detectChanges();
+    const button = compiled.querySelector('button');
+    expect(button?.getAttribute('aria-label')).toBe('Pause');
+  });
+
+  it('should have keyboard-accessible progress bar', () => {
+    const slider = compiled.querySelector('[role="slider"]');
+    expect(slider?.getAttribute('tabindex')).toBe('0');
   });
 });

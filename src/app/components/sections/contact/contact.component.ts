@@ -13,9 +13,9 @@ interface ContactLink {
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="px-4">
+    <section class="px-4" aria-labelledby="contact-heading">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="font-heading text-3xl font-bold text-foreground mb-4">
+        <h2 id="contact-heading" class="font-heading text-3xl font-bold text-foreground mb-4">
           Let's Connect
         </h2>
         <p class="text-muted-foreground text-lg">
