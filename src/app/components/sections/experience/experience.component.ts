@@ -1,10 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+import { ZardCardComponent } from '@/shared/components/card/card.component';
 import { EXPERIENCES, type Experience } from '@/data/experience.data';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
+  imports: [ZardCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     .timeline {
@@ -44,6 +46,17 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
       padding-right: 0;
     }
 
+    @keyframes protoPulse {
+      0%, 100% {
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.6), 0 0 16px rgba(0, 229, 255, 0.3);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 12px rgba(0, 229, 255, 0.8), 0 0 24px rgba(0, 229, 255, 0.4);
+        transform: scale(1.15);
+      }
+    }
+
     /* Node dot */
     .timeline-node {
       position: absolute;
@@ -54,6 +67,11 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
       background: #00e5ff;
       box-shadow: 0 0 8px rgba(0, 229, 255, 0.6), 0 0 16px rgba(0, 229, 255, 0.3);
       z-index: 1;
+      animation: protoPulse 3s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .timeline-node { animation: none; }
     }
 
     .timeline-entry:nth-child(odd) .timeline-node {
@@ -122,25 +140,17 @@ import { EXPERIENCES, type Experience } from '@/data/experience.data';
         @for (exp of experiences; track exp.company) {
           <div class="timeline-entry">
             <div class="timeline-node"></div>
-            <div
-              class="timeline-card bg-[#14141f] rounded-xl border border-[#1e1e2e] p-6 transition-all duration-300 hover:border-neon-cyan/30"
+            <z-card
+              [zTitle]="exp.role"
+              [zDescription]="exp.company + ' · ' + exp.startDate + ' – ' + exp.endDate"
+              class="timeline-card !bg-[#14141f] !border-[#1e1e2e] hover:!border-neon-cyan/30 transition-all duration-300"
             >
-              <h3
-                class="text-lg font-bold text-foreground"
-                style="font-family: 'Montserrat', sans-serif"
-              >
-                {{ exp.role }}
-              </h3>
-              <p class="text-neon-cyan text-sm">{{ exp.company }}</p>
-              <p class="text-muted-foreground text-sm mb-3">
-                {{ exp.startDate }} &ndash; {{ exp.endDate }}
-              </p>
               <ul class="accomplishments space-y-2 list-disc pl-4 text-foreground text-sm">
                 @for (item of exp.accomplishments; track item) {
                   <li>{{ item }}</li>
                 }
               </ul>
-            </div>
+            </z-card>
           </div>
         }
       </div>

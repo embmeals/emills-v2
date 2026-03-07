@@ -25,7 +25,7 @@ describe('SkillsComponent', () => {
   });
 
   it('should render all category cards', () => {
-    const cards = element.querySelectorAll('h3');
+    const cards = element.querySelectorAll('z-card');
     expect(cards.length).toBe(SKILL_CATEGORIES.length);
   });
 
@@ -37,18 +37,16 @@ describe('SkillsComponent', () => {
   });
 
   it('should render each category with expected skill names', () => {
-    const categoryHeaders = element.querySelectorAll('h3');
-    const categoryNames = Array.from(categoryHeaders).map(
-      (h) => h.textContent?.trim(),
-    );
+    const titles = element.querySelectorAll('[data-slot="card-title"]');
+    const titleTexts = Array.from(titles).map((t) => t.textContent?.trim());
 
     for (const category of SKILL_CATEGORIES) {
-      expect(categoryNames).toContain(category.name);
+      expect(titleTexts).toContain(category.name);
     }
   });
 
   it('should render all skill badges', () => {
-    const badges = element.querySelectorAll('span[class*="rounded-full"]');
+    const badges = element.querySelectorAll('z-badge');
     const totalSkills = SKILL_CATEGORIES.reduce(
       (sum, cat) => sum + cat.skills.length,
       0,
@@ -58,7 +56,7 @@ describe('SkillsComponent', () => {
 
   it('should contain expected skill names in each category', () => {
     const allBadgeTexts = Array.from(
-      element.querySelectorAll('span[class*="rounded-full"]'),
+      element.querySelectorAll('z-badge'),
     ).map((el) => el.textContent?.trim());
 
     for (const category of SKILL_CATEGORIES) {

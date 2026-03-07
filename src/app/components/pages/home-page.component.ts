@@ -5,6 +5,7 @@ import { SkillsComponent } from '@/components/sections/skills/skills.component';
 import { ProjectsComponent } from '@/components/sections/projects/projects.component';
 import { ExperienceComponent } from '@/components/sections/experience/experience.component';
 import { ContactComponent } from '@/components/sections/contact/contact.component';
+import { SectionDividerComponent } from '@/components/layout/section-divider/section-divider.component';
 
 @Component({
   selector: 'app-home-page',
@@ -16,6 +17,7 @@ import { ContactComponent } from '@/components/sections/contact/contact.componen
     ProjectsComponent,
     ExperienceComponent,
     ContactComponent,
+    SectionDividerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -23,11 +25,15 @@ import { ContactComponent } from '@/components/sections/contact/contact.componen
       <app-hero />
     </section>
 
+    <app-section-divider label="Crew Dossier" />
+
     <section id="about" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-about />
       </div>
     </section>
+
+    <app-section-divider label="Ship Systems" />
 
     <section id="skills" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
@@ -35,17 +41,23 @@ import { ContactComponent } from '@/components/sections/contact/contact.componen
       </div>
     </section>
 
+    <app-section-divider label="Mission Log" />
+
     <section id="projects" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-projects />
       </div>
     </section>
 
+    <app-section-divider label="Flight Record" />
+
     <section id="experience" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-experience />
       </div>
     </section>
+
+    <app-section-divider label="Open Channel" />
 
     <section id="contact" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">

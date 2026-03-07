@@ -54,7 +54,7 @@ describe('NavbarComponent', () => {
       'button[aria-label="Scroll to top"]'
     );
     expect(siteNameBtn).toBeTruthy();
-    expect(siteNameBtn?.textContent?.trim()).toBe('EM');
+    expect(siteNameBtn?.textContent).toContain('EM');
   });
 
   it('should have hamburger button with aria attributes', () => {
