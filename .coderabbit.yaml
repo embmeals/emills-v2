@@ -1,6 +1,6 @@
 language: en-US
 reviews:
-  profile: assertive
+  profile: chill
   path_instructions:
     - path: "src/app/components/**"
       instructions: |

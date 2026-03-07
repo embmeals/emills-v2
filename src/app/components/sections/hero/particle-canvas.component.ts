@@ -10,13 +10,17 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-interface Particle {
+interface ProtoParticle {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  readonly radius: number;
-  readonly opacity: number;
+  radius: number;
+  baseRadius: number;
+  opacity: number;
+  currentOpacity: number;
+  phase: number;
+  isNode: boolean;
 }
 
 @Component({
@@ -35,19 +39,15 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
 
-  private particles: Particle[] = [];
+  private particles: ProtoParticle[] = [];
   private animationFrameId: number | null = null;
   private resizeHandler: (() => void) | null = null;
   private canvasWidth = 0;
   private canvasHeight = 0;
+  private time = 0;
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) {
-        this.initStaticCanvas();
-        return;
-      }
       this.initCanvas();
       this.resizeHandler = () => this.handleResize();
       window.addEventListener('resize', this.resizeHandler);
@@ -71,10 +71,21 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
     this.particles = this.createParticles();
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    // Draw static protomolecule snapshot
     for (const p of this.particles) {
+      if (p.isNode) {
+        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.baseRadius * 5);
+        glow.addColorStop(0, `rgba(0, 160, 255, ${p.opacity * 0.25})`);
+        glow.addColorStop(1, 'rgba(0, 80, 255, 0)');
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.baseRadius * 5, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+      }
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
+      ctx.arc(p.x, p.y, p.baseRadius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0, 180, 255, ${p.opacity})`;
       ctx.fill();
     }
   }
@@ -101,76 +112,130 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   private getParticleCount(): number {
-    return window.innerWidth < 768 ? 30 : 60;
+    return window.innerWidth < 768 ? 50 : 120;
   }
 
-  private createParticles(): Particle[] {
+  private createParticles(): ProtoParticle[] {
     const count = this.getParticleCount();
-    return Array.from({ length: count }, () => this.createParticle());
+    return Array.from({ length: count }, (_, i) => this.createParticle(i < count * 0.15));
   }
 
-  private createParticle(): Particle {
+  private createParticle(isNode: boolean): ProtoParticle {
+    const baseRadius = isNode ? 2.5 + Math.random() * 2 : 0.8 + Math.random() * 1.5;
+    const opacity = isNode ? 0.5 + Math.random() * 0.3 : 0.2 + Math.random() * 0.3;
     return {
       x: Math.random() * this.canvasWidth,
       y: Math.random() * this.canvasHeight,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      radius: 1 + Math.random() * 2,
-      opacity: 0.3 + Math.random() * 0.3,
+      vx: (Math.random() - 0.5) * (isNode ? 0.6 : 1.0),
+      vy: (Math.random() - 0.5) * (isNode ? 0.6 : 1.0),
+      radius: baseRadius,
+      baseRadius,
+      opacity,
+      currentOpacity: opacity,
+      phase: Math.random() * Math.PI * 2,
+      isNode,
     };
-  }
-
-  private updateParticle(p: Particle): void {
-    if (p.x + p.vx < 0 || p.x + p.vx > this.canvasWidth) {
-      p.vx = -p.vx;
-    }
-    if (p.y + p.vy < 0 || p.y + p.vy > this.canvasHeight) {
-      p.vy = -p.vy;
-    }
-    p.x += p.vx;
-    p.y += p.vy;
   }
 
   private animate(canvas: HTMLCanvasElement): void {
     const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      return;
-    }
+    if (!ctx) return;
+
+    const connectionDist = 160;
 
     const draw = (): void => {
+      this.time += 0.02;
       ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
+      // Update particle positions with organic drift
       for (const p of this.particles) {
-        this.updateParticle(p);
+        const drift = p.isNode ? 0.6 : 0.9;
+        p.x += p.vx + Math.sin(this.time * 2.0 + p.phase) * drift
+                     + Math.sin(this.time * 5.3 + p.phase * 2.7) * drift * 0.3;
+        p.y += p.vy + Math.cos(this.time * 1.7 + p.phase * 1.3) * drift
+                     + Math.cos(this.time * 4.1 + p.phase * 3.1) * drift * 0.3;
+
+        // Soft wrap
+        if (p.x < -30) p.x = this.canvasWidth + 30;
+        else if (p.x > this.canvasWidth + 30) p.x = -30;
+        if (p.y < -30) p.y = this.canvasHeight + 30;
+        else if (p.y > this.canvasHeight + 30) p.y = -30;
+
+        // Pulse
+        const pulse = Math.sin(this.time * 3.5 + p.phase) * 0.4 + 1;
+        p.radius = p.baseRadius * pulse;
+        p.currentOpacity = p.opacity * (0.5 + Math.sin(this.time * 2.5 + p.phase) * 0.5);
       }
 
-      // Draw connecting lines
+      // Draw tendril connections
       for (let i = 0; i < this.particles.length; i++) {
+        const a = this.particles[i];
         for (let j = i + 1; j < this.particles.length; j++) {
-          const a = this.particles[i];
           const b = this.particles[j];
           const dx = a.x - b.x;
           const dy = a.y - b.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 120) {
-            const lineOpacity = 0.05 + 0.1 * (1 - distance / 120);
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(0, 229, 255, ${lineOpacity})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
+          // Quick distance check before sqrt
+          if (Math.abs(dx) > connectionDist || Math.abs(dy) > connectionDist) continue;
+
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist >= connectionDist) continue;
+
+          const strength = 1 - dist / connectionDist;
+          const avgPhase = (a.phase + b.phase) / 2;
+          const pulseStrength = (Math.sin(this.time * 2.5 + avgPhase) * 0.3 + 0.7) * strength;
+
+          // Bezier control point offset perpendicular to the line
+          const mx = (a.x + b.x) / 2;
+          const my = (a.y + b.y) / 2;
+          const curvature = 0.08 * Math.sin(this.time * 0.8 + avgPhase);
+          const cpx = mx + (-dy) * curvature;
+          const cpy = my + dx * curvature;
+
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.quadraticCurveTo(cpx, cpy, b.x, b.y);
+
+          // Both nodes = brighter, one node = medium, no nodes = dimmer
+          const nodeBoost = (a.isNode ? 1 : 0) + (b.isNode ? 1 : 0);
+          const baseAlpha = 0.04 + nodeBoost * 0.04;
+
+          ctx.strokeStyle = `rgba(0, 170, 255, ${pulseStrength * baseAlpha + pulseStrength * 0.06})`;
+          ctx.lineWidth = strength * (1 + nodeBoost * 0.5);
+          ctx.stroke();
         }
       }
 
       // Draw particles
       for (const p of this.particles) {
+        // Node glow halo
+        if (p.isNode) {
+          const glowSize = p.radius * 6;
+          const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowSize);
+          glow.addColorStop(0, `rgba(0, 160, 255, ${p.currentOpacity * 0.2})`);
+          glow.addColorStop(0.4, `rgba(0, 120, 255, ${p.currentOpacity * 0.08})`);
+          glow.addColorStop(1, 'rgba(0, 80, 255, 0)');
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+          ctx.fillStyle = glow;
+          ctx.fill();
+        }
+
+        // Core dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
+        ctx.fillStyle = p.isNode
+          ? `rgba(0, 210, 255, ${p.currentOpacity})`
+          : `rgba(0, 170, 255, ${p.currentOpacity * 0.8})`;
         ctx.fill();
+
+        // Tiny bright center on nodes
+        if (p.isNode) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius * 0.4, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(180, 230, 255, ${p.currentOpacity * 0.6})`;
+          ctx.fill();
+        }
       }
 
       this.animationFrameId = requestAnimationFrame(draw);
