@@ -25,8 +25,10 @@ describe('ExperienceComponent', () => {
   });
 
   it('should render all experience entries', () => {
-    const entries = element.querySelectorAll('.timeline-entry');
-    expect(entries.length).toBe(EXPERIENCES.length);
+    const desktopEntries = element.querySelectorAll('.hidden.md\\:grid .timeline-entry');
+    const mobileEntries = element.querySelectorAll('.md\\:hidden .timeline-entry');
+    expect(desktopEntries.length).toBe(EXPERIENCES.length);
+    expect(mobileEntries.length).toBe(EXPERIENCES.length);
   });
 
   it('should display role for each entry', () => {
@@ -60,12 +62,12 @@ describe('ExperienceComponent', () => {
   });
 
   it('should render all accomplishments as list items', () => {
-    const listItems = element.querySelectorAll('li');
+    const desktopItems = element.querySelectorAll('.hidden.md\\:grid li');
     const totalAccomplishments = EXPERIENCES.reduce(
       (sum, exp) => sum + exp.accomplishments.length,
       0,
     );
-    expect(listItems.length).toBe(totalAccomplishments);
+    expect(desktopItems.length).toBe(totalAccomplishments);
   });
 
   it('should contain expected accomplishment text', () => {
@@ -88,7 +90,9 @@ describe('ExperienceComponent', () => {
   });
 
   it('should render timeline nodes for each entry', () => {
-    const nodes = element.querySelectorAll('.timeline-node');
-    expect(nodes.length).toBe(EXPERIENCES.length);
+    const desktopNodes = element.querySelectorAll('.hidden.md\\:grid .timeline-node');
+    const mobileNodes = element.querySelectorAll('.md\\:hidden .timeline-node');
+    expect(desktopNodes.length).toBe(EXPERIENCES.length);
+    expect(mobileNodes.length).toBe(EXPERIENCES.length);
   });
 });
