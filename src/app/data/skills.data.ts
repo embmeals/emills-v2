@@ -4,7 +4,7 @@ export interface Skill {
 
 export interface SkillCategory {
   readonly name: string;
-  readonly color: 'cyan' | 'magenta' | 'amber';
+  readonly color: 'cyan' | 'magenta' | 'amber' | 'green' | 'violet';
   readonly skills: readonly Skill[];
 }
 
@@ -36,7 +36,7 @@ export const SKILL_CATEGORIES: readonly SkillCategory[] = [
   },
   {
     name: 'DevOps & Infrastructure',
-    color: 'cyan',
+    color: 'green',
     skills: [
       { name: 'Docker' }, { name: 'Linux' }, { name: 'Azure DevOps' },
       { name: 'GitHub Actions' }, { name: 'Cloudflare' }, { name: 'Nginx' },
@@ -44,10 +44,10 @@ export const SKILL_CATEGORIES: readonly SkillCategory[] = [
   },
   {
     name: 'Tools',
-    color: 'magenta',
+    color: 'violet',
     skills: [
-      { name: 'VS Code' }, { name: 'Visual Studio' }, { name: 'Git' },
-      { name: 'Jira' }, { name: 'Confluence' }, { name: 'Salesforce' },
+      { name: 'Rider' }, { name: 'WebStorm' }, { name: 'PyCharm' },
+      { name: 'Git' }, { name: 'Jira' }, { name: 'Confluence' }, { name: 'Salesforce' },
     ],
   },
 ];

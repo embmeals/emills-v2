@@ -11,14 +11,16 @@ const COLOR_MAP: Record<string, { hex: string; glow: string }> = {
   cyan: { hex: '#00e5ff', glow: 'rgba(0,229,255,0.3)' },
   magenta: { hex: '#ff2d7b', glow: 'rgba(255,45,123,0.3)' },
   amber: { hex: '#ffb300', glow: 'rgba(255,179,0,0.3)' },
+  green: { hex: '#00e676', glow: 'rgba(0,230,118,0.3)' },
+  violet: { hex: '#b388ff', glow: 'rgba(179,136,255,0.3)' },
 };
 
 const ORBIT_CONFIG = [
   { catIndex: 0, radius: 100, offset: 0.5 },
-  { catIndex: 2, radius: 175, offset: 0.3 },
-  { catIndex: 1, radius: 260, offset: Math.PI / 8 },
+  { catIndex: 2, radius: 175, offset: 0.9 },
+  { catIndex: 1, radius: 260, offset: Math.PI / 3 },
   { catIndex: 3, radius: 345, offset: 0.8 },
-  { catIndex: 4, radius: 420, offset: 0.2 },
+  { catIndex: 4, radius: 420, offset: 0.7 },
 ];
 
 interface OrbitalNode {
@@ -159,15 +161,25 @@ interface Guideline {
               />
             }
 
-            <!-- Orbit rings -->
+            <!-- Orbit rings with labels -->
             @for (orbit of orbits; track orbit.label) {
               <circle
                 class="orbit-ring"
                 [attr.cx]="cx" [attr.cy]="cy" [attr.r]="orbit.radius"
-                fill="none" [attr.stroke]="orbit.colorHex" stroke-opacity="0.15"
+                fill="none" [attr.stroke]="orbit.colorHex" stroke-opacity="0.25"
                 stroke-width="1"
                 [style.animation-duration]="orbit.animDuration"
               />
+              <!-- Ring label -->
+              <text
+                [attr.x]="cx" [attr.y]="cy - orbit.radius + 14"
+                text-anchor="middle"
+                [attr.fill]="orbit.colorHex" fill-opacity="0.35"
+                font-size="9"
+                style="font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.15em"
+              >
+                {{ orbit.label }}
+              </text>
             }
 
             <!-- Center core -->
@@ -195,7 +207,7 @@ interface Guideline {
                   [attr.x]="node.labelX" [attr.y]="node.labelY"
                   [attr.text-anchor]="node.textAnchor"
                   dominant-baseline="central"
-                  fill="#c0c0d0" font-size="12"
+                  fill="#ffffff" font-size="13" font-weight="500"
                   style="font-family: 'Montserrat', sans-serif"
                 >
                   {{ node.name }}
@@ -259,15 +271,7 @@ export class SkillsComponent {
       const angle = (2 * Math.PI * i) / count + config.offset;
       const x = CX + config.radius * Math.cos(angle);
       const y = CY + config.radius * Math.sin(angle);
-      const labelDist = config.radius + 18;
-      const lx = CX + labelDist * Math.cos(angle);
-      const ly = CY + labelDist * Math.sin(angle);
-      const textAnchor =
-        lx > CX + 10 ? ('start' as const) :
-        lx < CX - 10 ? ('end' as const) :
-        ('middle' as const);
-
-      return { name: skill.name, x, y, labelX: lx, labelY: ly, textAnchor };
+      return { name: skill.name, x, y, labelX: x, labelY: y - 14, textAnchor: 'middle' as const };
     });
 
     return {
