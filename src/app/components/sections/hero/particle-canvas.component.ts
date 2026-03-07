@@ -72,25 +72,71 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
   private initStaticCanvas(): void {
     const canvas = this.canvasRef().nativeElement;
     this.updateCanvasDimensions(canvas);
-    this.particles = this.createParticles();
+
+    const staticCount = window.innerWidth < 768 ? 120 : 300;
+    const particles: ProtoParticle[] = Array.from(
+      { length: staticCount },
+      (_, i) => this.createParticle(i < staticCount * 0.12)
+    );
+
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Draw static protomolecule snapshot
-    for (const p of this.particles) {
+    const connectionDist = 130;
+
+    // Draw tendril connections
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        if (Math.abs(dx) > connectionDist || Math.abs(dy) > connectionDist) continue;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist >= connectionDist) continue;
+
+        const strength = 1 - dist / connectionDist;
+        const mx = (a.x + b.x) / 2;
+        const my = (a.y + b.y) / 2;
+        const cpx = mx + (-dy) * 0.06;
+        const cpy = my + dx * 0.06;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.quadraticCurveTo(cpx, cpy, b.x, b.y);
+        ctx.strokeStyle = `rgba(0, 150, 255, ${strength * 0.12})`;
+        ctx.lineWidth = strength * 1.2;
+        ctx.stroke();
+      }
+    }
+
+    // Draw particles with glow
+    for (const p of particles) {
       if (p.isNode) {
-        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.baseRadius * 5);
-        glow.addColorStop(0, `rgba(0, 160, 255, ${p.opacity * 0.25})`);
+        const glowSize = p.baseRadius * 6;
+        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowSize);
+        glow.addColorStop(0, `rgba(0, 160, 255, ${p.opacity * 0.3})`);
+        glow.addColorStop(0.4, `rgba(0, 120, 255, ${p.opacity * 0.1})`);
         glow.addColorStop(1, 'rgba(0, 80, 255, 0)');
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.baseRadius * 5, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
         ctx.fillStyle = glow;
         ctx.fill();
       }
+
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.baseRadius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0, 180, 255, ${p.opacity})`;
+      ctx.fillStyle = p.isNode
+        ? `rgba(0, 210, 255, ${p.opacity})`
+        : `rgba(0, 170, 255, ${p.opacity * 0.8})`;
       ctx.fill();
+
+      if (p.isNode) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.baseRadius * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(180, 230, 255, ${p.opacity * 0.5})`;
+        ctx.fill();
+      }
     }
   }
 
