@@ -17,6 +17,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(document:keydown.escape)': 'onEscapeKey()',
+    '(document:keydown.ArrowLeft)': 'onPrev()',
+    '(document:keydown.ArrowRight)': 'onNext()',
   },
   template: `
     @if (isOpen()) {
@@ -37,6 +39,34 @@ import {
           &#10005;
         </button>
 
+        <!-- Previous button -->
+        @if (hasPrev()) {
+          <button
+            type="button"
+            class="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white/70 hover:text-neon-magenta transition-colors duration-200 cursor-pointer bg-black/40 hover:bg-black/60 rounded-full w-12 h-12 flex items-center justify-center"
+            aria-label="Previous image"
+            (click)="onPrevClick($event)"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+        }
+
+        <!-- Next button -->
+        @if (hasNext()) {
+          <button
+            type="button"
+            class="absolute right-16 top-1/2 -translate-y-1/2 z-50 text-white/70 hover:text-neon-magenta transition-colors duration-200 cursor-pointer bg-black/40 hover:bg-black/60 rounded-full w-12 h-12 flex items-center justify-center"
+            aria-label="Next image"
+            (click)="onNextClick($event)"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+        }
+
         <img
           [src]="imageSrc()"
           [alt]="imageTitle()"
@@ -51,7 +81,11 @@ export class LightboxComponent {
   readonly imageSrc = input.required<string>();
   readonly imageTitle = input.required<string>();
   readonly isOpen = input.required<boolean>();
+  readonly hasPrev = input<boolean>(false);
+  readonly hasNext = input<boolean>(false);
   readonly closed = output<void>();
+  readonly prev = output<void>();
+  readonly next = output<void>();
 
   readonly closeButtonRef = viewChild<ElementRef<HTMLButtonElement>>('closeButton');
 
@@ -74,6 +108,28 @@ export class LightboxComponent {
     if (this.isOpen()) {
       this.closed.emit();
     }
+  }
+
+  onPrev(): void {
+    if (this.isOpen() && this.hasPrev()) {
+      this.prev.emit();
+    }
+  }
+
+  onNext(): void {
+    if (this.isOpen() && this.hasNext()) {
+      this.next.emit();
+    }
+  }
+
+  onPrevClick(event: MouseEvent): void {
+    event.stopPropagation();
+    this.prev.emit();
+  }
+
+  onNextClick(event: MouseEvent): void {
+    event.stopPropagation();
+    this.next.emit();
   }
 
   onCloseClick(event: MouseEvent): void {

@@ -31,7 +31,7 @@ describe('AboutComponent', () => {
       'Amateur Artist',
       'Proud Pomchi Parent',
       'Avid Gamer',
-      'Cat Mom x5',
+      'Cat Mom',
       'Virgo',
       'Lover of Bicycles',
     ];

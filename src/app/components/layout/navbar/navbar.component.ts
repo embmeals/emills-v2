@@ -8,6 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 interface NavLink {
   readonly label: string;
@@ -17,6 +18,7 @@ interface NavLink {
 @Component({
   selector: 'app-navbar',
   standalone: true,
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav
@@ -52,6 +54,12 @@ interface NavLink {
               {{ link.label }}
             </button>
           }
+          <a
+            routerLink="/studio"
+            class="text-sm font-medium transition-colors duration-200 cursor-pointer px-1 py-2 text-[#a0a0b0] hover:text-[#e0e0e0]"
+          >
+            Studio
+          </a>
         </div>
 
         <!-- Mobile hamburger -->
@@ -99,6 +107,13 @@ interface NavLink {
               {{ link.label }}
             </button>
           }
+          <a
+            routerLink="/studio"
+            class="block w-full text-left py-3 text-sm font-medium transition-colors duration-200 cursor-pointer text-[#a0a0b0] hover:text-[#e0e0e0]"
+            (click)="closeMobile()"
+          >
+            Studio
+          </a>
         </div>
       }
     </nav>

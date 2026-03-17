@@ -1,11 +1,19 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { GalleryComponent } from '@/components/sections/gallery/gallery.component';
+import { GALLERY_IMAGES } from '@/data/gallery.data';
+
+interface FolderCard {
+  readonly key: string;
+  readonly label: string;
+  readonly description: string;
+  readonly thumbnail: string;
+  readonly count: number;
+}
 
 @Component({
   selector: 'app-gallery-page',
   standalone: true,
-  imports: [RouterLink, GalleryComponent],
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen pt-20">
@@ -19,10 +27,85 @@ import { GalleryComponent } from '@/components/sections/gallery/gallery.componen
           </svg>
           Back to Home
         </a>
-      </div>
 
-      <app-gallery />
+        <section class="py-20" aria-labelledby="gallery-heading">
+          <h2
+            id="gallery-heading"
+            class="text-3xl font-bold text-center mb-12 text-[#e0e0e0]"
+            style="font-family: 'Montserrat', sans-serif"
+          >
+            Studio
+          </h2>
+
+          <div class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto [&>a]:w-full [&>a]:sm:w-[calc(50%-0.75rem)] [&>a]:lg:w-[calc(33.333%-1rem)]">
+            @for (folder of folders; track folder.key) {
+              <a
+                [routerLink]="['/studio', folder.key]"
+                class="group relative rounded-xl overflow-hidden border-2 border-[#1e1e2e] bg-[#14141f] transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] block"
+              >
+                <div class="aspect-[4/3] overflow-hidden">
+                  <img
+                    [src]="folder.thumbnail"
+                    [alt]="folder.label"
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <h3
+                    class="text-lg font-bold text-white mb-1"
+                    style="font-family: 'Montserrat', sans-serif"
+                  >
+                    {{ folder.label }}
+                  </h3>
+                  <p class="text-sm text-[#a0a0a0]">{{ folder.description }}</p>
+                  <p class="text-xs text-neon-magenta mt-1">{{ folder.count }} {{ folder.count === 1 ? 'piece' : 'pieces' }}</p>
+                </div>
+              </a>
+            }
+          </div>
+        </section>
+      </div>
     </div>
   `,
 })
-export class GalleryPageComponent {}
+export class GalleryPageComponent {
+  readonly folders: readonly FolderCard[] = [
+    {
+      key: 'ember',
+      label: 'Ember',
+      description: 'Collages',
+      thumbnail: GALLERY_IMAGES.find((i) => i.folder === 'ember')?.src ?? '',
+      count: GALLERY_IMAGES.filter((i) => i.folder === 'ember').length,
+    },
+    {
+      key: 'casey',
+      label: 'Casey',
+      description: 'Collages',
+      thumbnail: GALLERY_IMAGES.find((i) => i.folder === 'casey')?.src ?? '',
+      count: GALLERY_IMAGES.filter((i) => i.folder === 'casey').length,
+    },
+    {
+      key: 'film',
+      label: 'Film',
+      description: 'Photography',
+      thumbnail: GALLERY_IMAGES.find((i) => i.folder === 'film')?.src ?? '',
+      count: GALLERY_IMAGES.filter((i) => i.folder === 'film').length,
+    },
+    {
+      key: 'screenprint',
+      label: 'Screenprint',
+      description: 'Apparel & Prints',
+      thumbnail: GALLERY_IMAGES.find((i) => i.folder === 'screenprint')?.src ?? '',
+      count: GALLERY_IMAGES.filter((i) => i.folder === 'screenprint').length,
+    },
+    {
+      key: 'stained-glass',
+      label: 'Stained Glass',
+      description: 'Glass Art',
+      thumbnail: GALLERY_IMAGES.find((i) => i.folder === 'stained-glass')?.src ?? '',
+      count: GALLERY_IMAGES.filter((i) => i.folder === 'stained-glass').length,
+    },
+  ];
+}

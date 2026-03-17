@@ -7,9 +7,14 @@ export const routes: Routes = [
       import('@/components/pages/home-page.component').then((m) => m.HomePageComponent),
   },
   {
-    path: 'gallery',
+    path: 'studio',
     loadComponent: () =>
       import('@/components/pages/gallery-page.component').then((m) => m.GalleryPageComponent),
+  },
+  {
+    path: 'studio/:folder',
+    loadComponent: () =>
+      import('@/components/pages/gallery-folder-page.component').then((m) => m.GalleryFolderPageComponent),
   },
   { path: '**', redirectTo: '' },
 ];

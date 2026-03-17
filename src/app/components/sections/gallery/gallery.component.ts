@@ -1,9 +1,7 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, input } from '@angular/core';
 
 import { GALLERY_IMAGES, type GalleryImage } from '@/data/gallery.data';
 import { LightboxComponent } from './lightbox.component';
-
-type FolderFilter = 'all' | 'ember' | 'casey';
 
 @Component({
   selector: 'app-gallery',
@@ -20,29 +18,12 @@ type FolderFilter = 'all' | 'ember' | 'casey';
         class="text-3xl font-bold text-center mb-8 text-[#e0e0e0]"
         style="font-family: 'Montserrat', sans-serif"
       >
-        Gallery
+        {{ folderTitle() }}
       </h2>
-
-      <!-- Filter buttons -->
-      <div class="flex justify-center gap-3 mb-10">
-        @for (filter of filters; track filter.value) {
-          <button
-            type="button"
-            class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer"
-            [class]="activeFilter() === filter.value
-              ? 'bg-neon-magenta text-white'
-              : 'bg-[#14141f] border border-[#1e1e2e] text-[#e0e0e0] hover:border-neon-magenta'"
-            [attr.aria-pressed]="activeFilter() === filter.value"
-            (click)="setFilter(filter.value)"
-          >
-            {{ filter.label }}
-          </button>
-        }
-      </div>
 
       <!-- Masonry grid -->
       <div class="columns-2 sm:columns-3 gap-4 space-y-4">
-        @for (image of filteredImages(); track image.src) {
+        @for (image of folderImages(); track image.src) {
           <button
             type="button"
             class="break-inside-avoid rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent"
@@ -63,32 +44,47 @@ type FolderFilter = 'all' | 'ember' | 'casey';
         [imageSrc]="selectedImage()?.src ?? ''"
         [imageTitle]="selectedImage()?.title ?? ''"
         [isOpen]="lightboxOpen()"
+        [hasPrev]="hasPrev()"
+        [hasNext]="hasNext()"
         (closed)="closeLightbox()"
+        (prev)="showPrev()"
+        (next)="showNext()"
       />
     </section>
   `,
 })
 export class GalleryComponent {
-  readonly filters: readonly { readonly value: FolderFilter; readonly label: string }[] = [
-    { value: 'all', label: 'All' },
-    { value: 'ember', label: 'Ember' },
-    { value: 'casey', label: 'Casey' },
-  ];
+  readonly folder = input.required<string>();
 
-  readonly activeFilter = signal<FolderFilter>('all');
   readonly selectedImage = signal<GalleryImage | null>(null);
   readonly lightboxOpen = signal(false);
 
-  readonly filteredImages = computed(() => {
-    const filter = this.activeFilter();
-    return filter === 'all'
-      ? GALLERY_IMAGES
-      : GALLERY_IMAGES.filter((img) => img.folder === filter);
+  readonly folderImages = computed(() => {
+    return GALLERY_IMAGES.filter((img) => img.folder === this.folder());
   });
 
-  setFilter(filter: FolderFilter): void {
-    this.activeFilter.set(filter);
-  }
+  readonly folderTitle = computed(() => {
+    const titles: Record<string, string> = {
+      ember: 'Ember',
+      casey: 'Casey',
+      film: 'Film',
+      screenprint: 'Screenprint',
+      'stained-glass': 'Stained Glass',
+    };
+    return titles[this.folder()] ?? 'Gallery';
+  });
+
+  readonly selectedIndex = computed(() => {
+    const selected = this.selectedImage();
+    if (!selected) return -1;
+    return this.folderImages().findIndex((img) => img.src === selected.src);
+  });
+
+  readonly hasPrev = computed(() => this.selectedIndex() > 0);
+  readonly hasNext = computed(() => {
+    const idx = this.selectedIndex();
+    return idx >= 0 && idx < this.folderImages().length - 1;
+  });
 
   openLightbox(image: GalleryImage): void {
     this.selectedImage.set(image);
@@ -99,10 +95,25 @@ export class GalleryComponent {
     this.lightboxOpen.set(false);
   }
 
+  showPrev(): void {
+    const idx = this.selectedIndex();
+    if (idx > 0) {
+      this.selectedImage.set(this.folderImages()[idx - 1]);
+    }
+  }
+
+  showNext(): void {
+    const idx = this.selectedIndex();
+    const images = this.folderImages();
+    if (idx >= 0 && idx < images.length - 1) {
+      this.selectedImage.set(images[idx + 1]);
+    }
+  }
+
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
     const index = GALLERY_IMAGES.findIndex((i) => i.src === img.src || img.src.endsWith(i.src));
     const num = index >= 0 ? index + 1 : 1;
-    img.src = `https://placehold.co/400x500/14141f/e0e0e0?text=Collage+${num}`;
+    img.src = `https://placehold.co/400x500/14141f/e0e0e0?text=Image+${num}`;
   }
 }

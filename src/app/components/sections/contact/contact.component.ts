@@ -108,8 +108,8 @@ interface ContactLink {
           }
 
           <a
-            routerLink="/gallery"
-            aria-label="Gallery"
+            routerLink="/studio"
+            aria-label="Studio"
             class="group flex flex-col items-center gap-2 text-muted-foreground hover:text-neon-magenta hover:glow-magenta transition-all duration-300"
           >
             <svg
@@ -126,7 +126,7 @@ interface ContactLink {
               <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
             </svg>
             <span class="text-sm text-muted-foreground group-hover:text-neon-magenta transition-colors duration-300">
-              Gallery
+              Studio
             </span>
           </a>
         </div>
