@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 
 import { ZardCardComponent } from '@/shared/components/card/card.component';
 import { ZardBadgeComponent } from '@/shared/components/badge/badge.component';
@@ -121,8 +121,34 @@ interface Guideline {
         All Systems Nominal
       </p>
 
+      <!-- View toggle (desktop only) -->
+      <div class="hidden md:flex justify-center mb-6">
+        <div class="inline-flex rounded-lg border border-[#1e1e2e] bg-[#14141f] p-1 gap-1">
+          <button
+            type="button"
+            class="px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer"
+            [class]="!listView()
+              ? 'bg-neon-cyan/20 text-neon-cyan'
+              : 'text-[#a0a0b0] hover:text-[#e0e0e0]'"
+            (click)="listView.set(false)"
+          >
+            Orbital
+          </button>
+          <button
+            type="button"
+            class="px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer"
+            [class]="listView()
+              ? 'bg-neon-cyan/20 text-neon-cyan'
+              : 'text-[#a0a0b0] hover:text-[#e0e0e0]'"
+            (click)="listView.set(true)"
+          >
+            List
+          </button>
+        </div>
+      </div>
+
       <!-- Desktop: orbital diagram -->
-      <div class="hidden md:block">
+      <div class="hidden" [class.md:block]="!listView()" [class.md:hidden]="listView()">
         <div class="max-w-4xl mx-auto">
           <svg
             viewBox="0 0 1000 1000"
@@ -233,8 +259,8 @@ interface Guideline {
         </div>
       </div>
 
-      <!-- Mobile: card grid -->
-      <div class="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- List view: card grid (mobile always, desktop when toggled) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" [class.md:hidden]="!listView()" [class.md:grid]="listView()">
         @for (category of categories; track category.name) {
           <z-card [zTitle]="category.name">
             <ul class="flex flex-wrap gap-2 list-none m-0 p-0" [attr.aria-label]="'Skills for ' + category.name">
@@ -252,6 +278,7 @@ export class SkillsComponent {
   readonly cx = CX;
   readonly cy = CY;
   readonly categories: readonly SkillCategory[] = SKILL_CATEGORIES;
+  readonly listView = signal(false);
 
   readonly guidelines: readonly Guideline[] = Array.from({ length: 8 }, (_, i) => {
     const angle = (Math.PI / 4) * i;

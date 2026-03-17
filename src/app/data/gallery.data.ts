@@ -33,9 +33,7 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: 'assets/gallery/film/18348732346026568.webp', title: 'Film Strip 006', folder: 'film' },
   { src: 'assets/gallery/film/18352780432040367.webp', title: 'Film Strip 007', folder: 'film' },
   { src: 'assets/gallery/film/18359532682010313.webp', title: 'Film Strip 008', folder: 'film' },
-  { src: 'assets/gallery/film/179635628001183441.webp', title: 'Film Strip 009', folder: 'film' },
-  { src: 'assets/gallery/film/18011690182540475.webp', title: 'Film Strip 010', folder: 'film' },
-  { src: 'assets/gallery/film/183595326820103131.webp', title: 'Film Strip 011', folder: 'film' },
+  { src: 'assets/gallery/film/18011690182540475.webp', title: 'Film Strip 009', folder: 'film' },
   { src: 'assets/gallery/film/tallneck_film.jpg', title: 'Tallneck', folder: 'film' },
 
   // Screenprint — Apparel & Prints
