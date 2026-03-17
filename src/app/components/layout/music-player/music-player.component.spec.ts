@@ -22,9 +22,8 @@ describe('MusicPlayerComponent', () => {
   });
 
   it('should render a play button', () => {
-    const button = compiled.querySelector('button');
+    const button = compiled.querySelector('[aria-label="Play"]');
     expect(button).toBeTruthy();
-    expect(button?.getAttribute('aria-label')).toBe('Play');
   });
 
   it('should render track info', () => {
@@ -91,8 +90,8 @@ describe('MusicPlayerComponent', () => {
   it('should update button aria-label when playing', () => {
     component.isPlaying.set(true);
     fixture.detectChanges();
-    const button = compiled.querySelector('button');
-    expect(button?.getAttribute('aria-label')).toBe('Pause');
+    const button = compiled.querySelector('[aria-label="Pause"]');
+    expect(button).toBeTruthy();
   });
 
   it('should have keyboard-accessible progress bar', () => {

@@ -28,37 +28,29 @@ describe('ContactComponent', () => {
   });
 
   it('should have an email link', () => {
-    const links = compiled.querySelectorAll('a');
-    const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
+    const hrefs = getAllHrefs();
     expect(hrefs).toContain('mailto:hello@emills.net');
   });
 
   it('should have a GitHub link', () => {
-    const links = compiled.querySelectorAll('a');
-    const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
+    const hrefs = getAllHrefs();
     expect(hrefs).toContain('https://github.com/embmeals');
   });
 
   it('should have a LinkedIn link', () => {
-    const links = compiled.querySelectorAll('a');
-    const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
+    const hrefs = getAllHrefs();
     expect(hrefs).toContain('https://www.linkedin.com/in/ember-d-mills');
   });
 
-  it('should have a CodePen link', () => {
+  it('should have a Studio link', () => {
     const links = compiled.querySelectorAll('a');
-    const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
-    expect(hrefs).toContain('https://codepen.io/ambmeals');
+    const labels = Array.from(links).map((link) => link.getAttribute('aria-label'));
+    expect(labels).toContain('Studio');
   });
 
-  it('should have target="_blank" on all external links', () => {
-    const externalLinks = Array.from(compiled.querySelectorAll('a')).filter(
-      (link) => {
-        const href = link.getAttribute('href');
-        return href && !href.startsWith('mailto:') && !href.startsWith('/');
-      }
-    );
-    expect(externalLinks.length).toBe(3);
+  it('should have target="_blank" on external links', () => {
+    const externalLinks = getExternalLinks();
+    expect(externalLinks.length).toBe(2);
     externalLinks.forEach((link) => {
       expect(link.getAttribute('target')).toBe('_blank');
     });
@@ -66,33 +58,35 @@ describe('ContactComponent', () => {
 
   it('should have aria-label on all links', () => {
     const links = compiled.querySelectorAll('a');
-    expect(links.length).toBe(5);
-    const labels = Array.from(links).map((link) =>
-      link.getAttribute('aria-label')
-    );
+    expect(links.length).toBe(4);
+    const labels = Array.from(links).map((link) => link.getAttribute('aria-label'));
     expect(labels).toContain('Email');
     expect(labels).toContain('GitHub');
     expect(labels).toContain('LinkedIn');
-    expect(labels).toContain('CodePen');
-    expect(labels).toContain('Gallery');
+    expect(labels).toContain('Studio');
   });
 
   it('should have rel="noopener noreferrer" on external links', () => {
-    const externalLinks = Array.from(compiled.querySelectorAll('a')).filter(
-      (link) => {
-        const href = link.getAttribute('href');
-        return href && !href.startsWith('mailto:') && !href.startsWith('/');
-      }
-    );
-    externalLinks.forEach((link) => {
+    getExternalLinks().forEach((link) => {
       expect(link.getAttribute('rel')).toBe('noopener noreferrer');
     });
   });
 
   it('should render subtitle text', () => {
-    const text = compiled.textContent;
-    expect(text).toContain(
-      'Have a project in mind or just want to chat? Reach out!'
+    expect(compiled.textContent).toContain(
+      'Have a project in mind or just want to chat? Reach out!',
     );
   });
+
+  function getAllHrefs(): string[] {
+    const links = compiled.querySelectorAll('a');
+    return Array.from(links).map((link) => link.getAttribute('href') ?? '');
+  }
+
+  function getExternalLinks(): HTMLAnchorElement[] {
+    return Array.from(compiled.querySelectorAll('a')).filter((link) => {
+      const href = link.getAttribute('href');
+      return href && !href.startsWith('mailto:') && !href.startsWith('/');
+    }) as HTMLAnchorElement[];
+  }
 });

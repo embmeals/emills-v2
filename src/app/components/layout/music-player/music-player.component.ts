@@ -56,9 +56,33 @@ import { isPlatformBrowser } from '@angular/common';
     }
   `,
   template: `
+    <!-- Mobile: collapsed mini player -->
+    <div
+      class="md:hidden player-container fixed bottom-4 right-4 z-50 rounded-full p-2 cursor-pointer"
+      [class.playing]="isPlaying()"
+      [class.hidden]="expanded()"
+      role="region"
+      aria-label="Music player"
+      (click)="expanded.set(true)"
+    >
+      <button
+        class="play-btn text-[#00aaff] bg-transparent border-none cursor-pointer p-0"
+        aria-label="Open music player"
+      >
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13" />
+          <circle cx="6" cy="18" r="3" />
+          <circle cx="18" cy="16" r="3" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Full player (always on desktop, expandable on mobile) -->
     <div
       class="player-container fixed bottom-4 right-4 z-50 rounded-lg p-3 w-64"
       [class.playing]="isPlaying()"
+      [class.hidden]="!expanded()"
+      [class.md:block]="!expanded()"
       role="region"
       aria-label="Music player"
     >
@@ -66,6 +90,14 @@ import { isPlatformBrowser } from '@angular/common';
         <source src="assets/audio/taur.mp3" type="audio/mpeg" />
       </audio>
 
+      <!-- Close button (mobile only) -->
+      <button
+        class="md:hidden absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#1e1e2e] border border-[#00aaff]/30 text-[#a0a0b0] text-[10px] leading-none flex items-center justify-center cursor-pointer hover:text-white"
+        aria-label="Minimize player"
+        (click)="expanded.set(false); $event.stopPropagation()"
+      >
+        &times;
+      </button>
 
       <!-- Track info -->
       <div class="flex items-center gap-3 mb-2">
@@ -136,6 +168,7 @@ export class MusicPlayerComponent implements AfterViewInit, OnDestroy {
   readonly isPlaying = signal(false);
   readonly currentTime = signal(0);
   readonly duration = signal(0);
+  readonly expanded = signal(false);
 
   progressPercent(): number {
     return this.duration() > 0 ? (this.currentTime() / this.duration()) * 100 : 0;

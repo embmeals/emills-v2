@@ -1,81 +1,74 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 
 import { GalleryComponent } from './gallery.component';
 import { GALLERY_IMAGES } from '@/data/gallery.data';
 
+/** Test host to provide the required `folder` input */
+@Component({
+  standalone: true,
+  imports: [GalleryComponent],
+  template: `<app-gallery [folder]="folder" />`,
+})
+class TestHostComponent {
+  folder = 'ember';
+}
+
 describe('GalleryComponent', () => {
-  let component: GalleryComponent;
-  let fixture: ComponentFixture<GalleryComponent>;
+  let fixture: ComponentFixture<TestHostComponent>;
   let element: HTMLElement;
+  let gallery: GalleryComponent;
+
+  const emberImages = GALLERY_IMAGES.filter((img) => img.folder === 'ember');
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GalleryComponent],
+      imports: [TestHostComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GalleryComponent);
-    component = fixture.componentInstance;
-    element = fixture.nativeElement as HTMLElement;
+    fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
+    element = fixture.nativeElement as HTMLElement;
+    gallery = fixture.debugElement.children[0].componentInstance;
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(gallery).toBeTruthy();
   });
 
-  it('should render section title "Gallery"', () => {
+  it('should render the folder title', () => {
     const heading = element.querySelector('h2');
-    expect(heading?.textContent?.trim()).toBe('Gallery');
+    expect(heading?.textContent?.trim()).toBe('Ember');
   });
 
-  it('should render gallery images', () => {
+  it('should render only images for the given folder', () => {
     const images = element.querySelectorAll('img');
-    expect(images.length).toBe(GALLERY_IMAGES.length);
-  });
-
-  it('should have filter buttons for All, Ember, and Casey', () => {
-    const buttons = element.querySelectorAll('button');
-    const labels = Array.from(buttons).map((btn) => btn.textContent?.trim());
-    expect(labels).toContain('All');
-    expect(labels).toContain('Ember');
-    expect(labels).toContain('Casey');
-  });
-
-  it('should filter images when a folder filter is clicked', () => {
-    const buttons = Array.from(element.querySelectorAll('button'));
-    const emberButton = buttons.find((btn) => btn.textContent?.trim() === 'Ember');
-
-    emberButton?.click();
-    fixture.detectChanges();
-
-    const images = element.querySelectorAll('img');
-    const emberCount = GALLERY_IMAGES.filter((img) => img.folder === 'ember').length;
-    expect(images.length).toBe(emberCount);
+    expect(images.length).toBe(emberImages.length);
   });
 
   it('should open lightbox when an image is clicked', () => {
-    const imageContainers = element.querySelectorAll('[class*="break-inside-avoid"]');
-    expect(imageContainers.length).toBeGreaterThan(0);
+    const buttons = element.querySelectorAll('[class*="break-inside-avoid"]');
+    expect(buttons.length).toBeGreaterThan(0);
 
-    (imageContainers[0] as HTMLElement).click();
+    (buttons[0] as HTMLElement).click();
     fixture.detectChanges();
 
-    expect(component.lightboxOpen()).toBe(true);
-    expect(component.selectedImage()).toBeTruthy();
+    expect(gallery.lightboxOpen()).toBe(true);
+    expect(gallery.selectedImage()).toBeTruthy();
   });
 
   it('should close lightbox when closed event fires', () => {
-    component.openLightbox(GALLERY_IMAGES[0]);
+    gallery.openLightbox(emberImages[0]);
     fixture.detectChanges();
 
-    component.closeLightbox();
+    gallery.closeLightbox();
     fixture.detectChanges();
 
-    expect(component.lightboxOpen()).toBe(false);
+    expect(gallery.lightboxOpen()).toBe(false);
   });
 
   it('should render lightbox with close button when open', () => {
-    component.openLightbox(GALLERY_IMAGES[0]);
+    gallery.openLightbox(emberImages[0]);
     fixture.detectChanges();
 
     const closeButton = element.querySelector('[aria-label="Close lightbox"]');
@@ -89,23 +82,37 @@ describe('GalleryComponent', () => {
     });
   });
 
-  it('should close lightbox when Escape key is pressed', () => {
-    component.openLightbox(GALLERY_IMAGES[0]);
+  it('should navigate to next image in lightbox', () => {
+    gallery.openLightbox(emberImages[0]);
     fixture.detectChanges();
-    expect(component.lightboxOpen()).toBe(true);
+
+    expect(gallery.hasNext()).toBe(emberImages.length > 1);
+    expect(gallery.hasPrev()).toBe(false);
+
+    gallery.showNext();
+    fixture.detectChanges();
+
+    expect(gallery.selectedImage()).toEqual(emberImages[1]);
+  });
+
+  it('should navigate to previous image in lightbox', () => {
+    gallery.openLightbox(emberImages[1]);
+    fixture.detectChanges();
+
+    gallery.showPrev();
+    fixture.detectChanges();
+
+    expect(gallery.selectedImage()).toEqual(emberImages[0]);
+  });
+
+  it('should close lightbox when Escape key is pressed', () => {
+    gallery.openLightbox(emberImages[0]);
+    fixture.detectChanges();
+    expect(gallery.lightboxOpen()).toBe(true);
 
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     fixture.detectChanges();
 
-    expect(component.lightboxOpen()).toBe(false);
-  });
-
-  it('should have aria-pressed on filter buttons', () => {
-    const buttons = Array.from(element.querySelectorAll('button'));
-    const allButton = buttons.find((btn) => btn.textContent?.trim() === 'All');
-    expect(allButton?.getAttribute('aria-pressed')).toBe('true');
-
-    const emberButton = buttons.find((btn) => btn.textContent?.trim() === 'Ember');
-    expect(emberButton?.getAttribute('aria-pressed')).toBe('false');
+    expect(gallery.lightboxOpen()).toBe(false);
   });
 });
