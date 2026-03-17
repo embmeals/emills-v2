@@ -25,7 +25,7 @@ import { LightboxComponent } from './lightbox.component';
       @if (folderImages().length === 0) {
         <p class="text-center text-muted-foreground text-sm py-12">No pieces yet.</p>
       }
-      <div class="columns-2 sm:columns-3 gap-4 space-y-4 overflow-hidden">
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
         @for (image of folderImages(); track image.src) {
           <button
             type="button"
@@ -37,7 +37,7 @@ import { LightboxComponent } from './lightbox.component';
               [alt]="image.title"
               loading="lazy"
               draggable="false"
-              class="w-full h-auto block bg-[#14141f] select-none"
+              class="w-full h-auto block bg-[#14141f] select-none max-h-[80vh] object-contain"
               style="-webkit-user-drag: none"
               (contextmenu)="$event.preventDefault()"
               (error)="onImageError($event)"
