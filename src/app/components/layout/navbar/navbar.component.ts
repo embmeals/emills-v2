@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 interface NavLink {
   readonly label: string;
@@ -30,8 +30,8 @@ interface NavLink {
         <button
           class="flex items-center gap-2 font-heading text-xl font-bold text-neon-cyan tracking-wide cursor-pointer bg-transparent border-none"
           style="font-family: 'Montserrat', sans-serif"
-          (click)="scrollTo('home')"
-          aria-label="Scroll to top"
+          (click)="goHome()"
+          aria-label="Go to home page"
         >
           EM
           <span class="text-[9px] font-normal tracking-[0.2em] text-foreground/30 uppercase hidden sm:inline" aria-hidden="true">
@@ -121,6 +121,7 @@ interface NavLink {
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly router = inject(Router);
   private observer: IntersectionObserver | null = null;
 
   readonly navLinks: readonly NavLink[] = [
@@ -145,8 +146,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.observer?.disconnect();
   }
 
+  goHome(): void {
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']);
+    } else if (isPlatformBrowser(this.platformId)) {
+      document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   scrollTo(id: string): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']).then(() => {
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      });
+    } else if (isPlatformBrowser(this.platformId)) {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
   }

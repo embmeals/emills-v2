@@ -62,7 +62,7 @@ import { LightboxComponent } from './lightbox.component';
 export class GalleryComponent {
   readonly folder = input.required<string>();
 
-  readonly selectedImage = signal<GalleryImage | null>(null);
+  readonly selectedIndex = signal(-1);
   readonly lightboxOpen = signal(false);
 
   readonly folderImages = computed(() => {
@@ -80,17 +80,18 @@ export class GalleryComponent {
     return titles[this.folder()] ?? 'Studio';
   });
 
-  readonly selectedIndex = computed(() => {
-    const selected = this.selectedImage();
-    if (!selected) return -1;
-    return this.folderImages().findIndex((img) => img.src === selected.src);
+  readonly selectedImage = computed(() => {
+    const idx = this.selectedIndex();
+    const images = this.folderImages();
+    return idx >= 0 && idx < images.length ? images[idx] : null;
   });
 
   readonly hasPrev = computed(() => this.folderImages().length > 1);
   readonly hasNext = computed(() => this.folderImages().length > 1);
 
   openLightbox(image: GalleryImage): void {
-    this.selectedImage.set(image);
+    const idx = this.folderImages().findIndex((img) => img.src === image.src);
+    this.selectedIndex.set(idx);
     this.lightboxOpen.set(true);
   }
 
@@ -99,17 +100,15 @@ export class GalleryComponent {
   }
 
   showPrev(): void {
-    const images = this.folderImages();
+    const len = this.folderImages().length;
     const idx = this.selectedIndex();
-    const prev = idx <= 0 ? images.length - 1 : idx - 1;
-    this.selectedImage.set(images[prev]);
+    this.selectedIndex.set(idx <= 0 ? len - 1 : idx - 1);
   }
 
   showNext(): void {
-    const images = this.folderImages();
+    const len = this.folderImages().length;
     const idx = this.selectedIndex();
-    const next = idx >= images.length - 1 ? 0 : idx + 1;
-    this.selectedImage.set(images[next]);
+    this.selectedIndex.set(idx >= len - 1 ? 0 : idx + 1);
   }
 
   onImageError(event: Event): void {

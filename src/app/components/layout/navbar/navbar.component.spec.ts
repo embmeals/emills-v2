@@ -52,7 +52,7 @@ describe('NavbarComponent', () => {
 
   it('should have site name button with aria-label', () => {
     const siteNameBtn = compiled.querySelector(
-      'button[aria-label="Scroll to top"]'
+      'button[aria-label="Go to home page"]'
     );
     expect(siteNameBtn).toBeTruthy();
     expect(siteNameBtn?.textContent).toContain('EM');

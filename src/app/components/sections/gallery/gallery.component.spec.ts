@@ -87,11 +87,12 @@ describe('GalleryComponent', () => {
     fixture.detectChanges();
 
     expect(gallery.hasNext()).toBe(emberImages.length > 1);
-    expect(gallery.hasPrev()).toBe(false);
+    expect(gallery.hasPrev()).toBe(emberImages.length > 1);
 
     gallery.showNext();
     fixture.detectChanges();
 
+    expect(gallery.selectedIndex()).toBe(1);
     expect(gallery.selectedImage()).toEqual(emberImages[1]);
   });
 
@@ -102,6 +103,7 @@ describe('GalleryComponent', () => {
     gallery.showPrev();
     fixture.detectChanges();
 
+    expect(gallery.selectedIndex()).toBe(0);
     expect(gallery.selectedImage()).toEqual(emberImages[0]);
   });
 
