@@ -31,15 +31,15 @@ export const SKILL_CATEGORIES: readonly SkillCategory[] = [
     color: 'amber',
     skills: [
       { name: '.NET' }, { name: 'ASP.NET' }, { name: 'Django' },
-      { name: 'REST' }, { name: 'GraphQL' },
+      { name: 'REST' }, { name: 'GraphQL' }, { name: 'MongoDB' },
     ],
   },
   {
     name: 'DevOps & Infrastructure',
     color: 'green',
     skills: [
-      { name: 'Docker' }, { name: 'Linux' }, { name: 'Azure DevOps' },
-      { name: 'GitHub Actions' }, { name: 'Cloudflare' }, { name: 'Nginx' },
+      { name: 'Docker' }, { name: 'Linux' }, { name: 'AWS' },
+      { name: 'Azure DevOps' }, { name: 'GitHub Actions' }, { name: 'Cloudflare' }, { name: 'Nginx' },
     ],
   },
   {

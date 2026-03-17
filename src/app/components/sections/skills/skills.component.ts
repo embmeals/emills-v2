@@ -57,9 +57,18 @@ interface Guideline {
       to { stroke-dashoffset: -16; }
     }
 
+    @keyframes orbitRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     .orbit-ring {
-      stroke-dasharray: 4 4;
-      animation: orbitScan 3s linear infinite;
+      stroke-dasharray: 8 12;
+    }
+
+    .orbit-ring-rotate {
+      transform-origin: 500px 500px;
+      animation: orbitRotate var(--orbit-duration, 60s) linear infinite;
     }
 
     @keyframes coreGlow {
@@ -87,7 +96,7 @@ interface Guideline {
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .orbit-ring { animation: none; }
+      .orbit-ring-rotate { animation-duration: 120s !important; }
       .core-pulse { animation: none; }
       .skill-node { animation: none; opacity: 0.8; }
     }
@@ -147,6 +156,21 @@ interface Guideline {
         </div>
       </div>
 
+      <!-- Legend (desktop only) -->
+      <div class="hidden md:flex flex-wrap justify-center gap-6 mb-6">
+        @for (orbit of orbits; track orbit.label) {
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full" [style.background]="orbit.colorHex"></span>
+            <span
+              class="text-xs tracking-wider uppercase text-[#a0a0b0]"
+              style="font-family: 'Montserrat', sans-serif"
+            >
+              {{ orbit.label }}
+            </span>
+          </div>
+        }
+      </div>
+
       <!-- Desktop: orbital diagram -->
       <div class="hidden" [class.md:block]="!listView()" [class.md:hidden]="listView()">
         <div class="max-w-4xl mx-auto">
@@ -189,23 +213,14 @@ interface Guideline {
 
             <!-- Orbit rings with labels -->
             @for (orbit of orbits; track orbit.label) {
-              <circle
-                class="orbit-ring"
-                [attr.cx]="cx" [attr.cy]="cy" [attr.r]="orbit.radius"
-                fill="none" [attr.stroke]="orbit.colorHex" stroke-opacity="0.25"
-                stroke-width="1"
-                [style.animation-duration]="orbit.animDuration"
-              />
-              <!-- Ring label -->
-              <text
-                [attr.x]="cx" [attr.y]="cy - orbit.radius + 14"
-                text-anchor="middle"
-                [attr.fill]="orbit.colorHex" fill-opacity="0.35"
-                font-size="9"
-                style="font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.15em"
-              >
-                {{ orbit.label }}
-              </text>
+              <g class="orbit-ring-rotate" [style.--orbit-duration]="orbit.animDuration">
+                <circle
+                  class="orbit-ring"
+                  [attr.cx]="cx" [attr.cy]="cy" [attr.r]="orbit.radius"
+                  fill="none" [attr.stroke]="orbit.colorHex" stroke-opacity="0.2"
+                  stroke-width="1.5"
+                />
+              </g>
             }
 
             <!-- Center core -->
@@ -213,22 +228,25 @@ interface Guideline {
             <circle [attr.cx]="cx" [attr.cy]="cy" r="16" fill="rgba(0,229,255,0.08)" stroke="rgba(0,229,255,0.3)" stroke-width="1" />
             <circle [attr.cx]="cx" [attr.cy]="cy" r="5" fill="#00e5ff" filter="url(#coreFilter)" />
 
-            <!-- Skill nodes per orbit -->
+            <!-- Skill dots per orbit (static, pulsating) -->
             @for (orbit of orbits; track orbit.label) {
               @for (node of orbit.nodes; track node.name) {
-                <!-- Glow circle -->
                 <circle
                   class="skill-node"
                   [attr.cx]="node.x" [attr.cy]="node.y" r="7"
                   [attr.fill]="orbit.colorGlow"
                   filter="url(#glow)"
                 />
-                <!-- Core dot -->
                 <circle
                   [attr.cx]="node.x" [attr.cy]="node.y" r="3.5"
                   [attr.fill]="orbit.colorHex"
                 />
-                <!-- Label -->
+              }
+            }
+
+            <!-- Skill labels (static) -->
+            @for (orbit of orbits; track orbit.label) {
+              @for (node of orbit.nodes; track node.name) {
                 <text
                   [attr.x]="node.labelX" [attr.y]="node.labelY"
                   [attr.text-anchor]="node.textAnchor"
@@ -242,20 +260,6 @@ interface Guideline {
             }
           </svg>
 
-          <!-- Legend -->
-          <div class="flex flex-wrap justify-center gap-6 mt-4">
-            @for (orbit of orbits; track orbit.label) {
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full" [style.background]="orbit.colorHex"></span>
-                <span
-                  class="text-[10px] tracking-wider uppercase text-[#a0a0b0]"
-                  style="font-family: 'Montserrat', sans-serif"
-                >
-                  {{ orbit.label }}
-                </span>
-              </div>
-            }
-          </div>
         </div>
       </div>
 
@@ -292,7 +296,7 @@ export class SkillsComponent {
     const cat = SKILL_CATEGORIES[config.catIndex];
     const colors = COLOR_MAP[cat.color];
     const count = cat.skills.length;
-    const durations = ['4s', '5s', '3.5s', '6s', '4.5s'];
+    const durations = ['45s', '55s', '65s', '75s', '85s'];
 
     const nodes: OrbitalNode[] = cat.skills.map((skill, i) => {
       const angle = (2 * Math.PI * i) / count + config.offset;
