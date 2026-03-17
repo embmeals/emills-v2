@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, computed, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject, effect } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { GalleryComponent } from '@/components/sections/gallery/gallery.component';
@@ -31,8 +32,27 @@ import { GalleryComponent } from '@/components/sections/gallery/gallery.componen
 })
 export class GalleryFolderPageComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly titleService = inject(Title);
 
   readonly folder = toSignal(
     this.route.paramMap.pipe(map((params) => params.get('folder'))),
   );
+
+  private readonly titles: Record<string, string> = {
+    ember: 'Ember',
+    casey: 'Casey',
+    film: 'Film',
+    screenprint: 'Screenprint',
+    'stained-glass': 'Stained Glass',
+  };
+
+  constructor() {
+    effect(() => {
+      const f = this.folder();
+      if (f) {
+        const label = this.titles[f] ?? f;
+        this.titleService.setTitle(`Studio — ${label} | Ember Mills`);
+      }
+    });
+  }
 }

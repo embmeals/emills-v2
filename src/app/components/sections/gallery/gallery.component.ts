@@ -22,6 +22,9 @@ import { LightboxComponent } from './lightbox.component';
       </h2>
 
       <!-- Masonry grid -->
+      @if (folderImages().length === 0) {
+        <p class="text-center text-muted-foreground text-sm py-12">No pieces yet.</p>
+      }
       <div class="columns-2 sm:columns-3 gap-4 space-y-4">
         @for (image of folderImages(); track image.src) {
           <button

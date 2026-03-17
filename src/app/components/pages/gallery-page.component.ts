@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { GALLERY_IMAGES } from '@/data/gallery.data';
 
 interface FolderCard {
@@ -70,7 +71,13 @@ interface FolderCard {
     </div>
   `,
 })
-export class GalleryPageComponent {
+export class GalleryPageComponent implements OnInit {
+  private readonly titleService = inject(Title);
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Studio | Ember Mills');
+  }
+
   readonly folders: readonly FolderCard[] = [
     {
       key: 'ember',
