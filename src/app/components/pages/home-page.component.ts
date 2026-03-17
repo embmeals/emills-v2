@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { HeroComponent } from '@/components/sections/hero/hero.component';
 import { AboutComponent } from '@/components/sections/about/about.component';
 import { SkillsComponent } from '@/components/sections/skills/skills.component';
@@ -66,4 +67,10 @@ import { SectionDividerComponent } from '@/components/layout/section-divider/sec
     </section>
   `,
 })
-export class HomePageComponent {}
+export class HomePageComponent implements OnInit {
+  private readonly titleService = inject(Title);
+
+  ngOnInit(): void {
+    this.titleService.setTitle('Ember Mills | Senior Full Stack Engineer');
+  }
+}

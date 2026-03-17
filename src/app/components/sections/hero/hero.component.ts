@@ -108,15 +108,6 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
                         <circle cx="4" cy="4" r="2" />
                       </svg>
                     }
-                    @if (link.icon === 'codepen') {
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
-                        <line x1="12" x2="12" y1="22" y2="15.5" />
-                        <polyline points="22 8.5 12 15.5 2 8.5" />
-                        <polyline points="2 15.5 12 8.5 22 15.5" />
-                        <line x1="12" x2="12" y1="2" y2="8.5" />
-                      </svg>
-                    }
                   </a>
                 </li>
               }
@@ -131,6 +122,5 @@ export class HeroComponent {
   readonly socialLinks = [
     { label: 'GitHub', url: 'https://github.com/embmeals', icon: 'github' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ember-d-mills', icon: 'linkedin' },
-    { label: 'CodePen', url: 'https://codepen.io/ambmeals', icon: 'codepen' },
   ] as const;
 }

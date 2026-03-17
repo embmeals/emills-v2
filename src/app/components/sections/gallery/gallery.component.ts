@@ -74,7 +74,7 @@ export class GalleryComponent {
       screenprint: 'Screenprint',
       'stained-glass': 'Stained Glass',
     };
-    return titles[this.folder()] ?? 'Gallery';
+    return titles[this.folder()] ?? 'Studio';
   });
 
   readonly selectedIndex = computed(() => {
