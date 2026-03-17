@@ -29,8 +29,9 @@ import { LightboxComponent } from './lightbox.component';
         @for (image of folderImages(); track image.src) {
           <button
             type="button"
-            class="break-inside-avoid w-full rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent"
+            class="break-inside-avoid w-full rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent relative"
             (click)="openLightbox(image)"
+            (contextmenu)="$event.preventDefault()"
           >
             <img
               [src]="image.src"
@@ -38,10 +39,10 @@ import { LightboxComponent } from './lightbox.component';
               loading="lazy"
               draggable="false"
               class="w-full h-auto block bg-[#14141f] select-none max-h-[80vh] object-contain"
-              style="-webkit-user-drag: none"
-              (contextmenu)="$event.preventDefault()"
+              style="-webkit-user-drag: none; -webkit-touch-callout: none"
               (error)="onImageError($event)"
             />
+            <div class="absolute inset-0" aria-hidden="true"></div>
           </button>
         }
       </div>
