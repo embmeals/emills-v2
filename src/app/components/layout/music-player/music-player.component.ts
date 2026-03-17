@@ -66,14 +66,15 @@ import { isPlatformBrowser } from '@angular/common';
   `,
   template: `
     <!-- Mobile: collapsed mini player -->
-    <button
-      class="md:hidden player-container fixed bottom-4 right-4 z-50 rounded-full w-10 h-10 flex items-center justify-center cursor-pointer border-none text-[#00aaff] relative"
+    <div
+      class="md:hidden player-container fixed bottom-4 right-4 z-50 rounded-full p-3 cursor-pointer"
       [class.playing]="isPlaying()"
       [class.hidden]="expanded()"
-      aria-label="Open music player"
+      role="region"
+      aria-label="Music player"
       (click)="expanded.set(true)"
     >
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="w-6 h-6 block text-[#00aaff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M9 18V5l12-2v13" />
         <circle cx="6" cy="18" r="3" />
         <circle cx="18" cy="16" r="3" />
@@ -81,7 +82,7 @@ import { isPlatformBrowser } from '@angular/common';
       @if (isPlaying()) {
         <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#00aaff] playing-dot"></span>
       }
-    </button>
+    </div>
 
     <!-- Full player (always on desktop, expandable on mobile) -->
     <div
