@@ -86,11 +86,8 @@ export class GalleryComponent {
     return this.folderImages().findIndex((img) => img.src === selected.src);
   });
 
-  readonly hasPrev = computed(() => this.selectedIndex() > 0);
-  readonly hasNext = computed(() => {
-    const idx = this.selectedIndex();
-    return idx >= 0 && idx < this.folderImages().length - 1;
-  });
+  readonly hasPrev = computed(() => this.folderImages().length > 1);
+  readonly hasNext = computed(() => this.folderImages().length > 1);
 
   openLightbox(image: GalleryImage): void {
     this.selectedImage.set(image);
@@ -102,18 +99,17 @@ export class GalleryComponent {
   }
 
   showPrev(): void {
+    const images = this.folderImages();
     const idx = this.selectedIndex();
-    if (idx > 0) {
-      this.selectedImage.set(this.folderImages()[idx - 1]);
-    }
+    const prev = idx <= 0 ? images.length - 1 : idx - 1;
+    this.selectedImage.set(images[prev]);
   }
 
   showNext(): void {
-    const idx = this.selectedIndex();
     const images = this.folderImages();
-    if (idx >= 0 && idx < images.length - 1) {
-      this.selectedImage.set(images[idx + 1]);
-    }
+    const idx = this.selectedIndex();
+    const next = idx >= images.length - 1 ? 0 : idx + 1;
+    this.selectedImage.set(images[next]);
   }
 
   onImageError(event: Event): void {
