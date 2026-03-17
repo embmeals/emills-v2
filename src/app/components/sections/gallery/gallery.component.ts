@@ -25,11 +25,11 @@ import { LightboxComponent } from './lightbox.component';
       @if (folderImages().length === 0) {
         <p class="text-center text-muted-foreground text-sm py-12">No pieces yet.</p>
       }
-      <div class="columns-2 sm:columns-3 gap-4 space-y-4">
+      <div class="columns-2 sm:columns-3 gap-4 space-y-4 overflow-hidden">
         @for (image of folderImages(); track image.src) {
           <button
             type="button"
-            class="break-inside-avoid rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent"
+            class="break-inside-avoid w-full rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent"
             (click)="openLightbox(image)"
           >
             <img
