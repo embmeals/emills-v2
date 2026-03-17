@@ -36,7 +36,10 @@ import { LightboxComponent } from './lightbox.component';
               [src]="image.src"
               [alt]="image.title"
               loading="lazy"
-              class="w-full h-auto block bg-[#14141f]"
+              draggable="false"
+              class="w-full h-auto block bg-[#14141f] select-none"
+              style="-webkit-user-drag: none"
+              (contextmenu)="$event.preventDefault()"
               (error)="onImageError($event)"
             />
           </button>

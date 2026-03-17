@@ -70,8 +70,9 @@ import {
         <img
           [src]="imageSrc()"
           [alt]="imageTitle()"
-          class="max-w-4xl max-h-[80vh] w-auto h-auto object-contain rounded-lg"
-          style="box-shadow: 0 0 20px rgba(255, 45, 123, 0.4), 0 0 40px rgba(255, 45, 123, 0.15)"
+          class="max-w-4xl max-h-[80vh] w-auto h-auto object-contain rounded-lg select-none pointer-events-none"
+          draggable="false"
+          style="box-shadow: 0 0 20px rgba(255, 45, 123, 0.4), 0 0 40px rgba(255, 45, 123, 0.15); -webkit-user-drag: none"
         />
       </div>
     }
