@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AboutComponent } from './about.component';
+import { FUN_FACTS } from '@/data/about.data';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -22,22 +23,13 @@ describe('AboutComponent', () => {
   });
 
   it('should render about text containing "MySpace"', () => {
-    const text = compiled.textContent ?? '';
-    expect(text).toContain('MySpace');
+    expect(compiled.textContent).toContain('MySpace');
   });
 
   it('should render all fun fact labels', () => {
-    const expectedLabels = [
-      'Amateur Artist',
-      'Proud Pomchi Parent',
-      'Avid Gamer',
-      'Cat Mom',
-      'Virgo',
-      'Lover of Bicycles',
-    ];
     const text = compiled.textContent ?? '';
-    for (const label of expectedLabels) {
-      expect(text).toContain(label);
+    for (const fact of FUN_FACTS) {
+      expect(text).toContain(fact.label);
     }
   });
 
@@ -50,7 +42,6 @@ describe('AboutComponent', () => {
 
   it('should have section with proper aria-labelledby', () => {
     const section = compiled.querySelector('section');
-    expect(section).toBeTruthy();
     expect(section?.getAttribute('aria-labelledby')).toBe('about-heading');
   });
 });

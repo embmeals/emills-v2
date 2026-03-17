@@ -37,12 +37,12 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: 'assets/gallery/film/tallneck_film.jpg', title: 'Tallneck', folder: 'film' },
 
   // Screenprint — Apparel & Prints
-  { src: 'assets/gallery/screenprint/IMG_0147.jpg', title: 'Byte Me — Print Run', folder: 'screenprint' },
-  { src: 'assets/gallery/screenprint/IMG_0535.jpg', title: 'Online Now — Press Setup', folder: 'screenprint' },
-  { src: 'assets/gallery/screenprint/IMG_0919.jpg', title: 'Online Now — Finished Tee', folder: 'screenprint' },
-  { src: 'assets/gallery/screenprint/IMG_10041.jpg', title: 'Byte Me — Finished Tee', folder: 'screenprint' },
-  { src: 'assets/gallery/screenprint/IMG_1199.jpg', title: 'Online Now — Featured', folder: 'screenprint' },
-  { src: 'assets/gallery/screenprint/IMG_2153.jpg', title: 'Byte Me — Screen & Press', folder: 'screenprint' },
+  { src: 'assets/gallery/screenprint/IMG_0147.jpg', title: 'Byte Me — Drying Rack', folder: 'screenprint' },
+  { src: 'assets/gallery/screenprint/IMG_0535.jpg', title: 'Online Now — On Press', folder: 'screenprint' },
+  { src: 'assets/gallery/screenprint/IMG_0919.jpg', title: 'Online Now — Orange Tee', folder: 'screenprint' },
+  { src: 'assets/gallery/screenprint/IMG_10041.jpg', title: 'Byte Me — White Tee', folder: 'screenprint' },
+  { src: 'assets/gallery/screenprint/IMG_1199.jpg', title: 'Online Now — As Seen On TV', folder: 'screenprint' },
+  { src: 'assets/gallery/screenprint/IMG_2153.jpg', title: 'Byte Me — On Press', folder: 'screenprint' },
 
   // Stained Glass
   { src: 'assets/gallery/stained-glass/17870301350093546.jpg', title: 'Stained Glass 001', folder: 'stained-glass' },

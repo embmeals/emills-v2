@@ -54,6 +54,15 @@ import { isPlatformBrowser } from '@angular/common';
     .play-btn:active {
       transform: scale(0.95);
     }
+
+    @keyframes playing-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .playing-dot {
+      animation: playing-pulse 1.5s ease-in-out infinite;
+    }
   `,
   template: `
     <!-- Mobile: collapsed mini player -->
@@ -66,7 +75,7 @@ import { isPlatformBrowser } from '@angular/common';
       (click)="expanded.set(true)"
     >
       <button
-        class="play-btn text-[#00aaff] bg-transparent border-none cursor-pointer p-0"
+        class="play-btn text-[#00aaff] bg-transparent border-none cursor-pointer p-0 relative"
         aria-label="Open music player"
       >
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -74,6 +83,9 @@ import { isPlatformBrowser } from '@angular/common';
           <circle cx="6" cy="18" r="3" />
           <circle cx="18" cy="16" r="3" />
         </svg>
+        @if (isPlaying()) {
+          <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#00aaff] playing-dot"></span>
+        }
       </button>
     </div>
 
