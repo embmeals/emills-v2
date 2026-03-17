@@ -124,14 +124,14 @@ interface Guideline {
       >
         Skills & Technologies
       </h2>
-      <p class="text-center text-[9px] tracking-[0.35em] uppercase text-[#00aaff]/30 mb-10" aria-hidden="true"
+      <p class="text-center text-[9px] tracking-[0.35em] uppercase text-[#00aaff]/30 mb-4" aria-hidden="true"
         style="font-family: 'Montserrat', sans-serif"
       >
         All Systems Nominal
       </p>
 
       <!-- View toggle (desktop only) -->
-      <div class="hidden md:flex justify-center mb-6">
+      <div class="hidden md:flex justify-center mb-3">
         <div class="inline-flex rounded-lg border border-[#1e1e2e] bg-[#14141f] p-1 gap-1">
           <button
             type="button"
@@ -157,7 +157,7 @@ interface Guideline {
       </div>
 
       <!-- Legend (desktop only) -->
-      <div class="hidden md:flex flex-wrap justify-center gap-6 mb-6">
+      <div class="hidden md:flex flex-wrap justify-center gap-6 mb-2">
         @for (orbit of orbits; track orbit.label) {
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full" [style.background]="orbit.colorHex"></span>
