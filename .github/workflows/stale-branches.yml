@@ -2,58 +2,20 @@ name: Stale Branch Cleanup
 
 on:
   schedule:
-    # Run every Sunday at midnight UTC
-    - cron: '0 0 * * 0'
+    - cron: '0 0 * * 0'  # Every Sunday at midnight UTC
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   cleanup:
     name: Delete Merged Branches
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Delete merged branches
         uses: actions/github-script@v7
         with:
-          script: |
-            const { data: branches } = await github.rest.repos.listBranches({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              per_page: 100,
-            });
-
-            const protectedBranches = ['main', 'development'];
-
-            for (const branch of branches) {
-              if (protectedBranches.includes(branch.name)) continue;
-
-              // Check if this branch has been merged into main
-              try {
-                await github.rest.repos.compareCommitsWithBasehead({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  basehead: `main...${branch.name}`,
-                });
-
-                const { data: compare } = await github.rest.repos.compareCommitsWithBasehead({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  basehead: `${branch.name}...main`,
-                });
-
-                // If branch is fully behind main (0 commits ahead), it's been merged
-                if (compare.ahead_by === 0) {
-                  await github.rest.git.deleteRef({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    ref: `heads/${branch.name}`,
-                  });
-                  console.log(`Deleted merged branch: ${branch.name}`);
-                }
-              } catch (e) {
-                console.log(`Skipping ${branch.name}: ${e.message}`);
-              }
-            }
+          script: require('./.github/scripts/cleanup-branches.js')({ github, context })

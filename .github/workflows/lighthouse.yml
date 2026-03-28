@@ -2,40 +2,31 @@ name: Lighthouse Audit
 
 on:
   workflow_run:
-    workflows: ["Deploy to GitHub Pages"]
+    workflows: [CI / CD]
     types: [completed]
     branches: [main]
-
-permissions:
-  contents: read
-  statuses: write
 
 jobs:
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: github.event.workflow_run.conclusion == 'success'
+    permissions:
+      contents: read
+      statuses: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli
+
       - name: Run Lighthouse
-        run: |
-          lhci autorun \
-            --collect.url=https://www.emills.net \
-            --collect.numberOfRuns=1 \
-            --upload.target=temporary-public-storage \
-            --assert.preset=lighthouse:no-pwa \
-            --assert.assertions.categories:performance=warn \
-            --assert.assertions.categories:accessibility=warn \
-            --assert.assertions.categories:best-practices=warn \
-            --assert.assertions.categories:seo=warn
+        run: lhci autorun
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload Lighthouse results
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Upload results
         uses: actions/upload-artifact@v4
         if: always()
         with:
