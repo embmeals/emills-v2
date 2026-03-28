@@ -37,7 +37,7 @@ import { LightboxComponent } from './lightbox.component';
               role="img"
               [attr.aria-label]="image.title"
               class="w-full bg-[#14141f] bg-cover bg-center select-none"
-              [style.background-image]="'url(' + image.src + ')'"
+              [style.background-image]="'url(' + (errorMap()[image.src] ?? image.src) + ')'"
               [style.aspect-ratio]="'auto'"
               style="-webkit-touch-callout: none"
             >
@@ -72,6 +72,7 @@ export class GalleryComponent {
 
   readonly selectedIndex = signal(-1);
   readonly lightboxOpen = signal(false);
+  readonly errorMap = signal<Record<string, string>>({});
 
   readonly folderImages = computed(() => {
     return GALLERY_IMAGES.filter((img) => img.folder === this.folder());
@@ -123,6 +124,10 @@ export class GalleryComponent {
     const img = event.target as HTMLImageElement;
     const index = GALLERY_IMAGES.findIndex((i) => i.src === img.src || img.src.endsWith(i.src));
     const num = index >= 0 ? index + 1 : 1;
-    img.src = `https://placehold.co/400x500/14141f/e0e0e0?text=Image+${num}`;
+    const placeholder = `https://placehold.co/400x500/14141f/e0e0e0?text=Image+${num}`;
+    img.src = placeholder;
+    if (index >= 0) {
+      this.errorMap.update((m) => ({ ...m, [GALLERY_IMAGES[index].src]: placeholder }));
+    }
   }
 }
