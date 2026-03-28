@@ -114,7 +114,7 @@ export class AboutComponent {
   ] as const;
 
   readonly certifications = [
-    { name: 'Salesforce Administrator', detail: null },
+    { name: 'Salesforce Administrator', detail: '2024' },
     { name: 'Full-Stack .NET Bootcamp', detail: 'Centriq Training · 2021–2022' },
   ] as const;
 }
