@@ -1,5 +1,4 @@
 User-agent: *
-Allow: /
 Disallow: /assets/gallery/
 Disallow: /assets/audio/
 
