@@ -67,11 +67,11 @@ import {
           </button>
         }
 
-        <div class="relative max-w-full max-h-full">
+        <div class="relative max-w-full max-h-[90vh]">
           <img
             [src]="imageSrc()"
             [alt]="imageTitle()"
-            class="max-w-full max-h-full w-auto h-auto object-contain rounded-lg select-none"
+            class="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded-lg select-none"
             draggable="false"
             style="box-shadow: 0 0 20px rgba(255, 45, 123, 0.4), 0 0 40px rgba(255, 45, 123, 0.15); -webkit-user-drag: none; -webkit-touch-callout: none"
           />
