@@ -65,8 +65,16 @@ import { ZardSkeletonComponent } from '@/shared/components/skeleton/skeleton.com
       </div>
     }
 
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold focus:bg-[#0d0d1a] focus:text-neon-cyan focus:ring-2 focus:ring-neon-cyan"
+    >
+      Skip to main content
+    </a>
     <app-navbar />
-    <router-outlet />
+    <main id="main-content">
+      <router-outlet />
+    </main>
     <app-footer />
     <app-music-player />
   `,

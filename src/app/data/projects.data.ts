@@ -9,6 +9,7 @@ interface CaseStudy {
 interface PublicProject {
   readonly title: string;
   readonly type: 'public';
+  readonly year: string;
   readonly description: string;
   readonly techStack: readonly string[];
   readonly githubUrl?: string;
@@ -18,6 +19,7 @@ interface PublicProject {
 interface CaseStudyProject {
   readonly title: string;
   readonly type: 'case-study';
+  readonly year: string;
   readonly description: string;
   readonly techStack: readonly string[];
   readonly caseStudy: CaseStudy;
@@ -31,6 +33,7 @@ export const PROJECTS: readonly Project[] = [
   {
     title: 'C# URL Validator',
     type: 'case-study',
+    year: '2023',
     description: 'Console tool that validates URLs and checks HTTP status codes, built to verify SEO compliance for job listing indexing.',
     techStack: ['C#', '.NET', 'HTTP', 'SEO'],
     githubUrl: 'https://github.com/embmeals/URLValidator',
@@ -43,6 +46,7 @@ export const PROJECTS: readonly Project[] = [
   {
     title: 'React & .NET Task Manager',
     type: 'public',
+    year: '2024',
     description: 'Full-stack task management application with React frontend and .NET API backend, featuring CRUD operations and real-time updates.',
     techStack: ['React', '.NET', 'REST API', 'SQL Server'],
     githubUrl: 'https://github.com/embmeals/TaskManagementAPI',
@@ -51,6 +55,7 @@ export const PROJECTS: readonly Project[] = [
   {
     title: 'Spectrum Scheduling API',
     type: 'case-study',
+    year: '2025',
     description: 'Legacy scheduling API rescue and stabilization for construction workforce management.',
     techStack: ['C#', '.NET', 'SQL Server', 'REST API', 'Azure DevOps'],
     caseStudy: {
@@ -62,6 +67,7 @@ export const PROJECTS: readonly Project[] = [
   {
     title: 'Bridgit Integration',
     type: 'case-study',
+    year: '2025',
     description: 'Third-party API integration for construction workforce scheduling.',
     techStack: ['C#', '.NET', 'REST API', 'Third-party API'],
     caseStudy: {
