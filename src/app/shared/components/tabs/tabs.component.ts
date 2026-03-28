@@ -1,4 +1,4 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
 import {
   afterNextRender,
   type AfterViewInit,
@@ -7,7 +7,6 @@ import {
   computed,
   contentChildren,
   DestroyRef,
-  DOCUMENT,
   type ElementRef,
   inject,
   Injector,
