@@ -35,6 +35,10 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: 'assets/gallery/film/18359532682010313.webp', title: 'Film Strip 008', folder: 'film' },
   { src: 'assets/gallery/film/18011690182540475.webp', title: 'Film Strip 009', folder: 'film' },
   { src: 'assets/gallery/film/tallneck_film.jpg', title: 'Tallneck', folder: 'film' },
+  { src: 'assets/gallery/film/sewing_machine.jpg', title: 'Sewing Machine', folder: 'film' },
+  { src: 'assets/gallery/film/pup_in_car.jpg', title: 'Pup in Car', folder: 'film' },
+  { src: 'assets/gallery/film/cosmo.jpg', title: 'Cosmo', folder: 'film' },
+  { src: 'assets/gallery/film/sleeping_pig.jpg', title: 'Sleeping Pig', folder: 'film' },
 
   // Screenprint — Apparel & Prints
   { src: 'assets/gallery/screenprint/IMG_0147.jpg', title: 'Byte Me — Drying Rack', folder: 'screenprint' },
