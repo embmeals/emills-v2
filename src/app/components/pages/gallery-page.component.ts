@@ -39,7 +39,7 @@ interface FolderCard {
           </h2>
 
           <p class="text-center text-muted-foreground text-base max-w-xl mx-auto mb-12">
-            Outside of engineering I make things with my hands — digital collages, film photography, screen prints, and stained glass. This is where I keep it all.
+            Outside of engineering I make things with my hands — mixed media collages, film photography, screen prints, and stained glass. This is where I keep it all.
           </p>
 
           <div class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto [&>a]:w-full [&>a]:sm:w-[calc(50%-0.75rem)] [&>a]:lg:w-[calc(33.333%-1rem)]">
