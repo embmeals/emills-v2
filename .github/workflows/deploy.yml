@@ -103,7 +103,7 @@ jobs:
           path: dist/emills-v2/browser
 
       - name: Post bundle size comment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: require('./.github/scripts/bundle-size.js')({ github, context })
 
