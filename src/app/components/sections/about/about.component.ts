@@ -71,6 +71,36 @@ import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
           }
         </div>
       </div>
+
+      <!-- Education & Certifications -->
+      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-sm font-semibold tracking-widest uppercase text-neon-cyan mb-4">Education</h3>
+          <ul class="flex flex-col gap-4">
+            @for (item of education; track item.degree) {
+              <li class="flex flex-col gap-0.5">
+                <span class="text-foreground font-medium text-sm">{{ item.degree }}</span>
+                <span class="text-muted-foreground text-sm">{{ item.school }}</span>
+                <span class="text-xs" style="color: #606080">{{ item.year }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-sm font-semibold tracking-widest uppercase text-neon-cyan mb-4">Certifications</h3>
+          <ul class="flex flex-col gap-4">
+            @for (cert of certifications; track cert.name) {
+              <li class="flex flex-col gap-0.5">
+                <span class="text-foreground font-medium text-sm">{{ cert.name }}</span>
+                @if (cert.detail) {
+                  <span class="text-muted-foreground text-sm">{{ cert.detail }}</span>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
     </section>
   `,
 })
@@ -78,4 +108,13 @@ export class AboutComponent {
   readonly paragraphs = ABOUT_TEXT.split('\n\n');
   readonly funFacts = FUN_FACTS;
 
+  readonly education = [
+    { degree: 'B.S. in Computer Science', school: 'University of Missouri–St. Louis', year: 'Expected 2026' },
+    { degree: 'Associate of Applied Science', school: 'St. Louis Community College', year: '2025' },
+  ] as const;
+
+  readonly certifications = [
+    { name: 'Salesforce Administrator', detail: null },
+    { name: 'Full-Stack .NET Bootcamp', detail: 'Centriq Training · 2021–2022' },
+  ] as const;
 }

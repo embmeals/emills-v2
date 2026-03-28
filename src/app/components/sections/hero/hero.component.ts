@@ -77,6 +77,17 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
           <p class="mt-4 text-muted-foreground max-w-lg text-base">
             Building accessible, inclusive digital experiences
           </p>
+
+          <a
+            href="#projects"
+            class="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
+            style="background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.4); color: #00e5ff"
+          >
+            View My Work
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+          </a>
         </div>
 
         <!-- Right: Dev Card + Social links -->

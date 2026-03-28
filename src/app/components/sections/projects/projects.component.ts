@@ -81,6 +81,7 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         @for (project of filteredProjects(); track project.title) {
           <z-card [zTitle]="project.title" [zDescription]="project.description">
+            <p class="text-xs mb-3" style="color: #606080">{{ project.year }}</p>
             <div class="flex flex-wrap gap-2 mb-4">
               @for (tech of project.techStack; track tech) {
                 <z-badge zType="secondary" zShape="pill">{{ tech }}</z-badge>
