@@ -16,5 +16,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('@/components/pages/gallery-folder-page.component').then((m) => m.GalleryFolderPageComponent),
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('@/components/pages/not-found-page.component').then((m) => m.NotFoundPageComponent),
+  },
 ];
