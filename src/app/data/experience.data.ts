@@ -19,6 +19,9 @@ export const EXPERIENCES: readonly Experience[] = [
       'Maintained and enhanced React/Next.js components for enterprise applications, ensuring WCAG 2.1 accessibility compliance',
       'Deployed and maintained Dockerized applications via Docker Desktop for local and staging environments',
       'Contributed to CI/CD pipelines using GitHub Actions, optimizing build and deployment workflows',
+      'Wrote Python scripts for Shell to automate monthly and yearly static report generation, cross-validating output against SQL database records and historical reports using client-provided data',
+      'Developed full-stack features for OneShop\'s broadcast platform using React and Django, spanning both frontend UI and backend data layers',
+      'Authored structured Playwright test suites across multiple client projects, using screenshot capture and scripted workflows to validate application functionality',
     ],
   },
   {
