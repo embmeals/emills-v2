@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { ContactComponent } from './contact.component';
 
 describe('ContactComponent', () => {
@@ -9,7 +8,7 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactComponent, RouterModule.forRoot([])],
+      imports: [ContactComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactComponent);
@@ -42,12 +41,6 @@ describe('ContactComponent', () => {
     expect(hrefs).toContain('https://www.linkedin.com/in/ember-d-mills');
   });
 
-  it('should have a Studio link', () => {
-    const links = compiled.querySelectorAll('a');
-    const labels = Array.from(links).map((link) => link.getAttribute('aria-label'));
-    expect(labels).toContain('Studio');
-  });
-
   it('should have target="_blank" on external links', () => {
     const externalLinks = getExternalLinks();
     expect(externalLinks.length).toBe(2);
@@ -58,12 +51,11 @@ describe('ContactComponent', () => {
 
   it('should have aria-label on all links', () => {
     const links = compiled.querySelectorAll('a');
-    expect(links.length).toBe(4);
+    expect(links.length).toBe(3);
     const labels = Array.from(links).map((link) => link.getAttribute('aria-label'));
     expect(labels).toContain('Email');
     expect(labels).toContain('GitHub');
     expect(labels).toContain('LinkedIn');
-    expect(labels).toContain('Studio');
   });
 
   it('should have rel="noopener noreferrer" on external links', () => {
