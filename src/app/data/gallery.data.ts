@@ -39,6 +39,7 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: 'assets/gallery/film/pup_in_car.jpg', title: 'Pup in Car', folder: 'film' },
   { src: 'assets/gallery/film/cosmo.jpg', title: 'Cosmo', folder: 'film' },
   { src: 'assets/gallery/film/sleeping_pig.jpg', title: 'Sleeping Pig', folder: 'film' },
+  { src: 'assets/gallery/film/catio.jpg', title: 'Catio', folder: 'film' },
 
   // Screenprint — Apparel & Prints
   { src: 'assets/gallery/screenprint/IMG_0147.jpg', title: 'Byte Me — Drying Rack', folder: 'screenprint' },
