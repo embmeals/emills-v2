@@ -35,6 +35,9 @@ export const EXPERIENCES: readonly Experience[] = [
       'Replaced jQuery components with Vue.js, decreasing frontend bundle size and improving maintainability',
       'Spearheaded frontend accessibility initiative, implementing WCAG 2.1 guidelines and ARIA attributes across key workflows',
       'Authored and maintained Web API endpoints; documented in Postman and Swagger for internal and partner use',
+      'Integrated Training Central LMS with Salesforce, synchronizing user enrollments, course completions, purchase data, and scheduled seminars via SQL Server',
+      'Developed C# API tests and validated endpoints via Swagger to verify correctness and data integrity across integrated services',
+      'Implemented Hangfire background jobs in C# .NET to automate email notifications for learning path events, including trainer schedule changes and date updates',
     ],
   },
   {
