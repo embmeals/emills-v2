@@ -73,7 +73,7 @@ jobs:
           cp dist/emills-v2/browser/index.html dist/emills-v2/browser/404.html
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist/emills-v2/browser
 
