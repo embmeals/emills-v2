@@ -37,7 +37,7 @@ import { LightboxComponent } from './lightbox.component';
               role="img"
               [attr.aria-label]="image.title"
               class="w-full bg-[#14141f] bg-cover bg-center select-none"
-              [style.background-image]="'url(' + (errorMap()[image.src] ?? image.src) + ')'"
+              [style.background-image]="'url(' + (errorMap()[image.src] || image.src) + ')'"
               [style.aspect-ratio]="'auto'"
               style="-webkit-touch-callout: none"
             >
