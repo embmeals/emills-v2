@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, AfterViewInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, AfterViewInit, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '@/components/layout/navbar/navbar.component';
@@ -79,16 +79,26 @@ import { ZardSkeletonComponent } from '@/shared/components/skeleton/skeleton.com
     <app-music-player />
   `,
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnDestroy {
   title = 'emills-v2';
   private readonly platformId = inject(PLATFORM_ID);
   readonly loading = signal(true);
+  private readonly onPageShow = (e: PageTransitionEvent) => {
+    if (e.persisted) window.location.reload();
+  };
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => this.loading.set(false), 1200);
+      window.addEventListener('pageshow', this.onPageShow);
     } else {
       this.loading.set(false);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('pageshow', this.onPageShow);
     }
   }
 }
