@@ -67,13 +67,13 @@ import {
           </button>
         }
 
-        <div class="relative max-w-full max-h-[90vh]">
+        <div class="relative" style="max-width: 90vw; max-height: 85vh">
           <img
             [src]="imageSrc()"
             [alt]="imageTitle()"
-            class="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded-lg select-none"
+            class="rounded-lg select-none object-contain"
             draggable="false"
-            style="box-shadow: 0 0 20px rgba(255, 45, 123, 0.4), 0 0 40px rgba(255, 45, 123, 0.15); -webkit-user-drag: none; -webkit-touch-callout: none"
+            style="max-width: 90vw; max-height: 85vh; width: auto; height: auto; box-shadow: 0 0 20px rgba(255, 45, 123, 0.4), 0 0 40px rgba(255, 45, 123, 0.15); -webkit-user-drag: none; -webkit-touch-callout: none"
           />
           <div class="absolute inset-0 rounded-lg" aria-hidden="true"></div>
         </div>
