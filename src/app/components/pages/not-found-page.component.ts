@@ -10,90 +10,158 @@ import { Title } from '@angular/platform-browser';
   template: `
     <main
       class="min-h-screen flex flex-col items-center justify-center px-6 text-center"
-      style="background: #0d0d1a"
+      style="background: #03050f"
       aria-labelledby="not-found-heading"
     >
-      <!-- Cat SVG -->
-      <div class="mb-6 select-none" aria-hidden="true">
+      <!-- Ring Gate SVG -->
+      <div class="mb-8 select-none" aria-hidden="true">
         <svg
-          viewBox="0 0 200 220"
-          width="180"
-          height="198"
+          viewBox="0 0 300 300"
+          width="260"
+          height="260"
           xmlns="http://www.w3.org/2000/svg"
-          class="cat drop-shadow-[0_0_18px_rgba(0,255,255,0.25)]"
         >
-          <!-- tail -->
-          <path
-            d="M100 210 Q130 190 145 165 Q155 145 140 135"
-            fill="none"
-            stroke="#b0b0c8"
-            stroke-width="7"
-            stroke-linecap="round"
-          />
+          <defs>
+            <!-- Deep void gradient for the ring centre -->
+            <radialGradient id="voidGrad404" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#07091c"/>
+              <stop offset="60%"  stop-color="#040612"/>
+              <stop offset="100%" stop-color="#010208"/>
+            </radialGradient>
+            <!-- Glow filter for the inner edge -->
+            <filter id="glow404" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="3.5" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
 
-          <!-- body -->
-          <ellipse cx="100" cy="155" rx="42" ry="48" fill="#c8c8dc" />
+          <!-- Stars (outside ring radius ~123) -->
+          <g fill="white">
+            <circle cx="18"  cy="25"  r="1"   opacity="0.85"/>
+            <circle cx="44"  cy="11"  r="0.8" opacity="0.65"/>
+            <circle cx="76"  cy="37"  r="1.2" opacity="0.90"/>
+            <circle cx="262" cy="17"  r="0.9" opacity="0.70"/>
+            <circle cx="286" cy="50"  r="1.1" opacity="0.80"/>
+            <circle cx="292" cy="142" r="0.8" opacity="0.60"/>
+            <circle cx="279" cy="202" r="1.0" opacity="0.75"/>
+            <circle cx="247" cy="266" r="0.9" opacity="0.80"/>
+            <circle cx="192" cy="289" r="1.1" opacity="0.60"/>
+            <circle cx="118" cy="286" r="0.8" opacity="0.90"/>
+            <circle cx="53"  cy="269" r="1.0" opacity="0.70"/>
+            <circle cx="13"  cy="220" r="0.8" opacity="0.60"/>
+            <circle cx="7"   cy="154" r="1.2" opacity="0.80"/>
+            <circle cx="21"  cy="84"  r="0.9" opacity="0.70"/>
+            <circle cx="296" cy="88"  r="1.0" opacity="0.65"/>
+            <circle cx="265" cy="250" r="0.8" opacity="0.75"/>
+            <circle cx="34"  cy="186" r="1.0" opacity="0.55"/>
+            <circle cx="201" cy="13"  r="0.8" opacity="0.80"/>
+            <circle cx="94"  cy="6"   r="1.0" opacity="0.60"/>
+            <circle cx="151" cy="4"   r="0.7" opacity="0.65"/>
+            <circle cx="6"   cy="296" r="0.9" opacity="0.50"/>
+            <circle cx="295" cy="272" r="0.8" opacity="0.55"/>
+          </g>
 
-          <!-- belly -->
-          <ellipse cx="100" cy="162" rx="24" ry="30" fill="#e8e8f4" />
+          <!-- Outer ambient breathe glow (wide, very faint) -->
+          <circle cx="150" cy="150" r="113" fill="none"
+            stroke="#00c8d4" stroke-width="34" class="ring-breathe"/>
 
-          <!-- front legs (dangling down, stressed) -->
-          <line x1="70" y1="175" x2="58" y2="210" stroke="#b0b0c8" stroke-width="9" stroke-linecap="round" />
-          <line x1="130" y1="175" x2="142" y2="210" stroke="#b0b0c8" stroke-width="9" stroke-linecap="round" />
+          <!-- Ring body: layered for metallic depth -->
+          <!-- outermost shadow -->
+          <circle cx="150" cy="150" r="113" fill="none"
+            stroke="#07081a" stroke-width="26"/>
+          <!-- main body -->
+          <circle cx="150" cy="150" r="113" fill="none"
+            stroke="#1c1e38" stroke-width="20"/>
+          <!-- midtone highlight -->
+          <circle cx="150" cy="150" r="113" fill="none"
+            stroke="#262a48" stroke-width="13"/>
+          <!-- inner lip shadow -->
+          <circle cx="150" cy="150" r="113" fill="none"
+            stroke="#111325" stroke-width="5"/>
 
-          <!-- paws -->
-          <ellipse cx="56" cy="214" rx="9" ry="6" fill="#b0b0c8" />
-          <ellipse cx="144" cy="214" rx="9" ry="6" fill="#b0b0c8" />
+          <!-- 8 structural nodes on the ring (r=113 from centre 150,150) -->
+          <!--
+            0°   → (150, 37)
+            45°  → (230, 70)
+            90°  → (263, 150)
+            135° → (230, 230)
+            180° → (150, 263)
+            225° → (70,  230)
+            270° → (37,  150)
+            315° → (70,  70)
+          -->
+          <g fill="#12132a" stroke="#2c2f52" stroke-width="1">
+            <circle cx="150" cy="37"  r="5.5"/>
+            <circle cx="230" cy="70"  r="5.5"/>
+            <circle cx="263" cy="150" r="5.5"/>
+            <circle cx="230" cy="230" r="5.5"/>
+            <circle cx="150" cy="263" r="5.5"/>
+            <circle cx="70"  cy="230" r="5.5"/>
+            <circle cx="37"  cy="150" r="5.5"/>
+            <circle cx="70"  cy="70"  r="5.5"/>
+          </g>
+          <!-- Inner rings on the nodes (slightly lighter) -->
+          <g fill="none" stroke="#3a3e68" stroke-width="1">
+            <circle cx="150" cy="37"  r="3"/>
+            <circle cx="230" cy="70"  r="3"/>
+            <circle cx="263" cy="150" r="3"/>
+            <circle cx="230" cy="230" r="3"/>
+            <circle cx="150" cy="263" r="3"/>
+            <circle cx="70"  cy="230" r="3"/>
+            <circle cx="37"  cy="150" r="3"/>
+            <circle cx="70"  cy="70"  r="3"/>
+          </g>
 
-          <!-- head -->
-          <circle cx="100" cy="95" r="46" fill="#c8c8dc" />
+          <!-- Void (fills inside of ring: r=103) -->
+          <circle cx="150" cy="150" r="103" fill="url(#voidGrad404)"/>
 
-          <!-- ears (pointy, flattened back — stressed) -->
-          <polygon points="62,65 52,32 82,58" fill="#c8c8dc" />
-          <polygon points="138,65 148,32 118,58" fill="#c8c8dc" />
-          <!-- inner ears -->
-          <polygon points="65,62 57,40 80,60" fill="#e8a0a8" />
-          <polygon points="135,62 143,40 120,60" fill="#e8a0a8" />
+          <!-- Subtle protomolecule wisps (static, in the void) -->
+          <path d="M150,50 Q172,98 156,150 Q140,202 162,250"
+            fill="none" stroke="#00c8d4" stroke-width="1.5"
+            stroke-linecap="round" opacity="0.14"/>
+          <path d="M50,150 Q100,130 150,150 Q200,170 250,150"
+            fill="none" stroke="#00c8d4" stroke-width="1"
+            stroke-linecap="round" opacity="0.10"/>
+          <path d="M78,78 Q128,122 150,150 Q172,178 222,222"
+            fill="none" stroke="#00c8d4" stroke-width="1"
+            stroke-linecap="round" opacity="0.09"/>
 
-          <!-- eyes — wide, panicked -->
-          <circle cx="82" cy="95" r="13" fill="white" />
-          <circle cx="118" cy="95" r="13" fill="white" />
-          <circle cx="85" cy="97" r="7" fill="#1a1a2e" />
-          <circle cx="121" cy="97" r="7" fill="#1a1a2e" />
-          <!-- pupils — dilated -->
-          <circle cx="85" cy="97" r="4" fill="black" />
-          <circle cx="121" cy="97" r="4" fill="black" />
-          <!-- eye shine -->
-          <circle cx="88" cy="94" r="2" fill="white" />
-          <circle cx="124" cy="94" r="2" fill="white" />
+          <!-- Inner edge: soft bloom -->
+          <circle cx="150" cy="150" r="103" fill="none"
+            stroke="#00c8d4" stroke-width="10" class="inner-glow-soft"/>
 
-          <!-- worried eyebrows -->
-          <line x1="70" y1="80" x2="84" y2="85" stroke="#888" stroke-width="2.5" stroke-linecap="round" />
-          <line x1="130" y1="80" x2="116" y2="85" stroke="#888" stroke-width="2.5" stroke-linecap="round" />
+          <!-- Inner edge: crisp bright ring -->
+          <circle cx="150" cy="150" r="103" fill="none"
+            stroke="#00e5ff" stroke-width="2"
+            class="inner-glow-bright" filter="url(#glow404)"/>
 
-          <!-- nose -->
-          <polygon points="100,108 96,113 104,113" fill="#e8a0a8" />
+          <!-- Slowly-rotating 4-spoke armature -->
+          <g class="spokes-spin" stroke="#1c2248" stroke-linecap="round">
+            <!-- cardinal spokes: inner ring edge (r=103) → hub outer edge (r=14) -->
+            <line x1="150" y1="47"  x2="150" y2="136" stroke-width="2"/>
+            <line x1="150" y1="253" x2="150" y2="164" stroke-width="2"/>
+            <line x1="47"  y1="150" x2="136" y2="150" stroke-width="2"/>
+            <line x1="253" y1="150" x2="164" y2="150" stroke-width="2"/>
+          </g>
 
-          <!-- stressed open mouth -->
-          <path d="M92,116 Q100,124 108,116" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" />
-          <ellipse cx="100" cy="119" rx="6" ry="4" fill="#cc6677" opacity="0.6" />
-
-          <!-- whiskers — askew -->
-          <line x1="60" y1="108" x2="88" y2="112" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" />
-          <line x1="58" y1="114" x2="88" y2="114" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" />
-          <line x1="112" y1="112" x2="140" y2="108" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" />
-          <line x1="112" y1="114" x2="142" y2="114" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" />
-
-          <!-- sweat drop -->
-          <ellipse cx="148" cy="78" rx="4" ry="6" fill="#00bfff" opacity="0.7" />
-          <polygon points="144,78 152,78 148,68" fill="#00bfff" opacity="0.7" />
+          <!-- Central hub -->
+          <circle cx="150" cy="150" r="14"
+            fill="#0a0c1e" stroke="#1e2240" stroke-width="2"/>
+          <circle cx="150" cy="150" r="7"
+            fill="#0d1025" stroke="#00c8d4" stroke-width="1"
+            class="hub-pulse"/>
+          <circle cx="150" cy="150" r="3"
+            fill="#00d4e0" class="hub-pulse"/>
         </svg>
       </div>
 
       <!-- 404 -->
       <p
         class="text-8xl font-black tracking-tight mb-2"
-        style="font-family: 'Montserrat', sans-serif; color: #00e5ff; text-shadow: 0 0 30px rgba(0,229,255,0.5)"
+        style="font-family: 'Montserrat', sans-serif; color: #00e5ff; text-shadow: 0 0 32px rgba(0,229,255,0.5)"
         aria-hidden="true"
       >
         404
@@ -103,42 +171,84 @@ import { Title } from '@angular/platform-browser';
       <h1
         id="not-found-heading"
         class="text-2xl font-bold mb-3"
-        style="font-family: 'Montserrat', sans-serif; color: #e0e0e0"
+        style="font-family: 'Montserrat', sans-serif; color: #dde0f2"
       >
-        Page Not Found
+        Trajectory Not Found
       </h1>
 
       <!-- Flavour copy -->
-      <p class="text-base max-w-sm mb-1" style="color: #a0a0b8">
-        This page got sucked out the airlock.
+      <p class="text-base max-w-sm mb-1" style="color: #7888a8">
+        You've drifted into the Slow Zone.
       </p>
-      <p class="text-sm max-w-sm mb-8" style="color: #606080">
-        The cat has been notified. She is handling it poorly.
+      <p class="text-sm max-w-sm mb-2" style="color: #4a5a7a">
+        This location isn't charted in the EPD registry.
+      </p>
+      <p class="text-xs max-w-xs mb-8 italic" style="color: #303a56">
+        Sasa ke, kopeng?
       </p>
 
       <!-- CTA -->
       <a
         routerLink="/"
         class="px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-        style="background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.4); color: #00e5ff"
+        style="background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.3); color: #00e5ff"
         aria-label="Go back to the home page"
       >
-        Get me out of here
+        Plot a course home
       </a>
     </main>
   `,
   styles: [`
-    .cat {
-      animation: float 3s ease-in-out infinite;
+    .ring-breathe {
+      animation: ringBreathe 5s ease-in-out infinite;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(-2deg); }
-      50%       { transform: translateY(-10px) rotate(2deg); }
+    .inner-glow-soft {
+      animation: softGlow 3.5s ease-in-out infinite;
+    }
+
+    .inner-glow-bright {
+      animation: brightGlow 3.5s ease-in-out infinite;
+    }
+
+    .hub-pulse {
+      animation: hubPulse 3.5s ease-in-out infinite;
+    }
+
+    .spokes-spin {
+      animation: spokesSpin 40s linear infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    @keyframes ringBreathe {
+      0%, 100% { opacity: 0.04; }
+      50%       { opacity: 0.09; }
+    }
+
+    @keyframes softGlow {
+      0%, 100% { opacity: 0.08; }
+      50%       { opacity: 0.18; }
+    }
+
+    @keyframes brightGlow {
+      0%, 100% { opacity: 0.90; }
+      50%       { opacity: 0.50; }
+    }
+
+    @keyframes hubPulse {
+      0%, 100% { opacity: 0.75; }
+      50%       { opacity: 0.35; }
+    }
+
+    @keyframes spokesSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .cat { animation: none; }
+      .ring-breathe, .inner-glow-soft, .inner-glow-bright,
+      .hub-pulse, .spokes-spin { animation: none; }
     }
   `],
 })
