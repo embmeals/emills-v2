@@ -29,20 +29,27 @@ import { LightboxComponent } from './lightbox.component';
         @for (image of folderImages(); track image.src) {
           <button
             type="button"
-            class="break-inside-avoid w-full rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent relative"
+            class="break-inside-avoid w-full rounded-lg overflow-hidden cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-neon-magenta hover:glow-magenta hover:scale-[1.02] p-0 bg-transparent"
             (click)="openLightbox(image)"
             (contextmenu)="$event.preventDefault()"
           >
-            <img
-              [src]="image.src"
-              [alt]="image.title"
-              loading="lazy"
-              draggable="false"
-              class="w-full h-auto block bg-[#14141f] select-none max-h-[80vh] object-contain"
-              style="-webkit-user-drag: none; -webkit-touch-callout: none"
-              (error)="onImageError($event)"
-            />
-            <div class="absolute inset-0" aria-hidden="true"></div>
+            <div
+              role="img"
+              [attr.aria-label]="image.title"
+              class="w-full bg-[#14141f] bg-cover bg-center select-none"
+              [style.background-image]="'url(' + image.src + ')'"
+              [style.aspect-ratio]="'auto'"
+              style="-webkit-touch-callout: none"
+            >
+              <img
+                [src]="image.src"
+                [alt]="image.title"
+                loading="lazy"
+                draggable="false"
+                class="w-full h-auto block invisible"
+                (error)="onImageError($event)"
+              />
+            </div>
           </button>
         }
       </div>
