@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ParticleCanvasComponent } from './particle-canvas.component';
 import { DevCardComponent } from './dev-card.component';
 import { ZardTooltipImports } from '@/shared/components/tooltip';
@@ -80,6 +81,7 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
 
           <a
             href="#projects"
+            (click)="scrollToProjects($event)"
             class="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
             style="background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.4); color: #00e5ff"
           >
@@ -130,8 +132,17 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
   `,
 })
 export class HeroComponent {
+  private readonly platformId = inject(PLATFORM_ID);
+
   readonly socialLinks = [
     { label: 'GitHub', url: 'https://github.com/embmeals', icon: 'github' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ember-d-mills', icon: 'linkedin' },
   ] as const;
+
+  scrollToProjects(event: Event): void {
+    event.preventDefault();
+    if (isPlatformBrowser(this.platformId)) {
+      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }

@@ -33,7 +33,7 @@ export const PROJECTS: readonly Project[] = [
   {
     title: 'C# URL Validator',
     type: 'case-study',
-    year: '2023',
+    year: '2025',
     description: 'Console tool that validates URLs and checks HTTP status codes, built to verify SEO compliance for job listing indexing.',
     techStack: ['C#', '.NET', 'HTTP', 'SEO'],
     githubUrl: 'https://github.com/embmeals/URLValidator',
