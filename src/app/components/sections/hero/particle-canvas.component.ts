@@ -162,7 +162,7 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   private getParticleCount(): number {
-    return window.innerWidth < 768 ? 100 : 450;
+    return window.innerWidth < 768 ? 60 : 200;
   }
 
   private createParticles(): ProtoParticle[] {

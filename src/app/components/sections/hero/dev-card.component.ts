@@ -18,11 +18,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     @keyframes borderGlow {
       0%, 100% {
         border-color: #00aaff;
-        box-shadow: 0 0 20px rgba(0, 160, 255, 0.3), inset 0 0 20px rgba(0, 160, 255, 0.05);
+        opacity: 0.92;
       }
       50% {
         border-color: #00e5ff;
-        box-shadow: 0 0 20px rgba(0, 229, 255, 0.4), inset 0 0 20px rgba(0, 229, 255, 0.08);
+        opacity: 1;
       }
     }
 
@@ -34,6 +34,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
 
     .crew-card {
+      box-shadow: 0 0 20px rgba(0, 160, 255, 0.3), inset 0 0 20px rgba(0, 160, 255, 0.05);
+      will-change: transform, opacity;
       animation: borderGlow 4s ease-in-out infinite;
     }
 
@@ -177,6 +179,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
               <img
                 src="assets/ember_avatar.jpg"
                 alt="Ember Mills avatar"
+                width="96"
+                height="96"
+                fetchpriority="high"
                 class="w-full h-full object-cover"
               />
             </div>
