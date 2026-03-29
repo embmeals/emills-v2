@@ -81,6 +81,11 @@ export const ADVOCACY_LINKS: readonly AdvocacyLink[] = [
     description: 'The Electronic Frontier Foundation\'s resource hub on Section 230 defense',
   },
   {
+    label: 'Bad Internet Bills',
+    url: 'https://www.badinternetbills.com',
+    description: 'Track current legislation threatening the open internet',
+  },
+  {
     label: 'Fight for the Future',
     url: 'https://www.fightforthefuture.org/',
     description: 'Digital rights advocacy and action campaigns',
