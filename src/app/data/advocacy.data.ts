@@ -58,13 +58,13 @@ export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
     color: 'magenta',
     sources: [
       { label: 'Techdirt: Heritage Admits KOSA Removes Abortion Content', url: 'https://www.techdirt.com/2024/09/16/heritage-foundation-admits-kosa-will-be-useful-for-removing-pro-abortion-content-if-trump-wins/' },
+      { label: 'FFTF: LGBTQ+ Activists Say Fight Censorship Bills', url: 'https://www.fightforthefuture.org/news/2025-06-24-lgbtq-activists-fight-trumps-censorship-bills-or-dont-come-to-pride' },
       { label: 'Taylor Lorenz on KOSA and the SCREEN Act', url: 'https://www.privacyguides.org/videos/2025/12/16/taylor-lorenz-on-kosa-the-screen-act-and-repealing-section-230/' },
-      { label: 'Heritage Foundation: Section 230 Reform Proposals', url: 'https://www.heritage.org/press/heritage-foundation-releases-section-230-reform-proposals' },
     ],
   },
   {
     heading: 'The coverage is part of the problem',
-    body: 'When Meta went to trial in New Mexico, the coverage was wall to wall about social media harming kids. What most reporters left out was that the plaintiff had documented physical and psychological abuse at home and was using Instagram to talk about it. The abuse got left out of the story and social media took all the blame. This keeps happening because companies fund research, hand it to journalists who take credit for it, and the actual complicated reality never makes it into the report. The narrative stays simple: social media bad. And that simple narrative is what drives bad legislation.',
+    body: 'When Meta went to trial in New Mexico, the coverage was wall to wall about social media harming kids. What most reporters left out was that the plaintiff had documented physical and psychological abuse at home and was using Instagram to talk about it. The abuse got left out of the story and social media took all the blame. This keeps happening. The complicated reality doesn\'t make for a clean headline, so journalists run with the simple version: social media bad. And that simple narrative is exactly what drives bad legislation.',
     color: 'cyan',
     sources: [
       { label: 'Reason: Taylor Lorenz on Meta Trial', url: 'https://reason.com/podcast/2026/03/27/taylor-lorenz-is-social-media-responsible-for-bad-parenting/' },
@@ -95,6 +95,7 @@ export const FALSE_VICTORIES: readonly FalseVictory[] = [
       { label: 'EFF: Facebook\'s Pitch to Congress', url: 'https://www.eff.org/deeplinks/2021/03/facebooks-pitch-congress-section-230-me-not-thee' },
       { label: 'Issue One: Big Tech Lobbying', url: 'https://issueone.org/articles/big-tech-lobbying-2025-q3/' },
       { label: 'Reason: What the Trial Coverage Left Out', url: 'https://reason.com/podcast/2026/03/27/taylor-lorenz-is-social-media-responsible-for-bad-parenting/' },
+      { label: 'FFTF: The Verdict Doesn\'t Mean Pass KOSA', url: 'https://www.fightforthefuture.org/news/2026-03-25-no-the-meta-youtube-lawsuit-verdict-does-not-mean-we-should-pass-kosa-or-repeal-section-230' },
     ],
   },
   {
@@ -115,14 +116,29 @@ I'm not a policy expert. I'm a software engineer who builds things for the web. 
 
 export const ADVOCACY_LINKS: readonly AdvocacyLink[] = [
   {
+    label: 'Fight for the Future',
+    url: 'https://www.fightforthefuture.org/',
+    description: 'Evan Greer\'s digital rights org leading the fight against KOSA and Section 230 repeal',
+  },
+  {
     label: 'Techdirt - Section 230 Coverage',
     url: 'https://www.techdirt.com/tag/section-230/',
-    description: 'Mike Masnick\'s essential, ongoing coverage of Section 230 law and policy',
+    description: 'Mike Masnick\'s ongoing coverage of Section 230 law and policy',
   },
   {
     label: 'Taylor Lorenz - User Mag',
     url: 'https://www.usermag.co/',
-    description: 'Independent tech journalism covering internet culture, policy, and platform power',
+    description: 'Independent tech journalism on internet culture, policy, and platform power',
+  },
+  {
+    label: 'Cory Doctorow - Pluralistic',
+    url: 'https://pluralistic.net/',
+    description: 'How monopoly power and enshittification break the internet for everyone',
+  },
+  {
+    label: 'Jillian York - Silicon Values',
+    url: 'https://jilliancyork.com/',
+    description: 'EFF director on how content moderation disproportionately silences marginalized people',
   },
   {
     label: 'EFF - Section 230',
@@ -133,10 +149,5 @@ export const ADVOCACY_LINKS: readonly AdvocacyLink[] = [
     label: 'Bad Internet Bills',
     url: 'https://www.badinternetbills.com',
     description: 'Track current legislation threatening the open internet',
-  },
-  {
-    label: 'Fight for the Future',
-    url: 'https://www.fightforthefuture.org/',
-    description: 'Digital rights advocacy and action campaigns',
   },
 ] as const;
