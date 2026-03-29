@@ -108,6 +108,16 @@ export const FALSE_VICTORIES: readonly FalseVictory[] = [
       { label: 'Prism Reports: Troubling History of Body Cameras', url: 'https://prismreports.org/2024/07/16/complex-troubling-history-police-body-cameras/' },
     ],
   },
+  {
+    heading: 'Marriage equality',
+    surface: 'In 2015, the Supreme Court legalized same-sex marriage in Obergefell v. Hodges. #LoveWon trended everywhere. The fight was over.',
+    reality: 'The movement got funneled into the most assimilationist goal possible. Marriage mostly helped white cisgender gay and lesbian people who already had some upward mobility. The big organizations declared victory, shifted resources, and moved on. Meanwhile trans rights, employment protections, housing discrimination, and healthcare access all got deprioritized. Within a year North Carolina passed its bathroom bill. By 2023, over 600 anti-LGBTQ bills were introduced in state legislatures in a single year, almost all targeting trans people. The movement won the goal that looked most like straight acceptance and left its most vulnerable members exposed. Trans people are now being legislated out of existence while the victory flag still flies.',
+    sources: [
+      { label: 'Boston Review: Those Left Behind When #LoveWon', url: 'https://www.bostonreview.net/articles/hugh-ryan-love-won/' },
+      { label: 'Slate: The Decade LGBTQ Rights Went Mainstream', url: 'https://slate.com/news-and-politics/2019/12/decade-fight-lgbtq-rights-mainstream-marriage-equality-trans-rights.html' },
+      { label: 'PBS: What Progress Looks Like 5 Years After Obergefell', url: 'https://www.pbs.org/newshour/nation/lgbtq-activists-on-what-progress-looks-like-5-years-after-same-sex-marriage-ruling' },
+    ],
+  },
 ] as const;
 
 export const ADVOCACY_CLOSING = `Section 230 turned 30 in February 2026. It's still the most important law protecting users' speech online. Not platforms' speech. Yours. The kid in a conservative town who needs to know they're not alone. The activist documenting police violence. The small community that can't afford a single lawsuit. That's who loses when this law goes away.
