@@ -6,7 +6,6 @@ import { SkillsComponent } from '@/components/sections/skills/skills.component';
 import { ProjectsComponent } from '@/components/sections/projects/projects.component';
 import { ExperienceComponent } from '@/components/sections/experience/experience.component';
 import { ContactComponent } from '@/components/sections/contact/contact.component';
-import { AdvocacyComponent } from '@/components/sections/advocacy/advocacy.component';
 import { SectionDividerComponent } from '@/components/layout/section-divider/section-divider.component';
 
 @Component({
@@ -19,7 +18,6 @@ import { SectionDividerComponent } from '@/components/layout/section-divider/sec
     ProjectsComponent,
     ExperienceComponent,
     ContactComponent,
-    AdvocacyComponent,
     SectionDividerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,14 +55,6 @@ import { SectionDividerComponent } from '@/components/layout/section-divider/sec
     <section id="experience" class="px-4 sm:px-6 lg:px-8 py-12">
       <div class="max-w-5xl w-full mx-auto">
         <app-experience />
-      </div>
-    </section>
-
-    <app-section-divider label="Signal Boost" />
-
-    <section id="advocacy" class="px-4 sm:px-6 lg:px-8 py-12">
-      <div class="max-w-5xl w-full mx-auto">
-        <app-advocacy />
       </div>
     </section>
 

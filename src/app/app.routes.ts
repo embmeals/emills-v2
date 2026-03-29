@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('@/components/pages/gallery-page.component').then((m) => m.GalleryPageComponent),
   },
   {
+    path: 'advocacy',
+    loadComponent: () =>
+      import('@/components/pages/advocacy-page.component').then((m) => m.AdvocacyPageComponent),
+  },
+  {
     path: 'studio/:folder',
     loadComponent: () =>
       import('@/components/pages/gallery-folder-page.component').then((m) => m.GalleryFolderPageComponent),

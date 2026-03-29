@@ -157,6 +157,23 @@ import {
                   <p class="text-sm text-foreground/70 leading-relaxed">
                     {{ victory.surface }}
                   </p>
+                  @if (victory.sources.length) {
+                    <div class="mt-3 flex flex-col gap-1">
+                      @for (source of victory.sources; track source.url) {
+                        <a
+                          [href]="source.url"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-xs text-foreground/40 hover:text-neon-cyan transition-colors duration-200 inline-flex items-center gap-1"
+                        >
+                          <svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          {{ source.label }}
+                        </a>
+                      }
+                    </div>
+                  }
                 </div>
                 <div>
                   <span class="surface-label bg-red-900/40 text-red-400">The reality</span>

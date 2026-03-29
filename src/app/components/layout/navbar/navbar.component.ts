@@ -60,6 +60,12 @@ interface NavLink {
           >
             Studio
           </a>
+          <a
+            routerLink="/advocacy"
+            class="text-sm font-medium transition-colors duration-200 cursor-pointer px-1 py-2 text-[#a0a0b0] hover:text-[#e0e0e0]"
+          >
+            Advocacy
+          </a>
         </div>
 
         <!-- Mobile hamburger -->
@@ -114,6 +120,13 @@ interface NavLink {
           >
             Studio
           </a>
+          <a
+            routerLink="/advocacy"
+            class="block w-full text-left py-3 text-sm font-medium transition-colors duration-200 cursor-pointer text-[#a0a0b0] hover:text-[#e0e0e0]"
+            (click)="closeMobile()"
+          >
+            Advocacy
+          </a>
         </div>
       }
     </nav>
@@ -130,7 +143,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     { label: 'Skills', id: 'skills' },
     { label: 'Projects', id: 'projects' },
     { label: 'Experience', id: 'experience' },
-    { label: 'Advocacy', id: 'advocacy' },
     { label: 'Contact', id: 'contact' },
   ] as const;
 
