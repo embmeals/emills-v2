@@ -22,7 +22,7 @@ My family has come around since then. But I'll never forget that when I needed i
 
 That lifeline exists because of Section 230 of the Communications Decency Act. It's basically one sentence that says platforms aren't liable for what their users post, and that they can moderate content without being on the hook for everything on their site. That's it. It's the legal foundation that made forums, social media, comment sections, and every user-generated space on the internet possible.
 
-Now both parties in Congress want it gone, for completely opposite reasons. And the people who are going to pay the price aren't tech CEOs. It's us.`;
+Platforms have real problems. They're addictive by design, they harvest data, their algorithms push people toward extremes, and companies like Meta have been genuinely terrible. I'm not here to defend Big Tech. But the push to dismantle Section 230 doesn't fix any of that. Both parties in Congress want it gone, for completely opposite reasons. And the people who are going to pay the price aren't tech CEOs. It's us.`;
 
 export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
   {
@@ -35,7 +35,7 @@ export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
     ],
   },
   {
-    heading: 'Platforms will over-moderate, and marginalized voices go first',
+    heading: 'When platforms over-moderate, marginalized voices go first',
     body: 'When platforms face liability for user speech, they don\'t carefully review things. They just delete anything that could be controversial. And we already know whose speech gets flagged first: LGBTQ+ people, sex workers, Black activists, basically anyone outside the mainstream. In 2025, Instagram got caught suppressing dozens of LGBTQ+ hashtags from teen accounts by default. That\'s what the whole internet looks like without Section 230.',
     color: 'magenta',
     sources: [
@@ -44,7 +44,7 @@ export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
     ],
   },
   {
-    heading: 'We already ran this experiment. It was a disaster.',
+    heading: 'We already tried this. It was a disaster.',
     body: 'FOSTA-SESTA punched the first hole in Section 230 in 2018, supposedly to fight trafficking. What actually happened was platforms mass-deleted sex worker communities, harm reduction resources disappeared, and trafficking victims got harder to find and help. Over 70 civil rights and LGBTQ+ organizations warned Congress this would happen. It happened anyway. Every new proposal to "reform" Section 230 runs the same playbook.',
     color: 'amber',
     sources: [
@@ -53,22 +53,13 @@ export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
     ],
   },
   {
-    heading: 'The real agenda is censorship',
-    body: 'Bills like KOSA and the SCREEN Act use "protecting children" as the reason to push content filtering that just happens to suppress LGBTQ+ and reproductive health information. The Heritage Foundation has made Section 230 repeal a core policy goal. This isn\'t about safety. It\'s about controlling what people, especially young people, are allowed to see and who they get to become.',
+    heading: '"Protecting children" is doing a lot of heavy lifting',
+    body: 'Bills like KOSA and the SCREEN Act use child safety as the reason to push content filtering that just happens to suppress LGBTQ+ and reproductive health information. The Heritage Foundation has made Section 230 repeal a core policy goal and has said openly that KOSA would be useful for removing trans and abortion content. This isn\'t about keeping kids safe. It\'s about controlling what people, especially young people, are allowed to see and who they get to become.',
     color: 'magenta',
     sources: [
       { label: 'Techdirt: Heritage Admits KOSA Removes Abortion Content', url: 'https://www.techdirt.com/2024/09/16/heritage-foundation-admits-kosa-will-be-useful-for-removing-pro-abortion-content-if-trump-wins/' },
       { label: 'FFTF: LGBTQ+ Activists Say Fight Censorship Bills', url: 'https://www.fightforthefuture.org/news/2025-06-24-lgbtq-activists-fight-trumps-censorship-bills-or-dont-come-to-pride' },
       { label: 'Taylor Lorenz on KOSA and the SCREEN Act', url: 'https://www.privacyguides.org/videos/2025/12/16/taylor-lorenz-on-kosa-the-screen-act-and-repealing-section-230/' },
-    ],
-  },
-  {
-    heading: 'The coverage is part of the problem',
-    body: 'When Meta went to trial in New Mexico, the coverage was wall to wall about social media harming kids. What most reporters left out was that the plaintiff had documented physical and psychological abuse at home and was using Instagram to talk about it. The abuse got left out of the story and social media took all the blame. This keeps happening. The complicated reality doesn\'t make for a clean headline, so journalists run with the simple version: social media bad. And that simple narrative is exactly what drives bad legislation.',
-    color: 'cyan',
-    sources: [
-      { label: 'Reason: Taylor Lorenz on Meta Trial', url: 'https://reason.com/podcast/2026/03/27/taylor-lorenz-is-social-media-responsible-for-bad-parenting/' },
-      { label: 'CNBC: Meta $375M New Mexico Verdict', url: 'https://www.cnbc.com/2026/03/24/jury-reaches-verdict-in-meta-child-safety-trial-in-new-mexico.html' },
     ],
   },
 ] as const;
@@ -101,7 +92,7 @@ export const FALSE_VICTORIES: readonly FalseVictory[] = [
   {
     heading: 'Police body cameras',
     surface: 'After Michael Brown was killed in Ferguson in 2014, body cameras were championed as a reform, a tool to hold police accountable and protect Black lives.',
-    reality: 'Police departments and their corporate vendors had been trying to fund mass body camera adoption for years and couldn\'t get the budgets approved. Ferguson gave them the political cover they needed. Companies like Axon, who had marketed cameras to police as evidence-gathering and surveillance tools, rebranded overnight as accountability technology. The result: one of the most expensive expansions of police surveillance infrastructure in history, funded by the very communities demanding reform. Body camera footage is routinely used to prosecute civilians and is almost never used against officers. The cameras serve the institution, not the people.',
+    reality: 'Police departments and their corporate vendors had been trying to fund mass body camera adoption for years and couldn\'t get the budgets approved. Ferguson gave them the political cover they needed. Companies like Axon, who had marketed cameras to police as evidence-gathering and surveillance tools, rebranded overnight as accountability technology. The result was one of the most expensive expansions of police surveillance infrastructure in history, funded by the very communities demanding reform. Body camera footage is routinely used to prosecute civilians and is almost never used against officers. The cameras serve the institution, not the people.',
     sources: [
       { label: 'ProPublica: How Police Undermined Body Cameras', url: 'https://www.propublica.org/article/how-police-undermined-promise-body-cameras' },
       { label: 'The Flaw: Axon\'s Reaping', url: 'https://theflaw.org/articles/police-brutality-as-a-moneymaker/' },

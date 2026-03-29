@@ -96,7 +96,7 @@ import {
       </h2>
 
       <p class="text-sm tracking-widest uppercase text-neon-magenta mb-10" style="font-family: 'Montserrat', sans-serif">
-        Defending Section 230 &amp; the Open Internet
+        On the internet, rights, and who actually gets protected
       </p>
 
       <!-- Personal intro -->
