@@ -22,7 +22,7 @@ My family has come around since then. But I'll never forget that when I needed i
 
 That lifeline exists because of Section 230 of the Communications Decency Act. It's basically one sentence that says platforms aren't liable for what their users post, and that they can moderate content without being on the hook for everything on their site. That's it. It's the legal foundation that made forums, social media, comment sections, and every user-generated space on the internet possible.
 
-Platforms have real problems. They're addictive by design, they harvest data, their algorithms push people toward extremes, and companies like Meta have been genuinely terrible. I'm not here to defend Big Tech. But the push to dismantle Section 230 doesn't fix any of that. Both parties in Congress want it gone, for completely opposite reasons. And the people who are going to pay the price aren't tech CEOs. It's us.`;
+Platforms have real problems. They're addictive by design, they harvest data, their algorithms push people toward extremes, and companies like Meta have been genuinely terrible. I would never defend Big Tech. But the push to dismantle Section 230 doesn't fix any of that. Both parties in Congress want it gone, for completely opposite reasons. And the people who are going to pay the price aren't tech CEOs. It's us.`;
 
 export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
   {
