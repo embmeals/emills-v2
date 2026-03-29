@@ -4,10 +4,16 @@ export interface AdvocacyLink {
   readonly description: string;
 }
 
+export interface AdvocacySource {
+  readonly label: string;
+  readonly url: string;
+}
+
 export interface AdvocacyPoint {
   readonly heading: string;
   readonly body: string;
   readonly color: 'cyan' | 'magenta' | 'amber';
+  readonly sources: readonly AdvocacySource[];
 }
 
 export const ADVOCACY_INTRO = `In the early 2000s, I was a lesbian kid in the Midwest with no roadmap. When I came out, my family didn't take it well. When you're that age and the people who are supposed to love you reject you, it does something. But the internet gave me somewhere else to go. Forums, LiveJournal, early social platforms. That's where I first found people like me just existing and talking honestly and building community. I didn't find that at home. I didn't find it at school. I found it online, on a web that was open enough to let us exist.
@@ -23,21 +29,47 @@ export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
     heading: 'Repeal doesn\'t punish Big Tech. It entrenches it.',
     body: 'Without Section 230, every platform is on the hook for what users post. Meta and Google can afford buildings full of lawyers. The indie forum where trans teens find community can\'t. Small platforms die first and the giants get bigger. Techdirt has been documenting this for years. Killing Section 230 is a gift to monopolies dressed up as accountability.',
     color: 'cyan',
+    sources: [
+      { label: 'Techdirt: Section 230 Turns 30', url: 'https://www.techdirt.com/2026/02/09/section-230-turns-30-both-parties-want-it-gone-for-contradictory-reasons/' },
+      { label: 'Techdirt: Kill 230, Make Monopolies Worse', url: 'https://www.techdirt.com/2024/05/28/wanna-make-big-tech-monopolies-even-worse-kill-section-230/' },
+    ],
   },
   {
     heading: 'Platforms will over-moderate, and marginalized voices go first',
     body: 'When platforms face liability for user speech, they don\'t carefully review things. They just delete anything that could be controversial. And we already know whose speech gets flagged first: LGBTQ+ people, sex workers, Black activists, basically anyone outside the mainstream. In 2025, Instagram got caught suppressing dozens of LGBTQ+ hashtags from teen accounts by default. That\'s what the whole internet looks like without Section 230.',
     color: 'magenta',
+    sources: [
+      { label: 'User Mag: Instagram Blocked Teens From LGBTQ Content', url: 'https://www.usermag.co/p/instagram-blocked-teens-from-searching' },
+      { label: 'Techdirt: Gutting 230 Harms the Marginalized', url: 'https://www.techdirt.com/2019/08/27/gutting-section-230-will-harm-most-marginalized/' },
+    ],
   },
   {
     heading: 'We already ran this experiment. It was a disaster.',
     body: 'FOSTA-SESTA punched the first hole in Section 230 in 2018, supposedly to fight trafficking. What actually happened was platforms mass-deleted sex worker communities, harm reduction resources disappeared, and trafficking victims got harder to find and help. Over 70 civil rights and LGBTQ+ organizations warned Congress this would happen. It happened anyway. Every new proposal to "reform" Section 230 runs the same playbook.',
     color: 'amber',
+    sources: [
+      { label: '70+ Orgs Warn Congress: Don\'t Gut 230', url: 'https://www.fightforthefuture.org/news/2021-01-27-70-civil-rights-and-social-justice-organizations' },
+      { label: 'EFF: FOSTA Is Unconstitutional', url: 'https://www.eff.org/deeplinks/2022/09/fight-overturn-fosta-unconstitutional-internet-censorship-law-continues' },
+    ],
   },
   {
     heading: 'The real agenda is censorship',
     body: 'Bills like KOSA and the SCREEN Act use "protecting children" as the reason to push content filtering that just happens to suppress LGBTQ+ and reproductive health information. The Heritage Foundation has made Section 230 repeal a core policy goal. This isn\'t about safety. It\'s about controlling what people, especially young people, are allowed to see and who they get to become.',
     color: 'magenta',
+    sources: [
+      { label: 'Techdirt: Heritage Admits KOSA Removes Abortion Content', url: 'https://www.techdirt.com/2024/09/16/heritage-foundation-admits-kosa-will-be-useful-for-removing-pro-abortion-content-if-trump-wins/' },
+      { label: 'Taylor Lorenz on KOSA and the SCREEN Act', url: 'https://www.privacyguides.org/videos/2025/12/16/taylor-lorenz-on-kosa-the-screen-act-and-repealing-section-230/' },
+      { label: 'Heritage Foundation: Section 230 Reform Proposals', url: 'https://www.heritage.org/press/heritage-foundation-releases-section-230-reform-proposals' },
+    ],
+  },
+  {
+    heading: 'The coverage is part of the problem',
+    body: 'When Meta went to trial in New Mexico, the coverage was wall to wall about social media harming kids. What most reporters left out was that the plaintiff had documented physical and psychological abuse at home and was using Instagram to talk about it. The abuse got left out of the story and social media took all the blame. This keeps happening because companies fund research, hand it to journalists who take credit for it, and the actual complicated reality never makes it into the report. The narrative stays simple: social media bad. And that simple narrative is what drives bad legislation.',
+    color: 'cyan',
+    sources: [
+      { label: 'Reason: Taylor Lorenz on Meta Trial', url: 'https://reason.com/podcast/2026/03/27/taylor-lorenz-is-social-media-responsible-for-bad-parenting/' },
+      { label: 'CNBC: Meta $375M New Mexico Verdict', url: 'https://www.cnbc.com/2026/03/24/jury-reaches-verdict-in-meta-child-safety-trial-in-new-mexico.html' },
+    ],
   },
 ] as const;
 
@@ -62,6 +94,7 @@ export const FALSE_VICTORIES: readonly FalseVictory[] = [
       { label: 'Techdirt: Section 230 Turns 30', url: 'https://www.techdirt.com/2026/02/09/section-230-turns-30-both-parties-want-it-gone-for-contradictory-reasons/' },
       { label: 'EFF: Facebook\'s Pitch to Congress', url: 'https://www.eff.org/deeplinks/2021/03/facebooks-pitch-congress-section-230-me-not-thee' },
       { label: 'Issue One: Big Tech Lobbying', url: 'https://issueone.org/articles/big-tech-lobbying-2025-q3/' },
+      { label: 'Reason: What the Trial Coverage Left Out', url: 'https://reason.com/podcast/2026/03/27/taylor-lorenz-is-social-media-responsible-for-bad-parenting/' },
     ],
   },
   {
