@@ -85,4 +85,5 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: 'assets/gallery/stained-glass/17942808394348917.jpg', title: 'Stained Glass 031', folder: 'stained-glass' },
   { src: 'assets/gallery/stained-glass/18044382472215853.jpg', title: 'Stained Glass 032', folder: 'stained-glass' },
   { src: 'assets/gallery/stained-glass/18084646255083047.jpg', title: 'Stained Glass 033', folder: 'stained-glass' },
+  { src: 'assets/gallery/stained-glass/zia-sun.jpg', title: 'Zia Sun', folder: 'stained-glass' },
 ];
