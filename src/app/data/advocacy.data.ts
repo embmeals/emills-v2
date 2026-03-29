@@ -18,7 +18,7 @@ export interface AdvocacyPoint {
 
 export const ADVOCACY_INTRO = `In the early 2000s, I was a lesbian kid in the Midwest with no roadmap. When I came out, my family didn't take it well. When you're that age and the people who are supposed to love you reject you, it does something. But the internet gave me somewhere else to go. Forums, LiveJournal, early social platforms. That's where I first found people like me just existing and talking honestly and building community. I didn't find that at home. I didn't find it at school. I found it online, on a web that was open enough to let us exist.
 
-My family has come around since then. But I'll never forget that when I needed it the most, it was strangers on the internet, not my family, not any institution, who showed me I wasn't broken. That's what the open internet does. It gives people a lifeline when nobody else will.
+My family has come around since then. But I'll never forget that when I needed it the most, it was friends I made on the web, not my family, not any institution, who showed me I wasn't broken. That's what the open internet does. It gives people a lifeline when nobody else will.
 
 That lifeline exists because of Section 230 of the Communications Decency Act. It's basically one sentence that says platforms aren't liable for what their users post, and that they can moderate content without being on the hook for everything on their site. That's it. It's the legal foundation that made forums, social media, comment sections, and every user-generated space on the internet possible.
 

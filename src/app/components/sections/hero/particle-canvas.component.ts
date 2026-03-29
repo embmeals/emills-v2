@@ -48,13 +48,16 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        this.initStaticCanvas();
-        return;
-      }
-      this.initCanvas();
-      this.resizeHandler = () => this.handleResize();
-      window.addEventListener('resize', this.resizeHandler);
+      // Defer canvas init to avoid blocking FCP/LCP
+      requestAnimationFrame(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          this.initStaticCanvas();
+          return;
+        }
+        this.initCanvas();
+        this.resizeHandler = () => this.handleResize();
+        window.addEventListener('resize', this.resizeHandler);
+      });
     }
   }
 

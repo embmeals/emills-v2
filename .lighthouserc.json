@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "url": ["https://www.emills.net"],
-      "numberOfRuns": 1
+      "numberOfRuns": 3
     },
     "upload": {
       "target": "temporary-public-storage"
