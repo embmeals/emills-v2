@@ -31,16 +31,6 @@ export type { CaseStudyProject };
 
 export const PROJECTS: readonly Project[] = [
   {
-    title: 'emills.net',
-    type: 'public',
-    year: '2026',
-    description:
-      'Personal portfolio and advocacy platform with interactive particle canvas, orbital skills visualization, and a cyberpunk-inspired design system.',
-    techStack: ['Angular 19', 'TypeScript', 'TailwindCSS', 'Zard UI', 'GitHub Pages'],
-    githubUrl: 'https://github.com/embmeals/emills-v2',
-    liveUrl: 'https://www.emills.net',
-  },
-  {
     title: 'Homelab Media Infrastructure',
     type: 'case-study',
     year: '2026',
