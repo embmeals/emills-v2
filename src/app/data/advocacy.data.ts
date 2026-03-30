@@ -16,13 +16,9 @@ export interface AdvocacyPoint {
   readonly sources: readonly AdvocacySource[];
 }
 
-export const ADVOCACY_INTRO = `In the early 2000s, I was a lesbian kid in the Midwest with no roadmap. When I came out, my family didn't take it well. When you're that age and the people who are supposed to love you reject you, it does something. But the internet gave me somewhere else to go. Forums, LiveJournal, early social platforms. That's where I first found people like me just existing and talking honestly and building community. I didn't find that at home. I didn't find it at school. I found it online, on a web that was open enough to let us exist.
+export const ADVOCACY_INTRO = `In the early 2000s, I was a baby lesbian in the Midwest with no roadmap. When I came out, my family didn't take it well. But the internet gave me somewhere else to go. Forums, LiveJournal, early social platforms. That's where I found people like me. My family has come around since then, but I'll never forget that when I needed it most, it was friends I made on the web who showed me I wasn't broken. That's what the open internet does. It gives people a lifeline when nobody else will.
 
-My family has come around since then. But I'll never forget that when I needed it the most, it was friends I made on the web, not my family, not any institution, who showed me I wasn't broken. That's what the open internet does. It gives people a lifeline when nobody else will.
-
-That lifeline exists because of Section 230 of the Communications Decency Act. It's basically one sentence that says platforms aren't liable for what their users post, and that they can moderate content without being on the hook for everything on their site. That's it. It's the legal foundation that made forums, social media, comment sections, and every user-generated space on the internet possible.
-
-Platforms have real problems. They're addictive by design, they harvest data, their algorithms push people toward extremes, and companies like Meta have been genuinely terrible. I would never defend Big Tech. But the push to dismantle Section 230 doesn't fix any of that. Both parties in Congress want it gone, for completely opposite reasons. And the people who are going to pay the price aren't tech CEOs. It's us.`;
+That lifeline exists because of Section 230 of the Communications Decency Act, one sentence that says platforms aren't liable for what users post, and can moderate without being on the hook for everything. Platforms have real problems. They're addictive by design, they harvest data, and companies like Meta have been genuinely terrible. I would never defend Big Tech. But the push to dismantle Section 230 doesn't fix any of that. Both parties want it gone, for opposite reasons, and the people who pay the price won't be tech CEOs. It's us.`;
 
 export const ADVOCACY_POINTS: readonly AdvocacyPoint[] = [
   {
