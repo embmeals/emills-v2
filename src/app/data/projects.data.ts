@@ -31,6 +31,33 @@ export type { CaseStudyProject };
 
 export const PROJECTS: readonly Project[] = [
   {
+    title: 'emills.net',
+    type: 'public',
+    year: '2026',
+    description:
+      'Personal portfolio and advocacy platform with interactive particle canvas, orbital skills visualization, and a cyberpunk-inspired design system.',
+    techStack: ['Angular 19', 'TypeScript', 'TailwindCSS', 'Zard UI', 'GitHub Pages'],
+    githubUrl: 'https://github.com/embmeals/emills-v2',
+    liveUrl: 'https://www.emills.net',
+  },
+  {
+    title: 'Homelab Media Infrastructure',
+    type: 'case-study',
+    year: '2026',
+    description:
+      'Multi-machine media server pipeline spanning macOS, Windows, and Linux with automated downloads, cross-network sync, and self-healing monitoring.',
+    techStack: ['Docker', 'Python', 'Bash', 'Cloudflare', 'Plex', 'Syncthing'],
+    githubUrl: 'https://github.com/embmeals/homelab',
+    caseStudy: {
+      problem:
+        'Needed a self-hosted media pipeline that could handle VPN-protected downloads on Windows, cross-network file sync to a Mac server, automated library management, and remote access — all without cloud dependencies.',
+      approach:
+        'Built a three-machine architecture: Windows PC as a VPN-protected download relay, Mac as the central server running Plex, Radarr, Sonarr, and 12+ Docker services, with Syncthing bridging file transfers. Added Cloudflare Tunnel for secure remote access, a Python monitoring daemon with auto-remediation, and automated weekly backups.',
+      outcome:
+        'Fully automated media pipeline from request to playback. Self-healing monitor catches and remediates issues before they affect service. Infrastructure serves multiple devices including a 4K TV with direct play, all managed through web UIs accessible anywhere via Cloudflare Tunnel with Access protection.',
+    },
+  },
+  {
     title: 'C# URL Validator',
     type: 'case-study',
     year: '2025',
