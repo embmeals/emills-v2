@@ -37,7 +37,6 @@ export const PROJECTS: readonly Project[] = [
     description:
       'Multi-machine media server pipeline spanning macOS, Windows, and Linux with automated downloads, cross-network sync, and self-healing monitoring.',
     techStack: ['Docker', 'Python', 'Bash', 'Cloudflare', 'Plex', 'Syncthing'],
-    githubUrl: 'https://github.com/embmeals/homelab',
     caseStudy: {
       problem:
         'Needed a self-hosted media pipeline that could handle VPN-protected downloads on Windows, cross-network file sync to a Mac server, automated library management, and remote access — all without cloud dependencies.',
