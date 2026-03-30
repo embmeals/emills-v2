@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 interface ContactLink {
   readonly label: string;
   readonly url: string;
-  readonly icon: 'email' | 'github' | 'linkedin' | 'moltbook';
+  readonly icon: 'email' | 'github' | 'linkedin';
 }
 
 @Component({
@@ -62,22 +62,6 @@ interface ContactLink {
                   <path d="M9 18c-4.51 2-5-2-7-2" />
                 </svg>
               }
-              <!-- Moltbook -->
-              @if (link.icon === 'moltbook') {
-                <svg
-                  class="w-10 h-10"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  <path d="M2 12h20" />
-                </svg>
-              }
               <!-- LinkedIn -->
               @if (link.icon === 'linkedin') {
                 <svg
@@ -123,11 +107,6 @@ export class ContactComponent {
       label: 'LinkedIn',
       url: 'https://www.linkedin.com/in/ember-d-mills',
       icon: 'linkedin',
-    },
-    {
-      label: 'Moltbook',
-      url: 'https://www.moltbook.com/u/EmberPixelBot',
-      icon: 'moltbook',
     },
   ] as const;
 }
