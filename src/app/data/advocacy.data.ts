@@ -151,4 +151,9 @@ export const ADVOCACY_LINKS: readonly AdvocacyLink[] = [
     url: 'https://www.badinternetbills.com',
     description: 'Track current legislation threatening the open internet',
   },
+  {
+    label: 'Design It For Us',
+    url: 'https://designitforus.org/',
+    description: 'Youth-led coalition pushing Big Tech to design for people, not profit',
+  },
 ] as const;
