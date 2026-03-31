@@ -31,19 +31,20 @@ export type { CaseStudyProject };
 
 export const PROJECTS: readonly Project[] = [
   {
-    title: 'Homelab Media Infrastructure',
+    title: 'Homelab Infrastructure Monitor',
     type: 'case-study',
     year: '2026',
     description:
-      'Multi-machine media server pipeline spanning macOS, Windows, and Linux with automated downloads, cross-network sync, and self-healing monitoring.',
-    techStack: ['Docker', 'Python', 'Bash', 'Cloudflare', 'Plex', 'Syncthing'],
+      'Full-stack .NET 10 monitoring dashboard for a multi-machine homelab running 20+ services. Live HTMX dashboard, 9 recurring Hangfire jobs, email alerts, remote VPN control, and auto-deploy via self-hosted GitHub Actions runner.',
+    techStack: ['.NET 10', 'Hangfire', 'HTMX', 'EF Core', 'SQLite', 'Chart.js', 'GitHub Actions', 'Cloudflare'],
+    githubUrl: 'https://github.com/embmeals/homelabBackend',
     caseStudy: {
       problem:
-        'Needed a self-hosted media pipeline that could handle VPN-protected downloads on Windows, cross-network file sync to a Mac server, automated library management, and remote access — all without cloud dependencies.',
+        'Managing a 3-machine homelab (Mac server, Windows PC, Linux laptop) running Plex, Radarr, Sonarr, 12+ Docker containers, and a VPN-protected download pipeline. Monitoring was scattered across shell scripts and a Python daemon with no central visibility, and issues went unnoticed until they broke something.',
       approach:
-        'Built a three-machine architecture: Windows PC as a VPN-protected download relay, Mac as the central server running Plex, Radarr, Sonarr, and 12+ Docker services, with Syncthing bridging file transfers. Added Cloudflare Tunnel for secure remote access, a Python monitoring daemon with auto-remediation, and automated weekly backups.',
+        'Built a .NET 10 Hangfire app with a Razor Pages dashboard that monitors all services via HTTP pings and SSH. qBittorrent is VPN-bound and unreachable over LAN, so the app SSHes to the Windows PC to check status and control the download pipeline remotely. HTMX handles live dashboard updates without a JS framework. EF Core with SQLite stores health check history, and a 90-day uptime page shows service reliability over time. CI runs on Ubuntu, deploy via a self-hosted GitHub Actions runner on the Mac — push to main auto-deploys if tests pass.',
       outcome:
-        'Fully automated media pipeline from request to playback. Self-healing monitor catches and remediates issues before they affect service. Infrastructure serves multiple devices including a 4K TV with direct play, all managed through web UIs accessible anywhere via Cloudflare Tunnel with Access protection.',
+        'Single dashboard replaces all monitoring scripts. 42 unit tests. 9 recurring jobs checking services, disks, torrents, Docker containers, DNS, and the Cloudflare tunnel. One-click VPN connect, Plex scan, and service restarts from any device. Email alerts on critical issues. Storage forecast shows when drives will fill up. Accessible anywhere via Cloudflare Tunnel with Access protection.',
     },
   },
   {
