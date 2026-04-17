@@ -86,7 +86,7 @@ export class ZardDialogOptions<T, U> {
       </header>
     }
 
-    <main class="flex flex-col space-y-4">
+    <main class="flex flex-col space-y-4 flex-1 min-h-0 overflow-y-auto">
       <ng-template cdkPortalOutlet />
 
       @if (isStringContent) {
