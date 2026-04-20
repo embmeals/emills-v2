@@ -73,7 +73,7 @@ jobs:
           cp dist/emills-v2/browser/index.html dist/emills-v2/browser/404.html
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist/emills-v2/browser
 
@@ -103,7 +103,7 @@ jobs:
           path: dist/emills-v2/browser
 
       - name: Post bundle size comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: require('./.github/scripts/bundle-size.js')({ github, context })
 

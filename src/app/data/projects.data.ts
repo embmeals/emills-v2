@@ -31,6 +31,23 @@ export type { CaseStudyProject };
 
 export const PROJECTS: readonly Project[] = [
   {
+    title: 'Homelab Infrastructure Monitor',
+    type: 'case-study',
+    year: '2026',
+    description:
+      'Full-stack .NET 10 monitoring dashboard for a multi-machine homelab running 20+ services. Live HTMX dashboard, 9 recurring Hangfire jobs, email alerts, remote VPN control, and auto-deploy via self-hosted GitHub Actions runner.',
+    techStack: ['.NET 10', 'Hangfire', 'HTMX', 'EF Core', 'SQLite', 'Chart.js', 'GitHub Actions', 'Cloudflare'],
+    githubUrl: 'https://github.com/embmeals/homelabBackend',
+    caseStudy: {
+      problem:
+        'Managing a 3-machine homelab (Mac server, Windows PC, Linux laptop) running Plex, Radarr, Sonarr, 12+ Docker containers, and a VPN-protected download pipeline. Monitoring was scattered across shell scripts and a Python daemon with no central visibility, and issues went unnoticed until they broke something.',
+      approach:
+        'Built a .NET 10 Hangfire app with a Razor Pages dashboard that monitors all services via HTTP pings and SSH. qBittorrent is VPN-bound and unreachable over LAN, so the app SSHes to the Windows PC to check status and control the download pipeline remotely. HTMX handles live dashboard updates without a JS framework. EF Core with SQLite stores health check history, and a 90-day uptime page shows service reliability over time. CI runs on Ubuntu, deploy via a self-hosted GitHub Actions runner on the Mac — push to main auto-deploys if tests pass.',
+      outcome:
+        'Single dashboard replaces all monitoring scripts. 42 unit tests. 9 recurring jobs checking services, disks, torrents, Docker containers, DNS, and the Cloudflare tunnel. One-click VPN connect, Plex scan, and service restarts from any device. Email alerts on critical issues. Storage forecast shows when drives will fill up. Accessible anywhere via Cloudflare Tunnel with Access protection.',
+    },
+  },
+  {
     title: 'C# URL Validator',
     type: 'case-study',
     year: '2025',
@@ -53,27 +70,15 @@ export const PROJECTS: readonly Project[] = [
     liveUrl: 'https://task-management-frontend-swart-five.vercel.app',
   },
   {
-    title: 'Spectrum Scheduling API',
+    title: 'Construction Scheduling Platform',
     type: 'case-study',
     year: '2025',
-    description: 'Legacy scheduling API rescue and stabilization for construction workforce management.',
+    description: 'Legacy API rescue, stabilization, and third-party integration for construction workforce scheduling.',
     techStack: ['C#', '.NET', 'SQL Server', 'REST API', 'Azure DevOps'],
     caseStudy: {
-      problem: 'Inherited a legacy .NET scheduling API that was silently failing. Broad try-catch blocks were swallowing exceptions across the codebase, masking bugs in third-party API integrations and date logic. The application appeared functional but was producing incorrect data.',
-      approach: 'Systematically removed blanket exception swallowing and replaced it with targeted .NET error handling that surfaced the real issues. Traced failures through service layers for phases, roles, and needs scheduling. Fixed date validation logic and bulk data processing bugs that had been hidden.',
-      outcome: 'Transformed an unreliable, silently-failing system into one with proper error visibility and correct data processing. Bulk job imports went from a hidden failure state to 100% verified success rate with detailed error reporting.',
-    },
-  },
-  {
-    title: 'Bridgit Integration',
-    type: 'case-study',
-    year: '2025',
-    description: 'Third-party API integration for construction workforce scheduling.',
-    techStack: ['C#', '.NET', 'REST API', 'Third-party API'],
-    caseStudy: {
-      problem: 'Integrating with Bridgit\'s scheduling API required handling complex date logic where "go back" dates must always precede end dates, with various edge cases around scheduling phases and role assignments.',
-      approach: 'Built dedicated service layers for scheduling phases and roles with careful date validation. Implemented go-back date logic that correctly handles the temporal relationships between scheduling events.',
-      outcome: 'Reliable bi-directional sync with Bridgit API, with proper error handling and date validation that prevents invalid scheduling states.',
+      problem: 'Inherited a legacy .NET scheduling API that was silently failing — broad try-catch blocks swallowed exceptions across the codebase, masking bugs in date logic and bulk data processing. A third-party scheduling integration (Bridgit) also needed to be built with complex temporal relationships between scheduling phases.',
+      approach: 'Systematically removed blanket exception swallowing and replaced it with targeted error handling that surfaced real issues. Fixed date validation logic and bulk processing bugs. Built dedicated service layers for the Bridgit integration with go-back date logic that correctly handles phase and role scheduling constraints.',
+      outcome: 'Transformed an unreliable system into one with proper error visibility. Bulk imports went from hidden failure to 100% verified success. Delivered reliable bi-directional sync with Bridgit API, preventing invalid scheduling states across the platform.',
     },
   },
 ];
