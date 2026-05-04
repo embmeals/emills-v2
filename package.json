@@ -27,10 +27,10 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.24",
-    "@angular/cli": "^19.2.24",
+    "@angular-devkit/build-angular": "^19.2.25",
+    "@angular/cli": "^19.2.25",
     "@angular/compiler-cli": "^19.2.21",
-    "@tailwindcss/postcss": "^4.2.2",
+    "@tailwindcss/postcss": "^4.2.4",
     "@types/jasmine": "~6.0.0",
     "jasmine-core": "~6.2.0",
     "karma": "~6.4.0",
@@ -38,7 +38,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.2.0",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.13",
     "tailwindcss": "^4.2.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.7.2"
