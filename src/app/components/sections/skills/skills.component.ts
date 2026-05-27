@@ -273,7 +273,7 @@ interface Guideline {
                 <li>
                   <z-badge zType="secondary" zShape="pill">
                     @if (skill.icon) {
-                      <img [src]="skill.icon" [alt]="skill.name" class="inline-block w-4 h-4 mr-1 -mt-0.5" />
+                      <img [src]="skill.icon" [alt]="skill.name" loading="lazy" class="inline-block w-4 h-4 mr-1 -mt-0.5" (error)="$event.target.style.display='none'" />
                     }
                     {{ skill.name }}
                   </z-badge>
