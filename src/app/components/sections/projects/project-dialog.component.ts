@@ -49,7 +49,7 @@ import type { CaseStudyProject } from '@/data/projects.data';
 
       <div class="flex flex-wrap gap-2 pt-2">
         @for (tech of project.techStack; track tech) {
-          <z-badge zType="secondary" zShape="pill">{{ tech }}</z-badge>
+          <z-badge zType="accent" zShape="pill">{{ tech }}</z-badge>
         }
       </div>
     </div>
