@@ -273,7 +273,7 @@ interface Guideline {
                 <li>
                   <z-badge zType="secondary" zShape="pill">
                     @if (skill.icon) {
-                      <img [src]="skill.icon" [alt]="skill.name" loading="lazy" class="inline-block w-4 h-4 mr-1 -mt-0.5" (error)="$event.target.style.display='none'" />
+                      <img [src]="skill.icon" [alt]="skill.name" loading="lazy" class="inline-block w-4 h-4 mr-1 -mt-0.5" (error)="onIconError($event)" />
                     }
                     {{ skill.name }}
                   </z-badge>
@@ -322,4 +322,11 @@ export class SkillsComponent {
       animDuration: durations[idx],
     };
   });
+
+  onIconError(event: Event): void {
+    const img = event.target as HTMLImageElement | null;
+    if (img) {
+      img.style.display = 'none';
+    }
+  }
 }
