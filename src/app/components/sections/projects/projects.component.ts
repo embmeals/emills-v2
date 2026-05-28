@@ -84,7 +84,7 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
             <p class="text-xs mb-3" style="color: #606080">{{ project.year }}</p>
             <div class="flex flex-wrap gap-2 mb-4">
               @for (tech of project.techStack; track tech) {
-                <z-badge zType="secondary" zShape="pill">{{ tech }}</z-badge>
+                <z-badge zType="accent" zShape="pill">{{ tech }}</z-badge>
               }
             </div>
 

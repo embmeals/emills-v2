@@ -70,6 +70,16 @@ export const PROJECTS: readonly Project[] = [
     liveUrl: 'https://task-management-frontend-swart-five.vercel.app',
   },
   {
+    title: 'SqueezySwink',
+    type: 'public',
+    year: '2026',
+    description:
+      'Marketing website for a St. Louis-based upcycled and screenprinted clothing brand. Static landing page with shop integration via Depop, deployed on Cloudflare Workers.',
+    techStack: ['HTML', 'CSS', 'Cloudflare Workers'],
+    githubUrl: 'https://github.com/embmeals/SqueezySwinkSite',
+    liveUrl: 'https://squeezyswink.com',
+  },
+  {
     title: 'Construction Scheduling Platform',
     type: 'case-study',
     year: '2025',

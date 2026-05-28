@@ -25,6 +25,7 @@ const ORBIT_CONFIG = [
 
 interface OrbitalNode {
   readonly name: string;
+  readonly icon?: string;
   readonly x: number;
   readonly y: number;
   readonly labelX: number;
@@ -269,7 +270,14 @@ interface Guideline {
           <z-card [zTitle]="category.name">
             <ul class="flex flex-wrap gap-2 list-none m-0 p-0" [attr.aria-label]="'Skills for ' + category.name">
               @for (skill of category.skills; track skill.name) {
-                <li><z-badge zType="secondary" zShape="pill">{{ skill.name }}</z-badge></li>
+                <li>
+                  <z-badge zType="secondary" zShape="pill">
+                    @if (skill.icon) {
+                      <img [src]="skill.icon" [alt]="skill.name" loading="lazy" class="inline-block w-4 h-4 mr-1 -mt-0.5" (error)="onIconError($event)" />
+                    }
+                    {{ skill.name }}
+                  </z-badge>
+                </li>
               }
             </ul>
           </z-card>
@@ -302,7 +310,7 @@ export class SkillsComponent {
       const angle = (2 * Math.PI * i) / count + config.offset;
       const x = CX + config.radius * Math.cos(angle);
       const y = CY + config.radius * Math.sin(angle);
-      return { name: skill.name, x, y, labelX: x, labelY: y - 14, textAnchor: 'middle' as const };
+      return { name: skill.name, icon: skill.icon, x, y, labelX: x, labelY: y - 14, textAnchor: 'middle' as const };
     });
 
     return {
@@ -314,4 +322,11 @@ export class SkillsComponent {
       animDuration: durations[idx],
     };
   });
+
+  onIconError(event: Event): void {
+    const img = event.target as HTMLImageElement | null;
+    if (img) {
+      img.style.display = 'none';
+    }
+  }
 }
