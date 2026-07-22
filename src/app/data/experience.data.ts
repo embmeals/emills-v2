@@ -13,6 +13,7 @@ export const EXPERIENCES: readonly Experience[] = [
     startDate: 'Jan 2025',
     endDate: 'Present',
     accomplishments: [
+      'Single-handedly migrated a production API from .NET Core 3.1 to .NET 8, shipping on the committed date with a zero-downtime cutover via Azure deployment slots',
       'Lead development on a C# scheduling API, building bulk import/update endpoints and integrating with Bridgit for construction workforce planning',
       'Built and maintained React and Next.js components across enterprise apps, keeping everything WCAG 2.1 accessible',
       'Set up the Bridgit testing environment so the team could run reliable end-to-end tests against real scheduling data',
