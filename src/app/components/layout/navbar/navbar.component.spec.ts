@@ -27,6 +27,7 @@ describe('NavbarComponent', () => {
     const expectedLabels = [
       'Home',
       'Experience',
+      'Education',
       'Contact',
     ];
     // Desktop buttons are in .hidden.md:flex container
