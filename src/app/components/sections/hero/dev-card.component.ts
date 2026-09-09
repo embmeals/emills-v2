@@ -43,6 +43,26 @@ const STAT_COLOR = '#4de8f0';
       background: linear-gradient(160deg, #0d1220 0%, #080b14 100%);
     }
 
+    /* Y2K chrome border */
+    .chrome-border {
+      border: 2px solid transparent;
+      background: linear-gradient(160deg, #0d1220, #080b14) padding-box,
+                  linear-gradient(135deg, #4de8f0, #ff3d7f, #ffb300) border-box;
+    }
+
+    /* Y2K glossy sheen */
+    .gloss {
+      background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.09) 45%, rgba(255,255,255,0.02) 55%, transparent 70%);
+    }
+
+    /* Y2K tech grid */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(77, 232, 240, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(77, 232, 240, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
     .face.back {
       transform: rotateY(180deg);
     }
@@ -100,7 +120,9 @@ const STAT_COLOR = '#4de8f0';
     <div class="flipper">
 
     <!-- Front: SSX character profile -->
-    <div class="face front relative border-2 rounded-xl overflow-hidden">
+    <div class="face front relative chrome-border rounded-xl overflow-hidden">
+      <div class="grid-bg absolute inset-0 z-0 pointer-events-none"></div>
+      <div class="gloss absolute inset-0 z-10 pointer-events-none"></div>
       <div class="relative z-20">
         <!-- Full-width image banner -->
         <div class="relative h-44 overflow-hidden">
@@ -216,7 +238,9 @@ const STAT_COLOR = '#4de8f0';
     </div>
 
     <!-- Back: skills -->
-    <div class="face back relative border-2 rounded-xl overflow-hidden" [attr.aria-hidden]="!flipped()">
+    <div class="face back relative chrome-border rounded-xl overflow-hidden" [attr.aria-hidden]="!flipped()">
+      <div class="grid-bg absolute inset-0 z-0 pointer-events-none"></div>
+      <div class="gloss absolute inset-0 z-10 pointer-events-none"></div>
       <div class="relative z-20 p-6 h-full flex flex-col">
         <div class="flex items-center justify-between mb-4">
           <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#4de8f0] font-semibold">
