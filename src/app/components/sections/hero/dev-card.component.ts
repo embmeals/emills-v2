@@ -115,10 +115,7 @@ const STAT_COLOR = '#4de8f0';
 
         <div class="p-6">
         <!-- Header -->
-        <div class="flex items-center justify-between mb-4">
-          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#4de8f0] font-semibold">
-            User Profile
-          </span>
+        <div class="flex items-center justify-end mb-4">
           <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-foreground/50" aria-hidden="true">
             LVL 99
           </span>
