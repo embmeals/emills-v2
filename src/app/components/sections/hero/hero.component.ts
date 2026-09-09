@@ -77,21 +77,17 @@ import { DevCardComponent } from './dev-card.component';
         <div class="flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-in-up">
           <h1
             id="hero-heading"
-            class="shine-text text-6xl sm:text-7xl md:text-8xl font-black italic uppercase tracking-tight leading-[1.4] pb-6 overflow-visible"
+            class="shine-text text-6xl sm:text-7xl md:text-8xl font-black italic uppercase tracking-tight leading-[1.05] pb-4 overflow-visible"
             style="font-family: 'Barlow Condensed', sans-serif;"
           >
             Ember Mills
           </h1>
 
-          <p class="mt-4 text-xl text-neon-cyan">
-            Senior Full Stack Engineer
-          </p>
-
           <p
-            class="mt-2 text-sm italic font-semibold text-[#ff3d7f]"
-            style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.12em;"
+            class="mt-4 text-base font-semibold text-neon-cyan"
+            style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.18em;"
           >
-            Full-stack. Full send.
+            Saint Louis, MO
           </p>
 
           <p class="mt-4 text-muted-foreground max-w-lg text-base">

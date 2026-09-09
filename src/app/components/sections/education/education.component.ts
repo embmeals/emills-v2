@@ -45,12 +45,11 @@ interface CredentialGroup {
     }
 
     .entry {
-      border-left: 2px solid rgba(255, 255, 255, 0.1);
-      transition: border-color 0.25s;
+      border-left: 2px solid transparent;
     }
 
-    .entry.cyan:hover { border-left-color: #4de8f0; }
-    .entry.pink:hover { border-left-color: #ff3d7f; }
+    .entry.cyan { border-left-color: #4de8f0; }
+    .entry.pink { border-left-color: #ff3d7f; }
 
     @keyframes panelIn {
       from { opacity: 0; transform: translateY(8px); }
@@ -62,7 +61,7 @@ interface CredentialGroup {
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .tab, .entry { transition: none; }
+      .tab { transition: none; }
       .panel { animation: none; }
     }
   `,
