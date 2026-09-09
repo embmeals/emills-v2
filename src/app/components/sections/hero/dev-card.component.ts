@@ -53,14 +53,6 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
       background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.5) 45%, rgba(255,255,255,0.1) 55%, transparent 70%);
     }
 
-    /* Y2K tech grid */
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(77, 232, 240, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(77, 232, 240, 0.05) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-
     .face.back {
       transform: rotateY(180deg);
     }
@@ -83,18 +75,6 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
       .flipper { transition: none; }
     }
 
-    .stat-bar {
-      height: 6px;
-      background: rgba(13, 18, 32, 0.12);
-      overflow: hidden;
-    }
-
-    .stat-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #0e7490, #ff3d7f);
-      box-shadow: 0 0 8px rgba(77, 232, 240, 0.4);
-    }
-
     /* Y2K blocky panel */
     .block {
       background: rgba(255, 255, 255, 0.55);
@@ -114,21 +94,21 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
       role="button"
       tabindex="0"
       [attr.aria-pressed]="flipped()"
-      aria-label="Profile card. Activate to flip and show resume."
+      aria-label="Profile card. Activate to flip and show skills."
       (click)="toggle()"
       (keydown.enter)="toggle()"
       (keydown.space)="toggle($event)"
     >
     <div class="flipper">
 
-    <!-- Front: SSX character profile -->
+    <!-- Front: RPG character select -->
     <div class="face front relative chrome-border rounded-2xl overflow-hidden">
       <div class="gloss absolute inset-0 z-10 pointer-events-none"></div>
       <div class="relative z-20 p-5 flex flex-col h-full">
-        <!-- Avatar + info side-by-side -->
-        <div class="flex gap-5">
+        <!-- Avatar + name -->
+        <div class="flex gap-4">
           <div
-            class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-[#0e7490]/30 flex-shrink-0"
+            class="w-32 h-32 rounded-2xl overflow-hidden border-2 border-[#0e7490]/30 flex-shrink-0"
             style="box-shadow: 0 0 18px rgba(14, 116, 144, 0.2);"
           >
             <img
@@ -139,60 +119,35 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
             />
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-3xl font-black italic uppercase leading-none" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
-              Full Stack Engineer
+            <p class="text-2xl font-black italic uppercase leading-none" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
+              Ember Mills
             </p>
-            <div class="mt-3 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Class</span>
-                <span class="text-lg font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">Full Stack</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Specialty</span>
-                <span class="text-lg font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">.NET / Angular / Python</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Level</span>
-                <span class="text-lg font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #ff3d7f">99</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Status</span>
-                <span class="text-lg font-black italic uppercase flex items-center gap-1.5" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
-                  <span class="w-2 h-2 rounded-full bg-green-500" aria-hidden="true"></span>Online
-                </span>
-              </div>
-            </div>
+            <p class="text-sm font-semibold mt-1" style="color: #0e7490">Full Stack Engineer</p>
           </div>
         </div>
 
-        <div class="flex-1 flex flex-col justify-center">
-        <!-- XP bar -->
+        <!-- Special Abilities -->
         <div class="mt-4">
-          <div class="flex items-center justify-between mb-1">
-            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/60">XP</span>
-            <span class="registry-text text-[9px] text-[#0d1220]/60">99%</span>
-          </div>
-          <div class="h-2 bg-[#0d1220]/10">
-            <div class="h-full w-[99%] bg-gradient-to-r from-[#0e7490] to-[#ff3d7f]"></div>
+          <p class="text-[10px] font-black italic uppercase tracking-widest text-[#0e7490]" style="font-family: 'Barlow Condensed', sans-serif;">Special Abilities</p>
+          <div class="mt-1.5 space-y-1.5">
+            @for (ability of abilities; track ability.name) {
+              <div class="text-xs leading-snug">
+                <span class="font-bold text-[#0d1220]">&#9656; {{ ability.name }}</span>
+                <span class="text-[#0d1220]/70"> &mdash; {{ ability.desc }}</span>
+              </div>
+            }
           </div>
         </div>
 
-        <!-- Tech badges -->
-        <div class="mt-4 flex flex-wrap gap-1.5">
-          @for (badge of techBadges; track badge) {
-            <span
-              class="text-[10px] px-2 py-0.5 border text-[#0d1220]"
-              style="background: rgba(14,116,144,0.1); border-color: rgba(14,116,144,0.3)"
-            >
-              {{ badge }}
-            </span>
-          }
-        </div>
+        <!-- Current Quest -->
+        <div class="mt-3">
+          <p class="text-[10px] font-black italic uppercase tracking-widest text-[#ff3d7f]" style="font-family: 'Barlow Condensed', sans-serif;">Current Quest</p>
+          <p class="mt-1.5 text-xs text-[#0d1220]/80 leading-relaxed">{{ quest }}</p>
         </div>
 
         <!-- Footer -->
-        <div class="mt-4 pt-3 border-t border-[#0d1220]/10">
-          <div class="flex flex-wrap gap-1.5 mb-3">
+        <div class="mt-auto pt-3 border-t border-[#0d1220]/10">
+          <div class="flex flex-wrap gap-1.5 mb-2">
             @for (badge of techBadges; track badge) {
               <span
                 class="text-[10px] px-2 py-0.5 border text-[#0d1220]"
@@ -205,34 +160,34 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
           <div class="flex items-center justify-between">
             <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">Active since 2017</span>
             <div class="flex items-center gap-3">
-            @for (link of socialLinks; track link.label) {
-              <a
-                [href]="link.url"
-                [attr.aria-label]="link.label"
-                target="_blank"
-                rel="noopener noreferrer"
-                (click)="$event.stopPropagation()"
-                class="text-[#0d1220]/85 hover:text-[#0e7490] transition-colors"
-              >
-                @if (link.icon === 'github') {
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                    <path d="M9 18c-4.51 2-5-2-7-2" />
-                  </svg>
-                }
-                @if (link.icon === 'linkedin') {
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                    <rect width="4" height="12" x="2" y="9" />
-                    <circle cx="4" cy="4" r="2" />
-                  </svg>
-                }
-              </a>
-            }
-            <span class="registry-text text-[8px] tracking-[0.3em] text-[#0e7490]/80 uppercase" aria-hidden="true">
-              Tap to flip
-            </span>
-          </div>
+              @for (link of socialLinks; track link.label) {
+                <a
+                  [href]="link.url"
+                  [attr.aria-label]="link.label"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  (click)="$event.stopPropagation()"
+                  class="text-[#0d1220]/85 hover:text-[#0e7490] transition-colors"
+                >
+                  @if (link.icon === 'github') {
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                      <path d="M9 18c-4.51 2-5-2-7-2" />
+                    </svg>
+                  }
+                  @if (link.icon === 'linkedin') {
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect width="4" height="12" x="2" y="9" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                  }
+                </a>
+              }
+              <span class="registry-text text-[8px] tracking-[0.3em] text-[#0e7490]/80 uppercase" aria-hidden="true">
+                Tap to flip
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -291,6 +246,14 @@ export class DevCardComponent {
   readonly flipped = signal(false);
   readonly skillCategories = SKILL_CATEGORIES;
   readonly skillCount = SKILL_CATEGORIES.reduce((sum, category) => sum + category.skills.length, 0);
+
+  readonly abilities = [
+    { name: 'FULL STACK', desc: 'Builds across frontend, backend & infrastructure' },
+    { name: 'SYSTEM BUILDER', desc: '.NET • Angular • Python • Docker • Azure' },
+    { name: 'HOMELAB ENGINEER', desc: 'Self-hosted services • automation • monitoring' },
+  ];
+
+  readonly quest = 'Building things that are useful, automated, and slightly over-engineered.';
 
   readonly socialLinks = [
     { label: 'GitHub', url: 'https://github.com/embmeals', icon: 'github' },
