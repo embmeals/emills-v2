@@ -125,84 +125,71 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
     <div class="face front relative chrome-border rounded-2xl overflow-hidden">
       <div class="gloss absolute inset-0 z-10 pointer-events-none"></div>
       <div class="relative z-20">
-        <!-- Full-width image banner -->
-        <div class="relative h-44 overflow-hidden">
+        <!-- Character portrait -->
+        <div class="relative h-52 overflow-hidden">
           <img
-            src="assets/ember-profile.jpg"
+            src="assets/ember-avatar.png"
             alt="Ember Mills"
             fetchpriority="high"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#cfe9f8] via-[#cfe9f8]/30 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#eaf7ff] via-[#eaf7ff]/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <p class="text-2xl font-black italic uppercase leading-none" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
+              Ember Mills
+            </p>
+            <p class="text-sm font-semibold mt-1" style="color: #0e7490">Full Stack Engineer</p>
+          </div>
         </div>
 
-        <div class="p-6">
-        <!-- Header -->
-        <div class="flex items-center justify-end mb-4">
-          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-[#0d1220]/75" aria-hidden="true">
-            LVL 99
-          </span>
+        <div class="p-5">
+        <!-- Character fields -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/60">Class</span>
+            <span class="text-sm font-semibold text-[#0d1220]">Full Stack</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/60">Specialty</span>
+            <span class="text-sm font-semibold text-[#0d1220]">.NET / Angular / Python</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/60">Level</span>
+            <span class="text-sm font-semibold text-[#0d1220]">99</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/60">Status</span>
+            <span class="text-sm font-semibold text-green-600 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-500" aria-hidden="true"></span>Online
+            </span>
+          </div>
         </div>
 
-        <!-- Role + stack -->
-        <p class="text-lg font-semibold text-[#ff3d7f] leading-tight" style="font-family: 'Barlow Condensed', sans-serif; font-style: italic; text-transform: uppercase; letter-spacing: 0.03em;">
-          Senior Full Stack Engineer
-        </p>
-        <p class="text-xs text-[#0d1220]/85 leading-tight mt-1">
-          .NET &middot; Angular &middot; Python
-        </p>
+        <!-- XP bar -->
+        <div class="mt-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/60">XP</span>
+            <span class="registry-text text-[9px] text-[#0d1220]/60">99%</span>
+          </div>
+          <div class="h-2 bg-[#0d1220]/10">
+            <div class="h-full w-[99%] bg-gradient-to-r from-[#0e7490] to-[#ff3d7f]"></div>
+          </div>
+        </div>
 
-        <!-- Bio -->
-        <p class="mt-4 text-sm text-[#0d1220]/85 leading-relaxed">
-          I build full-stack .NET apps, from backend APIs to clean,
-          usable frontends
-        </p>
-
-        <!-- Stats -->
-        <div class="block p-3 mt-5 space-y-3">
-          @for (stat of stats; track stat.label) {
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/85">
-                  {{ stat.label }}
-                </span>
-                <span class="registry-text text-[9px] text-[#0e7490]">{{ stat.value }}</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-fill" [style.width.%]="stat.value * 10"></div>
-              </div>
-            </div>
+        <!-- Tech badges -->
+        <div class="mt-4 flex flex-wrap gap-1.5">
+          @for (badge of techBadges; track badge) {
+            <span
+              class="text-[10px] px-2 py-0.5 border text-[#0d1220]"
+              style="background: rgba(14,116,144,0.1); border-color: rgba(14,116,144,0.3)"
+            >
+              {{ badge }}
+            </span>
           }
         </div>
 
-        <!-- Flow meter -->
-        <div class="block p-3 mt-3">
-          <div class="flex items-center justify-between mb-1">
-            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/85">Flow</span>
-            <span class="registry-text text-[9px] text-[#ff3d7f]">MAX</span>
-          </div>
-          <div class="flex gap-1">
-            @for (segment of flowSegments; track $index) {
-              <div
-                class="h-2 flex-1"
-                [style.background]="segment"
-              ></div>
-            }
-          </div>
-        </div>
-
-        <!-- Location -->
-        <div class="mt-5 flex items-center justify-between">
-          <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">
-            St. Louis, MO
-          </span>
-          <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">
-            Remote-friendly
-          </span>
-        </div>
-
         <!-- Footer -->
-        <div class="flex items-center justify-between mt-5 pt-3 border-t border-[#0d1220]/10">
+        <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#0d1220]/10">
           <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">Active since 2017</span>
           <div class="flex items-center gap-3">
             @for (link of socialLinks; track link.label) {
@@ -313,21 +300,7 @@ export class DevCardComponent {
     return this.chipColors[color]?.border ?? 'rgba(77, 232, 240, 0.4)';
   }
 
-  readonly stats = [
-    { label: 'Velocity', value: 8 },
-    { label: 'Precision', value: 7 },
-    { label: 'Scalability', value: 9 },
-    { label: 'Reliability', value: 9 },
-  ];
-
-  readonly flowSegments = [
-    'rgba(77, 232, 240, 0.9)',
-    'rgba(77, 232, 240, 0.9)',
-    'rgba(77, 232, 240, 0.9)',
-    'rgba(255, 61, 127, 0.9)',
-    'rgba(255, 61, 127, 0.9)',
-    'rgba(255, 179, 0, 0.9)',
-  ];
+  readonly techBadges = ['.NET', 'Angular', 'Python', 'Azure', 'Docker', 'SQL', 'TypeScript', 'React'];
 
   toggle(event?: Event): void {
     event?.preventDefault();

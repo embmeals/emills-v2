@@ -16,7 +16,7 @@ describe('DevCardComponent', () => {
   it('starts on the front face showing the profile', () => {
     expect(card().getAttribute('aria-pressed')).toBe('false');
     expect(card().classList).not.toContain('is-flipped');
-    expect(fixture.nativeElement.textContent).toContain('Senior Full Stack Engineer');
+    expect(fixture.nativeElement.textContent).toContain('Ember Mills');
   });
 
   it('flips on click to reveal the skills', () => {
