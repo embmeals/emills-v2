@@ -111,6 +111,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   readonly navLinks: readonly NavLink[] = [
     { label: 'Home', id: 'home' },
     { label: 'Experience', id: 'experience' },
+    { label: 'Education', id: 'education' },
     { label: 'Contact', id: 'contact' },
   ] as const;
 

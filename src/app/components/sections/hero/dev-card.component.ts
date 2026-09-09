@@ -152,7 +152,7 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
         <!-- Title bar -->
         <div class="title-bar flex items-baseline justify-between px-4 py-2.5">
           <p class="text-3xl font-black italic uppercase leading-none text-white" style="font-family: 'Barlow Condensed', sans-serif;">
-            Full Stack Engineer
+            Senior Full Stack Engineer
           </p>
           <span class="text-xs font-bold uppercase tracking-[0.2em] text-white/80">Lv. {{ yearsExperience }}</span>
         </div>
