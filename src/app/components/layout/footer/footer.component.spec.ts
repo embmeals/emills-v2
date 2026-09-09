@@ -31,11 +31,6 @@ describe('FooterComponent', () => {
     expect(text).toContain('Built with Angular & Zard UI');
   });
 
-  it('should have Remember the Cant as aria-hidden', () => {
-    const cant = compiled.querySelector('[aria-hidden="true"]');
-    expect(cant?.textContent?.trim()).toBe('Remember the Cant');
-  });
-
   it('should render a footer element', () => {
     const footer = compiled.querySelector('footer');
     expect(footer).toBeTruthy();

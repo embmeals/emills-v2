@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
+import { ABOUT_TEXT } from '@/data/about.data';
 
 @Component({
   selector: 'app-about',
@@ -32,7 +32,7 @@ import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
             href="resume.html"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-lg border border-neon-cyan text-neon-cyan font-medium text-sm transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_15px_rgba(0,229,255,0.15)] w-fit"
+            class="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-lg border border-neon-cyan text-neon-cyan font-medium text-sm transition-all duration-200 hover:bg-neon-cyan/10 hover:shadow-[0_0_15px_rgba(77,232,240,0.15)] w-fit"
           >
             View Resume
             <svg
@@ -50,25 +50,6 @@ import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
               />
             </svg>
           </a>
-        </div>
-
-        <!-- Right column: Fun facts -->
-        <div class="grid grid-cols-2 gap-4">
-          @for (fact of funFacts; track fact.label) {
-            <div
-              class="bg-card rounded-lg p-4 border border-border flex flex-col items-center justify-center gap-2 text-center transition-colors duration-200"
-              [class.hover:border-neon-cyan]="fact.color === 'cyan'"
-              [class.hover:border-neon-magenta]="fact.color === 'magenta'"
-              [class.hover:border-neon-amber]="fact.color === 'amber'"
-            >
-              <span class="text-3xl" role="img" [attr.aria-label]="fact.label">
-                {{ fact.icon }}
-              </span>
-              <span class="text-sm text-foreground font-medium">
-                {{ fact.label }}
-              </span>
-            </div>
-          }
         </div>
       </div>
 
@@ -106,7 +87,6 @@ import { ABOUT_TEXT, FUN_FACTS } from '@/data/about.data';
 })
 export class AboutComponent {
   readonly paragraphs = ABOUT_TEXT.split('\n\n');
-  readonly funFacts = FUN_FACTS;
 
   readonly education = [
     { degree: 'B.S. in Computer Science', school: 'University of Missouri–St. Louis', year: 'Expected 2026' },

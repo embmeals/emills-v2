@@ -1,13 +1,12 @@
 import { Component, ChangeDetectionStrategy, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ParticleCanvasComponent } from './particle-canvas.component';
 import { DevCardComponent } from './dev-card.component';
 import { ZardTooltipImports } from '@/shared/components/tooltip';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [ParticleCanvasComponent, DevCardComponent, ...ZardTooltipImports],
+  imports: [DevCardComponent, ...ZardTooltipImports],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     @keyframes fadeInUp {
@@ -54,9 +53,6 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
       class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       aria-labelledby="hero-heading"
     >
-      <!-- Particle background -->
-      <app-particle-canvas class="absolute inset-0 z-0" />
-
       <!-- Content: two-column on desktop, stacked on mobile -->
       <div
         class="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 px-4 max-w-5xl mx-auto"
@@ -65,8 +61,8 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
         <div class="flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-in-up">
           <h1
             id="hero-heading"
-            class="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground tracking-tight"
-            style="font-family: 'Montserrat', sans-serif"
+            class="text-6xl sm:text-7xl md:text-8xl font-black italic uppercase tracking-tight leading-none pb-2"
+            style="font-family: 'Barlow Condensed', sans-serif; background: linear-gradient(90deg, #4de8f0 0%, #ff3d7f 50%, #ffb300 100%); -webkit-background-clip: text; background-clip: text; color: transparent;"
           >
             Ember Mills
           </h1>
@@ -80,10 +76,10 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
           </p>
 
           <a
-            href="#projects"
-            (click)="scrollToProjects($event)"
+            href="#experience"
+            (click)="scrollToExperience($event)"
             class="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon-cyan"
-            style="background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.4); color: #00e5ff"
+            style="background: rgba(255,61,127,0.12); border: 1px solid rgba(255,61,127,0.45); color: #ff3d7f"
           >
             View My Work
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -92,40 +88,9 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
           </a>
         </div>
 
-        <!-- Right: Dev Card + Social links -->
+        <!-- Right: Dev Card -->
         <div class="animate-fade-in-right flex flex-col items-center gap-4">
           <app-dev-card />
-          <nav aria-label="Social links">
-            <ul class="flex items-center gap-6 list-none m-0 p-0">
-              @for (link of socialLinks; track link.label) {
-                <li>
-                  <a
-                    [href]="link.url"
-                    [attr.aria-label]="link.label"
-                    [zTooltip]="link.label"
-                    zPosition="bottom"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-muted-foreground hover:text-neon-cyan transition-colors duration-200"
-                  >
-                    @if (link.icon === 'github') {
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                        <path d="M9 18c-4.51 2-5-2-7-2" />
-                      </svg>
-                    }
-                    @if (link.icon === 'linkedin') {
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                        <rect width="4" height="12" x="2" y="9" />
-                        <circle cx="4" cy="4" r="2" />
-                      </svg>
-                    }
-                  </a>
-                </li>
-              }
-            </ul>
-          </nav>
         </div>
       </div>
     </section>
@@ -134,15 +99,10 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
 export class HeroComponent {
   private readonly platformId = inject(PLATFORM_ID);
 
-  readonly socialLinks = [
-    { label: 'GitHub', url: 'https://github.com/embmeals', icon: 'github' },
-    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ember-d-mills', icon: 'linkedin' },
-  ] as const;
-
-  scrollToProjects(event: Event): void {
+  scrollToExperience(event: Event): void {
     event.preventDefault();
     if (isPlatformBrowser(this.platformId)) {
-      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }

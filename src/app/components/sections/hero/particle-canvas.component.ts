@@ -107,7 +107,7 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.quadraticCurveTo(cpx, cpy, b.x, b.y);
-        ctx.strokeStyle = `rgba(0, 150, 255, ${strength * 0.12})`;
+        ctx.strokeStyle = `rgba(200, 240, 255, ${strength * 0.12})`;
         ctx.lineWidth = strength * 1.2;
         ctx.stroke();
       }
@@ -118,9 +118,9 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
       if (p.isNode) {
         const glowSize = p.baseRadius * 6;
         const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowSize);
-        glow.addColorStop(0, `rgba(0, 160, 255, ${p.opacity * 0.3})`);
-        glow.addColorStop(0.4, `rgba(0, 120, 255, ${p.opacity * 0.1})`);
-        glow.addColorStop(1, 'rgba(0, 80, 255, 0)');
+        glow.addColorStop(0, `rgba(255, 61, 127, ${p.opacity * 0.3})`);
+        glow.addColorStop(0.4, `rgba(255, 122, 0, ${p.opacity * 0.1})`);
+        glow.addColorStop(1, 'rgba(77, 232, 240, 0)');
         ctx.beginPath();
         ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
         ctx.fillStyle = glow;
@@ -130,14 +130,14 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.baseRadius, 0, Math.PI * 2);
       ctx.fillStyle = p.isNode
-        ? `rgba(0, 210, 255, ${p.opacity})`
-        : `rgba(0, 170, 255, ${p.opacity * 0.8})`;
+        ? `rgba(255, 61, 127, ${p.opacity})`
+        : `rgba(220, 245, 255, ${p.opacity * 0.8})`;
       ctx.fill();
 
       if (p.isNode) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.baseRadius * 0.4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(180, 230, 255, ${p.opacity * 0.5})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity * 0.5})`;
         ctx.fill();
       }
     }
@@ -253,7 +253,7 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
           const nodeBoost = (a.isNode ? 1 : 0) + (b.isNode ? 1 : 0);
           const baseAlpha = 0.04 + nodeBoost * 0.04;
 
-          ctx.strokeStyle = `rgba(0, 170, 255, ${pulseStrength * baseAlpha + pulseStrength * 0.06})`;
+          ctx.strokeStyle = `rgba(200, 240, 255, ${pulseStrength * baseAlpha + pulseStrength * 0.06})`;
           ctx.lineWidth = strength * (1 + nodeBoost * 0.5);
           ctx.stroke();
         }
@@ -265,9 +265,9 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
         if (p.isNode) {
           const glowSize = p.radius * 6;
           const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowSize);
-          glow.addColorStop(0, `rgba(0, 160, 255, ${p.currentOpacity * 0.2})`);
-          glow.addColorStop(0.4, `rgba(0, 120, 255, ${p.currentOpacity * 0.08})`);
-          glow.addColorStop(1, 'rgba(0, 80, 255, 0)');
+          glow.addColorStop(0, `rgba(255, 61, 127, ${p.currentOpacity * 0.2})`);
+          glow.addColorStop(0.4, `rgba(255, 122, 0, ${p.currentOpacity * 0.08})`);
+          glow.addColorStop(1, 'rgba(77, 232, 240, 0)');
           ctx.beginPath();
           ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
           ctx.fillStyle = glow;
@@ -278,15 +278,15 @@ export class ParticleCanvasComponent implements AfterViewInit, OnDestroy {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.isNode
-          ? `rgba(0, 210, 255, ${p.currentOpacity})`
-          : `rgba(0, 170, 255, ${p.currentOpacity * 0.8})`;
+          ? `rgba(255, 61, 127, ${p.currentOpacity})`
+          : `rgba(220, 245, 255, ${p.currentOpacity * 0.8})`;
         ctx.fill();
 
         // Tiny bright center on nodes
         if (p.isNode) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius * 0.4, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(180, 230, 255, ${p.currentOpacity * 0.6})`;
+          ctx.fillStyle = `rgba(255, 255, 255, ${p.currentOpacity * 0.6})`;
           ctx.fill();
         }
       }

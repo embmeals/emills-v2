@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AboutComponent } from './about.component';
-import { FUN_FACTS } from '@/data/about.data';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -24,13 +23,6 @@ describe('AboutComponent', () => {
 
   it('should render about text containing "MySpace"', () => {
     expect(compiled.textContent).toContain('MySpace');
-  });
-
-  it('should render all fun fact labels', () => {
-    const text = compiled.textContent ?? '';
-    for (const fact of FUN_FACTS) {
-      expect(text).toContain(fact.label);
-    }
   });
 
   it('should have a "View Resume" link', () => {

@@ -39,18 +39,11 @@ describe('SectionDividerComponent', () => {
     expect(labelSpan).toBeNull();
   });
 
-  it('should render pulsing node dots', () => {
+  it('should render a label span when provided', () => {
+    fixture.componentRef.setInput('label', 'About');
     fixture.detectChanges();
     compiled = fixture.nativeElement as HTMLElement;
-    const nodes = compiled.querySelectorAll('.divider-node');
-    expect(nodes.length).toBeGreaterThanOrEqual(1);
-  });
-
-  it('should render two node dots when label is present', () => {
-    fixture.componentRef.setInput('label', 'Test');
-    fixture.detectChanges();
-    compiled = fixture.nativeElement as HTMLElement;
-    const nodes = compiled.querySelectorAll('.divider-node');
-    expect(nodes.length).toBe(2);
+    const labelSpan = compiled.querySelector('span');
+    expect(labelSpan?.textContent?.trim()).toBe('About');
   });
 });

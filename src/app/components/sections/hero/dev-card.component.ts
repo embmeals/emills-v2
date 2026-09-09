@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 
-import { EXPERIENCES } from '@/data/experience.data';
+import { SKILL_CATEGORIES } from '@/data/skills.data';
 
-const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
+const STAT_COLOR = '#4de8f0';
 
 @Component({
   selector: 'app-dev-card',
@@ -14,29 +14,6 @@ const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
       50% { transform: translateY(-8px) perspective(800px) rotateX(2deg) rotateY(-1deg); }
     }
 
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    @keyframes borderGlow {
-      0%, 100% {
-        border-color: #00aaff;
-        opacity: 0.92;
-      }
-      50% {
-        border-color: #00e5ff;
-        opacity: 1;
-      }
-    }
-
-    @keyframes cantFlicker {
-      0%, 92%, 100% { opacity: 0.12; }
-      94% { opacity: 0.25; }
-      96% { opacity: 0.08; }
-      98% { opacity: 0.2; }
-    }
-
     .crew-card {
       perspective: 1200px;
       cursor: pointer;
@@ -45,7 +22,7 @@ const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
     }
 
     .crew-card:focus-visible .face {
-      box-shadow: 0 0 0 2px #00e5ff, 0 0 20px rgba(0, 160, 255, 0.3);
+      box-shadow: 0 0 0 2px #4de8f0, 0 0 20px rgba(77, 232, 240, 0.3);
     }
 
     .flipper {
@@ -62,9 +39,8 @@ const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
       grid-area: 1 / 1;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      box-shadow: 0 0 20px rgba(0, 160, 255, 0.3), inset 0 0 20px rgba(0, 160, 255, 0.05);
-      animation: borderGlow 4s ease-in-out infinite;
-      background: linear-gradient(135deg, #0a0f1a 0%, #060a12 100%);
+      box-shadow: 0 0 20px rgba(77, 232, 240, 0.25), inset 0 0 20px rgba(77, 232, 240, 0.04);
+      background: linear-gradient(160deg, #0d1220 0%, #080b14 100%);
     }
 
     .face.back {
@@ -73,7 +49,7 @@ const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
 
     @media (pointer: fine) {
       .crew-card {
-        animation: float 4s ease-in-out infinite, borderGlow 4s ease-in-out infinite;
+        animation: float 4s ease-in-out infinite;
         transition: transform 0.3s ease;
       }
 
@@ -83,73 +59,24 @@ const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
       }
     }
 
-    .scanlines {
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 160, 255, 0.015) 2px,
-        rgba(0, 160, 255, 0.015) 4px
-      );
-    }
-
-    .holographic {
-      background: linear-gradient(
-        105deg,
-        transparent 20%,
-        rgba(0, 160, 255, 0.06) 35%,
-        rgba(0, 229, 255, 0.08) 50%,
-        rgba(0, 100, 255, 0.06) 65%,
-        transparent 80%
-      );
-      background-size: 200% 100%;
-      animation: shimmer 6s linear infinite;
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .crew-card {
-        animation: none;
-        transition: none;
-        transform: none;
-      }
-      .crew-card:hover {
-        animation-play-state: running;
-        transform: none;
-      }
-      .holographic { animation: none; }
-      .cant-watermark { animation: none; opacity: 0.12; }
+      .crew-card { animation: none; transition: none; transform: none; }
+      .crew-card:hover { animation-play-state: running; transform: none; }
       .flipper { transition: none; }
     }
 
-    .barcode {
-      display: flex;
-      gap: 1px;
-      align-items: flex-end;
-      height: 20px;
+    .stat-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(77, 232, 240, 0.12);
+      overflow: hidden;
     }
 
-    .barcode span {
-      display: block;
-      background: rgba(0, 160, 255, 0.3);
-    }
-
-    .noise {
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.03;
-    }
-
-    .glitch-line {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: rgba(0, 160, 255, 0.15);
-      z-index: 15;
-      pointer-events: none;
-    }
-
-    .cant-watermark {
-      animation: cantFlicker 8s ease-in-out infinite;
+    .stat-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #4de8f0, #ff3d7f);
+      box-shadow: 0 0 8px rgba(77, 232, 240, 0.4);
     }
 
     .registry-text {
@@ -165,191 +92,218 @@ const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
       role="button"
       tabindex="0"
       [attr.aria-pressed]="flipped()"
-      aria-label="Crew card. Activate to flip and show service record."
+      aria-label="Profile card. Activate to flip and show resume."
       (click)="toggle()"
       (keydown.enter)="toggle()"
       (keydown.space)="toggle($event)"
     >
     <div class="flipper">
+
+    <!-- Front: SSX character profile -->
     <div class="face front relative border-2 rounded-xl overflow-hidden">
-      <!-- Film grain noise -->
-      <div class="noise absolute inset-0 z-10 pointer-events-none"></div>
+      <div class="relative z-20">
+        <!-- Full-width image banner -->
+        <div class="relative h-44 overflow-hidden">
+          <img
+            src="assets/ember-profile.jpg"
+            alt="Ember Mills"
+            fetchpriority="high"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0d1220] via-[#0d1220]/30 to-transparent"></div>
+        </div>
 
-      <!-- Glitch accent lines -->
-      <div class="glitch-line" style="top: 22%;" aria-hidden="true"></div>
-      <div class="glitch-line" style="top: 68%; width: 60%;" aria-hidden="true"></div>
-
-      <!-- Scanline overlay -->
-      <div class="scanlines absolute inset-0 z-10 pointer-events-none"></div>
-
-      <!-- Holographic shimmer -->
-      <div class="holographic absolute inset-0 z-10 pointer-events-none"></div>
-
-      <!-- REMEMBER THE CANT watermark -->
-      <div
-        class="cant-watermark absolute inset-0 z-10 pointer-events-none flex items-center justify-center"
-        aria-hidden="true"
-      >
-        <span
-          class="registry-text text-[10px] tracking-[0.5em] text-[#00aaff] rotate-[-18deg] select-none whitespace-nowrap"
-          style="opacity: inherit;"
-        >
-          REMEMBER THE CANT
-        </span>
-      </div>
-
-      <!-- Card content -->
-      <div class="relative z-20 p-6">
-        <!-- Header strip -->
+        <div class="p-6">
+        <!-- Header -->
         <div class="flex items-center justify-between mb-4">
-          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#00aaff] font-semibold">
-            Crew Ident
+          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#4de8f0] font-semibold">
+            User Profile
           </span>
           <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-foreground/50" aria-hidden="true">
-            STL // Sol Sector
+            LVL 99
           </span>
         </div>
 
-        <!-- Main content: Avatar + Info -->
-        <div class="flex gap-5">
-          <!-- Avatar -->
-          <div class="flex-shrink-0">
-            <div
-              class="w-24 h-24 rounded-lg overflow-hidden border border-[#00aaff]/30"
-              style="box-shadow: 0 0 12px rgba(0, 160, 255, 0.2);"
-            >
-              <img
-                src="assets/ember.png"
-                alt="Ember Mills avatar"
-                width="96"
-                height="96"
-                fetchpriority="high"
-                class="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+        <!-- Role + stack -->
+        <p class="text-lg font-semibold text-[#ff3d7f] leading-tight" style="font-family: 'Barlow Condensed', sans-serif; font-style: italic; text-transform: uppercase; letter-spacing: 0.03em;">
+          Senior Full Stack Engineer
+        </p>
+        <p class="text-xs text-foreground/60 leading-tight mt-1">
+          .NET &middot; Angular &middot; Python
+        </p>
 
-          <!-- Info fields -->
-          <div class="flex-1 min-w-0 space-y-2.5">
+        <!-- Bio -->
+        <p class="mt-4 text-sm text-foreground/70 leading-relaxed">
+          Building accessible, inclusive web experiences for 6+ years &mdash; from
+          enterprise .NET backends to polished Angular frontends.
+        </p>
+
+        <!-- Stats -->
+        <div class="mt-5 space-y-3">
+          @for (stat of stats; track stat.label) {
             <div>
-              <p class="text-base font-bold text-foreground leading-tight" style="font-family: 'Montserrat', sans-serif">
-                Ember Mills
-              </p>
-              <p class="text-sm font-semibold text-[#00ccff] leading-tight mt-1">
-                Sr. Full Stack Engineer
-              </p>
+              <div class="flex items-center justify-between mb-1">
+                <span class="registry-text text-[9px] uppercase tracking-widest text-foreground/60">
+                  {{ stat.label }}
+                </span>
+                <span class="registry-text text-[9px] text-[#4de8f0]">{{ stat.value }}</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-fill" [style.width.%]="stat.value * 10"></div>
+              </div>
             </div>
-            <div>
-              <span class="text-[9px] uppercase tracking-widest text-foreground/50" aria-hidden="true">Systems</span>
-              <p class="text-sm text-foreground/85 leading-relaxed mt-0.5">
-                .NET &middot; Angular &middot; Python<br/>
-                SQL &middot; TypeScript &middot; C#
-              </p>
-            </div>
+          }
+        </div>
+
+        <!-- Flow meter -->
+        <div class="mt-5">
+          <div class="flex items-center justify-between mb-1">
+            <span class="registry-text text-[9px] uppercase tracking-widest text-foreground/60">Flow</span>
+            <span class="registry-text text-[9px] text-[#ff3d7f]">MAX</span>
+          </div>
+          <div class="flex gap-1">
+            @for (segment of flowSegments; track $index) {
+              <div
+                class="h-2 flex-1 rounded-sm"
+                [style.background]="segment"
+              ></div>
+            }
           </div>
         </div>
 
-        <!-- Bottom strip -->
-        <div class="flex items-end justify-between mt-4 pt-3 border-t border-[#00aaff]/10">
+        <!-- Location -->
+        <div class="mt-5 flex items-center justify-between">
+          <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">
+            St. Louis, MO
+          </span>
+          <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">
+            Remote-friendly
+          </span>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-between mt-5 pt-3 border-t border-[#4de8f0]/10">
+          <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">Active since 2017</span>
           <div class="flex items-center gap-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" aria-hidden="true"></span>
-            <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">Active since 2017</span>
-          </div>
-
-          <!-- Decorative barcode -->
-          <div class="barcode" aria-hidden="true">
-            <span style="width: 2px; height: 16px;"></span>
-            <span style="width: 1px; height: 20px;"></span>
-            <span style="width: 3px; height: 12px;"></span>
-            <span style="width: 1px; height: 18px;"></span>
-            <span style="width: 2px; height: 14px;"></span>
-            <span style="width: 1px; height: 20px;"></span>
-            <span style="width: 2px; height: 10px;"></span>
-            <span style="width: 1px; height: 16px;"></span>
-            <span style="width: 3px; height: 18px;"></span>
-            <span style="width: 1px; height: 12px;"></span>
-            <span style="width: 2px; height: 20px;"></span>
-            <span style="width: 1px; height: 14px;"></span>
-            <span style="width: 2px; height: 16px;"></span>
+            @for (link of socialLinks; track link.label) {
+              <a
+                [href]="link.url"
+                [attr.aria-label]="link.label"
+                target="_blank"
+                rel="noopener noreferrer"
+                (click)="$event.stopPropagation()"
+                class="text-foreground/60 hover:text-[#4de8f0] transition-colors"
+              >
+                @if (link.icon === 'github') {
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                    <path d="M9 18c-4.51 2-5-2-7-2" />
+                  </svg>
+                }
+                @if (link.icon === 'linkedin') {
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect width="4" height="12" x="2" y="9" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                }
+              </a>
+            }
+            <span class="registry-text text-[8px] tracking-[0.3em] text-[#4de8f0]/50 uppercase" aria-hidden="true">
+              Tap to flip
+            </span>
           </div>
         </div>
-
-        <!-- Legitimate salvage footer -->
-        <div class="mt-3 flex justify-between items-center">
-          <span class="registry-text text-[8px] tracking-[0.4em] text-[#00aaff]/20 uppercase" aria-hidden="true">
-            Legitimate Salvage
-          </span>
-          <span class="registry-text text-[8px] tracking-[0.3em] text-[#00aaff]/40 uppercase" aria-hidden="true">
-            Tap to flip
-          </span>
         </div>
       </div>
     </div>
 
-    <!-- Back face: service record -->
+    <!-- Back: skills -->
     <div class="face back relative border-2 rounded-xl overflow-hidden" [attr.aria-hidden]="!flipped()">
-      <div class="noise absolute inset-0 z-10 pointer-events-none"></div>
-      <div class="scanlines absolute inset-0 z-10 pointer-events-none"></div>
-      <div class="holographic absolute inset-0 z-10 pointer-events-none"></div>
-
       <div class="relative z-20 p-6 h-full flex flex-col">
         <div class="flex items-center justify-between mb-4">
-          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#00aaff] font-semibold">
-            Service Record
+          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#4de8f0] font-semibold">
+            Skills
           </span>
           <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-foreground/50" aria-hidden="true">
-            {{ postings.length }} postings
+            {{ skillCount }} skills
           </span>
         </div>
 
-        <ol class="list-none m-0 p-0 space-y-3 flex-1 flex flex-col justify-center">
-          @for (posting of postings; track posting.company) {
-            <li class="flex gap-3 items-start">
-              <span
-                class="mt-1.5 w-2 h-2 rounded-full flex-shrink-0"
-                [style.background]="posting.color"
-                [style.box-shadow]="'0 0 8px ' + posting.color"
-                aria-hidden="true"
-              ></span>
-              <div class="min-w-0 flex-1">
-                <div class="flex items-baseline justify-between gap-3">
-                  <p class="text-sm font-bold text-foreground leading-tight truncate" style="font-family: 'Montserrat', sans-serif">
-                    {{ posting.company }}
-                  </p>
-                  <span class="registry-text text-[9px] text-foreground/50 whitespace-nowrap">
-                    {{ posting.startDate }} &ndash; {{ posting.endDate }}
+        <div class="flex-1 flex flex-col justify-center gap-4 overflow-hidden">
+          @for (category of skillCategories; track category.name) {
+            <div>
+              <p class="registry-text text-[9px] uppercase tracking-widest text-foreground/50 mb-1.5">
+                {{ category.name }}
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                @for (skill of category.skills; track skill.name) {
+                  <span
+                    class="text-[11px] px-2 py-0.5 rounded-full border text-foreground/90"
+                    [style.background]="chipBg(category.color)"
+                    [style.border-color]="chipBorder(category.color)"
+                  >
+                    {{ skill.name }}
                   </span>
-                </div>
-                <p class="text-xs text-[#00ccff] leading-tight mt-0.5">{{ posting.role }}</p>
+                }
               </div>
-            </li>
+            </div>
           }
-        </ol>
+        </div>
 
-        <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#00aaff]/10">
-          <a
-            href="#experience"
-            (click)="$event.stopPropagation()"
-            class="registry-text text-[10px] uppercase tracking-widest text-[#00aaff] hover:text-[#00e5ff] transition-colors"
-          >
-            Full record &darr;
-          </a>
-          <span class="registry-text text-[8px] tracking-[0.3em] text-[#00aaff]/40 uppercase" aria-hidden="true">
+        <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#4de8f0]/10">
+          <span class="registry-text text-[8px] tracking-[0.3em] text-[#4de8f0]/50 uppercase" aria-hidden="true">
             Tap to flip back
           </span>
         </div>
       </div>
     </div>
+
     </div>
     </div>
   `,
 })
 export class DevCardComponent {
   readonly flipped = signal(false);
-  readonly postings = EXPERIENCES.map((experience, index) => ({
-    ...experience,
-    color: ROLE_COLORS[index % ROLE_COLORS.length],
-  }));
+  readonly skillCategories = SKILL_CATEGORIES;
+  readonly skillCount = SKILL_CATEGORIES.reduce((sum, category) => sum + category.skills.length, 0);
+
+  readonly socialLinks = [
+    { label: 'GitHub', url: 'https://github.com/embmeals', icon: 'github' },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/ember-d-mills', icon: 'linkedin' },
+  ] as const;
+
+  readonly chipColors: Record<string, { bg: string; border: string }> = {
+    cyan: { bg: 'rgba(77, 232, 240, 0.14)', border: 'rgba(77, 232, 240, 0.4)' },
+    magenta: { bg: 'rgba(255, 45, 123, 0.14)', border: 'rgba(255, 45, 123, 0.4)' },
+    amber: { bg: 'rgba(255, 179, 0, 0.14)', border: 'rgba(255, 179, 0, 0.4)' },
+    green: { bg: 'rgba(0, 230, 118, 0.14)', border: 'rgba(0, 230, 118, 0.4)' },
+    violet: { bg: 'rgba(179, 136, 255, 0.14)', border: 'rgba(179, 136, 255, 0.4)' },
+  };
+
+  chipBg(color: string): string {
+    return this.chipColors[color]?.bg ?? 'rgba(77, 232, 240, 0.14)';
+  }
+
+  chipBorder(color: string): string {
+    return this.chipColors[color]?.border ?? 'rgba(77, 232, 240, 0.4)';
+  }
+
+  readonly stats = [
+    { label: 'Velocity', value: 8 },
+    { label: 'Precision', value: 7 },
+    { label: 'Scalability', value: 9 },
+    { label: 'Reliability', value: 9 },
+  ];
+
+  readonly flowSegments = [
+    'rgba(77, 232, 240, 0.9)',
+    'rgba(77, 232, 240, 0.9)',
+    'rgba(77, 232, 240, 0.9)',
+    'rgba(255, 61, 127, 0.9)',
+    'rgba(255, 61, 127, 0.9)',
+    'rgba(255, 179, 0, 0.9)',
+  ];
 
   toggle(event?: Event): void {
     event?.preventDefault();

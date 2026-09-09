@@ -39,16 +39,6 @@ describe('HeroComponent', () => {
     );
   });
 
-  it('should contain a canvas element', () => {
-    const canvas = compiled.querySelector('canvas');
-    expect(canvas).toBeTruthy();
-  });
-
-  it('should have aria-hidden on the canvas', () => {
-    const canvas = compiled.querySelector('canvas');
-    expect(canvas?.getAttribute('aria-hidden')).toBe('true');
-  });
-
   it('should have aria-labelledby on the hero section', () => {
     const section = compiled.querySelector('section');
     expect(section?.getAttribute('aria-labelledby')).toBe('hero-heading');

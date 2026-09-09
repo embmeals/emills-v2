@@ -17,14 +17,14 @@ import { isPlatformBrowser } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 8px rgba(0, 160, 255, 0.3); }
-      50% { box-shadow: 0 0 16px rgba(0, 160, 255, 0.5); }
+      0%, 100% { box-shadow: 0 0 8px rgba(77, 232, 240, 0.3); }
+      50% { box-shadow: 0 0 16px rgba(77, 232, 240, 0.5); }
     }
 
     .player-container {
       backdrop-filter: blur(12px);
       background: rgba(6, 10, 18, 0.85);
-      border: 1px solid rgba(0, 170, 255, 0.2);
+      border: 1px solid rgba(77, 232, 240, 0.2);
     }
 
     .player-container.playing {
@@ -74,13 +74,13 @@ import { isPlatformBrowser } from '@angular/common';
       aria-label="Music player"
       (click)="expanded.set(true)"
     >
-      <svg class="w-6 h-6 block text-[#00aaff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="w-6 h-6 block text-[#4de8f0]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M9 18V5l12-2v13" />
         <circle cx="6" cy="18" r="3" />
         <circle cx="18" cy="16" r="3" />
       </svg>
       @if (isPlaying()) {
-        <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#00aaff] playing-dot"></span>
+        <span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#4de8f0] playing-dot"></span>
       }
     </div>
 
@@ -99,7 +99,7 @@ import { isPlatformBrowser } from '@angular/common';
 
       <!-- Close button (mobile only) -->
       <button
-        class="md:hidden absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#1e1e2e] border border-[#00aaff]/30 text-[#a0a0b0] text-[10px] leading-none flex items-center justify-center cursor-pointer hover:text-white"
+        class="md:hidden absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#1e1e2e] border border-[#4de8f0]/30 text-[#a0a0b0] text-[10px] leading-none flex items-center justify-center cursor-pointer hover:text-white"
         aria-label="Minimize player"
         (click)="expanded.set(false); $event.stopPropagation()"
       >
@@ -109,7 +109,7 @@ import { isPlatformBrowser } from '@angular/common';
       <!-- Track info -->
       <div class="flex items-center gap-3 mb-2">
         <button
-          class="play-btn flex-shrink-0 text-[#00aaff] bg-transparent border-none cursor-pointer p-0"
+          class="play-btn flex-shrink-0 text-[#4de8f0] bg-transparent border-none cursor-pointer p-0"
           (click)="togglePlay()"
           [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'"
         >
@@ -155,7 +155,7 @@ import { isPlatformBrowser } from '@angular/common';
         (keydown)="onSeekKey($event)"
       >
         <div
-          class="progress-fill absolute top-0 left-0 h-full bg-[#00aaff] rounded-full"
+          class="progress-fill absolute top-0 left-0 h-full bg-[#4de8f0] rounded-full"
           [style.width.%]="progressPercent()"
         ></div>
       </div>

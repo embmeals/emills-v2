@@ -46,8 +46,8 @@ import {
     }
 
     .resource-link:hover {
-      border-color: rgba(0, 229, 255, 0.3);
-      box-shadow: 0 0 15px rgba(0, 229, 255, 0.08);
+      border-color: rgba(77, 232, 240, 0.3);
+      box-shadow: 0 0 15px rgba(77, 232, 240, 0.08);
     }
 
     .blockquote-bar {
@@ -265,7 +265,7 @@ export class AdvocacyComponent {
   readonly falseVictories = FALSE_VICTORIES;
 
   readonly colorMap = {
-    cyan: { border: 'rgba(0, 229, 255, 0.4)', glow: 'rgba(0, 229, 255, 0.1)' },
+    cyan: { border: 'rgba(77, 232, 240, 0.4)', glow: 'rgba(77, 232, 240, 0.1)' },
     magenta: { border: 'rgba(255, 45, 123, 0.4)', glow: 'rgba(255, 45, 123, 0.1)' },
     amber: { border: 'rgba(255, 179, 0, 0.4)', glow: 'rgba(255, 179, 0, 0.1)' },
   } as const;

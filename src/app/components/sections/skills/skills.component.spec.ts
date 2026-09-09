@@ -19,9 +19,9 @@ describe('SkillsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should render section title "Skills & Technologies"', () => {
+  it('should render section title "Skills"', () => {
     const heading = element.querySelector('h2');
-    expect(heading?.textContent?.trim()).toBe('Skills & Technologies');
+    expect(heading?.textContent?.trim()).toBe('Skills');
   });
 
   it('should render all category cards', () => {

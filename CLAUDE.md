@@ -1,9 +1,10 @@
 # Ember's Website (emills-v2)
 
 ## Avatar / profile image
-- The canonical avatar image is **`public/assets/ember.png`** (1200×1200 PNG).
-- Use `assets/ember.png` for the avatar in the dev-card and anywhere Ember's
-  profile picture appears. Do **not** revert to the old `ember_avatar.jpg`.
+- The canonical avatar image is **`public/assets/ember-profile.jpg`**.
+- Use `assets/ember-profile.jpg` for the avatar in the dev-card and anywhere
+  Ember's profile picture appears. Do **not** revert to the old `ember.png`
+  or `ember_avatar.jpg`.
 - If a new/updated avatar is dropped into `public/assets/`, prefer the newest
   `ember.*` file and update references accordingly.
 

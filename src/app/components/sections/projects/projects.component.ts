@@ -33,8 +33,8 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
     }
 
     z-card:hover {
-      border-color: rgba(0, 170, 255, 0.3);
-      box-shadow: 0 0 20px rgba(0, 170, 255, 0.08);
+      border-color: rgba(77, 232, 240, 0.3);
+      box-shadow: 0 0 20px rgba(77, 232, 240, 0.08);
     }
 
     .btn-cyber {
@@ -68,7 +68,7 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
             [zType]="activeFilter() === btn.value ? 'default' : 'ghost'"
             zSize="sm"
             [class]="activeFilter() === btn.value
-              ? 'bg-[#00e5ff]! text-black! cursor-pointer'
+              ? 'bg-[#4de8f0]! text-black! cursor-pointer'
               : 'text-[#e0e0e0]! border-[#1e1e2e]! hover:bg-[#1e1e2e]! cursor-pointer'"
             [attr.aria-pressed]="activeFilter() === btn.value"
             (click)="setFilter(btn.value)"
@@ -95,8 +95,8 @@ const FILTER_BUTTONS: readonly FilterButton[] = [
                   [href]="$any(project).githubUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="btn-cyber text-[#00e5ff]!"
-                  style="--btn-glow: rgba(0, 229, 255, 0.5)"
+                  class="btn-cyber text-[#4de8f0]!"
+                  style="--btn-glow: rgba(77, 232, 240, 0.5)"
                 >
                   View on GitHub
                 </a>

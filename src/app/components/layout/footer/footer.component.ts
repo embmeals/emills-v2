@@ -10,13 +10,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <p class="text-[#8a8a96] text-sm">Built with Angular &amp; Zard UI</p>
         <p class="text-[#8a8a96] text-xs">&copy; {{ currentYear }} Ember Mills. All rights reserved.</p>
         <p class="text-[#8a8a96]/50 text-[10px]">All artwork is original work. Unauthorized use is prohibited.</p>
-        <p
-          class="text-[#00aaff]/15 text-[9px] tracking-[0.5em] uppercase mt-2"
-          style="font-family: 'Montserrat', sans-serif; font-weight: 500"
-          aria-hidden="true"
-        >
-          Remember the Cant
-        </p>
       </div>
     </footer>
   `,

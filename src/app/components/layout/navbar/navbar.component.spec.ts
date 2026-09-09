@@ -26,9 +26,6 @@ describe('NavbarComponent', () => {
     const buttons = compiled.querySelectorAll('button[role="menuitem"]');
     const expectedLabels = [
       'Home',
-      'About',
-      'Skills',
-      'Projects',
       'Experience',
       'Contact',
     ];

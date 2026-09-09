@@ -9,7 +9,7 @@ interface Station extends Experience {
 }
 
 const STATION_COLORS = [
-  { color: '#00e5ff', glow: 'rgba(0, 229, 255, 0.6)' },
+  { color: '#4de8f0', glow: 'rgba(77, 232, 240, 0.6)' },
   { color: '#ff2d7b', glow: 'rgba(255, 45, 123, 0.6)' },
   { color: '#ffb300', glow: 'rgba(255, 179, 0, 0.6)' },
 ];
@@ -22,10 +22,10 @@ const STATION_COLORS = [
     /* Grid background */
     .transit-map-bg {
       background-image:
-        linear-gradient(rgba(0, 170, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 170, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(77, 232, 240, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(77, 232, 240, 0.03) 1px, transparent 1px);
       background-size: 40px 40px;
-      border: 1px solid rgba(0, 170, 255, 0.08);
+      border: 1px solid rgba(77, 232, 240, 0.08);
       border-radius: 12px;
     }
 
@@ -43,12 +43,12 @@ const STATION_COLORS = [
       height: 2px;
       background: repeating-linear-gradient(
         90deg,
-        rgba(0, 170, 255, 0.5) 0px,
-        rgba(0, 170, 255, 0.5) 8px,
+        rgba(77, 232, 240, 0.5) 0px,
+        rgba(77, 232, 240, 0.5) 8px,
         transparent 8px,
         transparent 16px
       );
-      box-shadow: 0 0 6px rgba(0, 170, 255, 0.3);
+      box-shadow: 0 0 6px rgba(77, 232, 240, 0.3);
     }
 
     @keyframes routeScan {
@@ -65,7 +65,7 @@ const STATION_COLORS = [
       height: 2px;
       background: repeating-linear-gradient(
         90deg,
-        rgba(0, 229, 255, 0.8) 0px,
+        rgba(77, 232, 240, 0.8) 0px,
         transparent 4px,
         transparent 32px
       );
@@ -94,13 +94,13 @@ const STATION_COLORS = [
 
     .station-card {
       background: rgba(20, 20, 31, 0.9);
-      border: 1px solid rgba(0, 170, 255, 0.15);
+      border: 1px solid rgba(77, 232, 240, 0.15);
       transition: border-color 0.3s, box-shadow 0.3s;
     }
 
     .station-card:hover {
-      border-color: rgba(0, 170, 255, 0.35);
-      box-shadow: 0 0 20px rgba(0, 170, 255, 0.08);
+      border-color: rgba(77, 232, 240, 0.35);
+      box-shadow: 0 0 20px rgba(77, 232, 240, 0.08);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -121,8 +121,8 @@ const STATION_COLORS = [
         height: auto;
         background: repeating-linear-gradient(
           180deg,
-          rgba(0, 170, 255, 0.5) 0px,
-          rgba(0, 170, 255, 0.5) 8px,
+          rgba(77, 232, 240, 0.5) 0px,
+          rgba(77, 232, 240, 0.5) 8px,
           transparent 8px,
           transparent 16px
         );
@@ -131,7 +131,7 @@ const STATION_COLORS = [
       .route::after {
         background: repeating-linear-gradient(
           180deg,
-          rgba(0, 229, 255, 0.8) 0px,
+          rgba(77, 232, 240, 0.8) 0px,
           transparent 4px,
           transparent 32px
         );
@@ -157,7 +157,7 @@ const STATION_COLORS = [
         Experience
       </h2>
       <p
-        class="text-center text-[9px] tracking-[0.35em] uppercase text-[#00aaff]/30 mb-10"
+        class="text-center text-[9px] tracking-[0.35em] uppercase text-[#4de8f0]/30 mb-10"
         aria-hidden="true"
         style="font-family: 'Montserrat', sans-serif"
       >
@@ -186,7 +186,7 @@ const STATION_COLORS = [
               <div class="station-card rounded-lg p-4 w-full flex-1">
                 <div class="mb-3">
                   <span
-                    class="text-[10px] tracking-wider uppercase text-[#00e5ff]/50 block mb-1"
+                    class="text-[10px] tracking-wider uppercase text-[#4de8f0]/50 block mb-1"
                     style="font-family: 'Montserrat', sans-serif"
                   >
                     {{ station.startDate }} - {{ station.endDate }}
@@ -201,7 +201,7 @@ const STATION_COLORS = [
                 </div>
                 <ul class="space-y-1.5 list-none m-0 p-0">
                   @for (item of station.accomplishments; track item) {
-                    <li class="text-xs text-[#a0a0b0] pl-3 relative before:content-[''] before:absolute before:left-0 before:top-[0.45rem] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#00e5ff]/30">
+                    <li class="text-xs text-[#a0a0b0] pl-3 relative before:content-[''] before:absolute before:left-0 before:top-[0.45rem] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#4de8f0]/30">
                       {{ item }}
                     </li>
                   }
@@ -232,7 +232,7 @@ const STATION_COLORS = [
                   {{ station.id }}
                 </span>
                 <span
-                  class="text-[10px] tracking-wider uppercase text-[#00e5ff]/50 block mb-1"
+                  class="text-[10px] tracking-wider uppercase text-[#4de8f0]/50 block mb-1"
                   style="font-family: 'Montserrat', sans-serif"
                 >
                   {{ station.startDate }} - {{ station.endDate }}
@@ -246,7 +246,7 @@ const STATION_COLORS = [
                 <p class="text-xs text-[#a0a0b0] mt-0.5 mb-3">{{ station.company }}</p>
                 <ul class="space-y-1.5 list-none m-0 p-0">
                   @for (item of station.accomplishments; track item) {
-                    <li class="text-xs text-[#a0a0b0] pl-3 relative before:content-[''] before:absolute before:left-0 before:top-[0.45rem] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#00e5ff]/30">
+                    <li class="text-xs text-[#a0a0b0] pl-3 relative before:content-[''] before:absolute before:left-0 before:top-[0.45rem] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#4de8f0]/30">
                       {{ item }}
                     </li>
                   }

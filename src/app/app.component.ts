@@ -41,25 +41,25 @@ import { ZardSkeletonComponent } from '@/shared/components/skeleton/skeleton.com
     @if (loading()) {
       <div class="load-overlay fixed inset-0 z-[100] bg-[#0a0a14] flex flex-col items-center justify-center gap-6">
         <!-- Scan line effect -->
-        <div class="scan-line absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-[#00e5ff]/40 to-transparent"></div>
+        <div class="scan-line absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-[#4de8f0]/40 to-transparent"></div>
 
         <!-- Core loader -->
         <div class="relative">
-          <div class="w-16 h-16 rounded-full border-2 border-[#00e5ff]/20 flex items-center justify-center">
-            <div class="w-3 h-3 rounded-full bg-[#00e5ff] animate-pulse"></div>
+          <div class="w-16 h-16 rounded-full border-2 border-[#4de8f0]/20 flex items-center justify-center">
+            <div class="w-3 h-3 rounded-full bg-[#4de8f0] animate-pulse"></div>
           </div>
         </div>
 
         <div class="flex flex-col items-center gap-2">
-          <p class="text-[10px] tracking-[0.4em] uppercase text-[#00e5ff]/50"
+          <p class="text-[10px] tracking-[0.4em] uppercase text-[#4de8f0]/50"
             style="font-family: 'Montserrat', sans-serif"
           >
             Initializing Systems
           </p>
           <div class="flex gap-3">
-            <z-skeleton class="h-1 w-16 bg-[#00e5ff]/10!" />
-            <z-skeleton class="h-1 w-24 bg-[#00e5ff]/10!" />
-            <z-skeleton class="h-1 w-12 bg-[#00e5ff]/10!" />
+            <z-skeleton class="h-1 w-16 bg-[#4de8f0]/10!" />
+            <z-skeleton class="h-1 w-24 bg-[#4de8f0]/10!" />
+            <z-skeleton class="h-1 w-12 bg-[#4de8f0]/10!" />
           </div>
         </div>
       </div>

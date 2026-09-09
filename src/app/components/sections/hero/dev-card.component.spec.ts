@@ -16,17 +16,17 @@ describe('DevCardComponent', () => {
   it('starts on the front face showing the profile', () => {
     expect(card().getAttribute('aria-pressed')).toBe('false');
     expect(card().classList).not.toContain('is-flipped');
-    expect(fixture.nativeElement.textContent).toContain('Ember Mills');
+    expect(fixture.nativeElement.textContent).toContain('User Profile');
   });
 
-  it('flips on click to reveal the service record', () => {
+  it('flips on click to reveal the skills', () => {
     card().click();
     fixture.detectChanges();
 
     expect(card().getAttribute('aria-pressed')).toBe('true');
     expect(card().classList).toContain('is-flipped');
-    expect(fixture.nativeElement.textContent).toContain('Integrity');
-    expect(fixture.nativeElement.textContent).toContain('Pryor Learning');
+    expect(fixture.nativeElement.textContent).toContain('Skills');
+    expect(fixture.nativeElement.textContent).toContain('C#');
   });
 
   it('flips back on a second click', () => {
