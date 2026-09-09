@@ -64,8 +64,8 @@ const ROLE_COLORS = [
     /* Mobile: vertical route */
     @media (max-width: 767px) {
       .route::before {
-        top: 0;
-        bottom: 0;
+        top: 1.25rem;
+        bottom: 1.25rem;
         left: calc(1.25rem - 1px);
         right: auto;
         width: 2px;
