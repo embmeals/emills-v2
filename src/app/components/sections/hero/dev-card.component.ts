@@ -40,19 +40,19 @@ const STAT_COLOR = '#4de8f0';
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       box-shadow: 0 0 20px rgba(77, 232, 240, 0.25), inset 0 0 20px rgba(77, 232, 240, 0.04);
-      background: linear-gradient(160deg, #0d1220 0%, #080b14 100%);
+      background: linear-gradient(160deg, #eaf7ff 0%, #cfe9f8 100%);
     }
 
     /* Y2K chrome border */
     .chrome-border {
       border: 2px solid transparent;
-      background: linear-gradient(160deg, #0d1220, #080b14) padding-box,
+      background: linear-gradient(160deg, #eaf7ff, #cfe9f8) padding-box,
                   linear-gradient(135deg, #4de8f0, #ff3d7f, #ffb300) border-box;
     }
 
     /* Y2K glossy sheen */
     .gloss {
-      background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.09) 45%, rgba(255,255,255,0.02) 55%, transparent 70%);
+      background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.5) 45%, rgba(255,255,255,0.1) 55%, transparent 70%);
     }
 
     /* Y2K tech grid */
@@ -87,16 +87,20 @@ const STAT_COLOR = '#4de8f0';
 
     .stat-bar {
       height: 6px;
-      border-radius: 3px;
-      background: rgba(77, 232, 240, 0.12);
+      background: rgba(13, 18, 32, 0.12);
       overflow: hidden;
     }
 
     .stat-fill {
       height: 100%;
-      border-radius: 3px;
-      background: linear-gradient(90deg, #4de8f0, #ff3d7f);
+      background: linear-gradient(90deg, #0e7490, #ff3d7f);
       box-shadow: 0 0 8px rgba(77, 232, 240, 0.4);
+    }
+
+    /* Y2K blocky panel */
+    .block {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(13, 18, 32, 0.12);
     }
 
     .registry-text {
@@ -120,8 +124,7 @@ const STAT_COLOR = '#4de8f0';
     <div class="flipper">
 
     <!-- Front: SSX character profile -->
-    <div class="face front relative chrome-border rounded-xl overflow-hidden">
-      <div class="grid-bg absolute inset-0 z-0 pointer-events-none"></div>
+    <div class="face front relative chrome-border rounded-2xl overflow-hidden">
       <div class="gloss absolute inset-0 z-10 pointer-events-none"></div>
       <div class="relative z-20">
         <!-- Full-width image banner -->
@@ -132,13 +135,13 @@ const STAT_COLOR = '#4de8f0';
             fetchpriority="high"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0d1220] via-[#0d1220]/30 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#cfe9f8] via-[#cfe9f8]/30 to-transparent"></div>
         </div>
 
         <div class="p-6">
         <!-- Header -->
         <div class="flex items-center justify-end mb-4">
-          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-foreground/50" aria-hidden="true">
+          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-[#0d1220]/75" aria-hidden="true">
             LVL 99
           </span>
         </div>
@@ -147,25 +150,25 @@ const STAT_COLOR = '#4de8f0';
         <p class="text-lg font-semibold text-[#ff3d7f] leading-tight" style="font-family: 'Barlow Condensed', sans-serif; font-style: italic; text-transform: uppercase; letter-spacing: 0.03em;">
           Senior Full Stack Engineer
         </p>
-        <p class="text-xs text-foreground/60 leading-tight mt-1">
+        <p class="text-xs text-[#0d1220]/85 leading-tight mt-1">
           .NET &middot; Angular &middot; Python
         </p>
 
         <!-- Bio -->
-        <p class="mt-4 text-sm text-foreground/70 leading-relaxed">
+        <p class="mt-4 text-sm text-[#0d1220]/90 leading-relaxed">
           Building accessible, inclusive web experiences for 6+ years &mdash; from
           enterprise .NET backends to polished Angular frontends.
         </p>
 
         <!-- Stats -->
-        <div class="mt-5 space-y-3">
+        <div class="block p-3 mt-5 space-y-3">
           @for (stat of stats; track stat.label) {
             <div>
               <div class="flex items-center justify-between mb-1">
-                <span class="registry-text text-[9px] uppercase tracking-widest text-foreground/60">
+                <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/85">
                   {{ stat.label }}
                 </span>
-                <span class="registry-text text-[9px] text-[#4de8f0]">{{ stat.value }}</span>
+                <span class="registry-text text-[9px] text-[#0e7490]">{{ stat.value }}</span>
               </div>
               <div class="stat-bar">
                 <div class="stat-fill" [style.width.%]="stat.value * 10"></div>
@@ -175,15 +178,15 @@ const STAT_COLOR = '#4de8f0';
         </div>
 
         <!-- Flow meter -->
-        <div class="mt-5">
+        <div class="block p-3 mt-3">
           <div class="flex items-center justify-between mb-1">
-            <span class="registry-text text-[9px] uppercase tracking-widest text-foreground/60">Flow</span>
+            <span class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/85">Flow</span>
             <span class="registry-text text-[9px] text-[#ff3d7f]">MAX</span>
           </div>
           <div class="flex gap-1">
             @for (segment of flowSegments; track $index) {
               <div
-                class="h-2 flex-1 rounded-sm"
+                class="h-2 flex-1"
                 [style.background]="segment"
               ></div>
             }
@@ -192,17 +195,17 @@ const STAT_COLOR = '#4de8f0';
 
         <!-- Location -->
         <div class="mt-5 flex items-center justify-between">
-          <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">
+          <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">
             St. Louis, MO
           </span>
-          <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">
+          <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">
             Remote-friendly
           </span>
         </div>
 
         <!-- Footer -->
-        <div class="flex items-center justify-between mt-5 pt-3 border-t border-[#4de8f0]/10">
-          <span class="registry-text text-[10px] text-foreground/60 uppercase tracking-widest">Active since 2017</span>
+        <div class="flex items-center justify-between mt-5 pt-3 border-t border-[#0d1220]/10">
+          <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">Active since 2017</span>
           <div class="flex items-center gap-3">
             @for (link of socialLinks; track link.label) {
               <a
@@ -211,7 +214,7 @@ const STAT_COLOR = '#4de8f0';
                 target="_blank"
                 rel="noopener noreferrer"
                 (click)="$event.stopPropagation()"
-                class="text-foreground/60 hover:text-[#4de8f0] transition-colors"
+                class="text-[#0d1220]/85 hover:text-[#0e7490] transition-colors"
               >
                 @if (link.icon === 'github') {
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -228,7 +231,7 @@ const STAT_COLOR = '#4de8f0';
                 }
               </a>
             }
-            <span class="registry-text text-[8px] tracking-[0.3em] text-[#4de8f0]/50 uppercase" aria-hidden="true">
+            <span class="registry-text text-[8px] tracking-[0.3em] text-[#0e7490]/80 uppercase" aria-hidden="true">
               Tap to flip
             </span>
           </div>
@@ -238,15 +241,14 @@ const STAT_COLOR = '#4de8f0';
     </div>
 
     <!-- Back: skills -->
-    <div class="face back relative chrome-border rounded-xl overflow-hidden" [attr.aria-hidden]="!flipped()">
-      <div class="grid-bg absolute inset-0 z-0 pointer-events-none"></div>
+    <div class="face back relative chrome-border rounded-2xl overflow-hidden" [attr.aria-hidden]="!flipped()">
       <div class="gloss absolute inset-0 z-10 pointer-events-none"></div>
       <div class="relative z-20 p-6 h-full flex flex-col">
         <div class="flex items-center justify-between mb-4">
-          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#4de8f0] font-semibold">
+          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#0e7490] font-semibold">
             Skills
           </span>
-          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-foreground/50" aria-hidden="true">
+          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-[#0d1220]/75" aria-hidden="true">
             {{ skillCount }} skills
           </span>
         </div>
@@ -254,13 +256,13 @@ const STAT_COLOR = '#4de8f0';
         <div class="flex-1 flex flex-col justify-center gap-4 overflow-hidden">
           @for (category of skillCategories; track category.name) {
             <div>
-              <p class="registry-text text-[9px] uppercase tracking-widest text-foreground/50 mb-1.5">
+              <p class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/75 mb-1.5">
                 {{ category.name }}
               </p>
               <div class="flex flex-wrap gap-1.5">
                 @for (skill of category.skills; track skill.name) {
                   <span
-                    class="text-[11px] px-2 py-0.5 rounded-full border text-foreground/90"
+                    class="text-[11px] px-2 py-0.5 border text-[#0d1220]"
                     [style.background]="chipBg(category.color)"
                     [style.border-color]="chipBorder(category.color)"
                   >
@@ -272,8 +274,8 @@ const STAT_COLOR = '#4de8f0';
           }
         </div>
 
-        <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#4de8f0]/10">
-          <span class="registry-text text-[8px] tracking-[0.3em] text-[#4de8f0]/50 uppercase" aria-hidden="true">
+        <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#0d1220]/10">
+          <span class="registry-text text-[8px] tracking-[0.3em] text-[#0e7490]/80 uppercase" aria-hidden="true">
             Tap to flip back
           </span>
         </div>

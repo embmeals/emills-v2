@@ -50,7 +50,7 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
   `,
   template: `
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      class="relative min-h-screen flex items-center justify-center pt-20"
       aria-labelledby="hero-heading"
     >
       <!-- Content: two-column on desktop, stacked on mobile -->
@@ -61,7 +61,7 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
         <div class="flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-in-up">
           <h1
             id="hero-heading"
-            class="text-6xl sm:text-7xl md:text-8xl font-black italic uppercase tracking-tight leading-none pb-2"
+            class="text-6xl sm:text-7xl md:text-8xl font-black italic uppercase tracking-tight leading-[1.4] pb-6 overflow-visible"
             style="font-family: 'Barlow Condensed', sans-serif; background: linear-gradient(90deg, #4de8f0 0%, #ff3d7f 50%, #ffb300 100%); -webkit-background-clip: text; background-clip: text; color: transparent;"
           >
             Ember Mills
