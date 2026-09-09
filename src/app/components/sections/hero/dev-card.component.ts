@@ -37,8 +37,18 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
       grid-area: 1 / 1;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
       box-shadow: 0 0 20px rgba(77, 232, 240, 0.25), inset 0 0 20px rgba(77, 232, 240, 0.04);
       background: linear-gradient(160deg, #eaf7ff 0%, #cfe9f8 100%);
+      transition: opacity 0s linear 0.375s;
+    }
+
+    /* Mobile browsers drop backface-visibility when a face contains its own
+       stacking context, so hide the away-facing side explicitly. */
+    .crew-card:not(.is-flipped) .face.back,
+    .is-flipped .face.front {
+      opacity: 0;
+      pointer-events: none;
     }
 
     /* Y2K chrome border */
@@ -82,9 +92,43 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
     }
 
     .registry-text {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Chakra Petch', 'Barlow', sans-serif;
       letter-spacing: 0.15em;
-      font-weight: 500;
+      font-weight: 600;
+    }
+
+    .stat-row span:first-child,
+    .title-bar span {
+      font-family: 'Chakra Petch', 'Barlow', sans-serif;
+    }
+
+    /* Trading-card title bar */
+    .title-bar {
+      background: linear-gradient(100deg, #0e7490 0%, #155e75 55%, #ff3d7f 100%);
+      border-bottom: 2px solid rgba(13, 18, 32, 0.18);
+    }
+
+    .portrait {
+      border: 2px solid rgba(14, 116, 144, 0.35);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    /* Stat meter pips */
+    .pip {
+      height: 10px;
+      border: 1px solid rgba(14, 116, 144, 0.3);
+      background: rgba(13, 18, 32, 0.06);
+      border-radius: 2px;
+    }
+
+    .pip.filled {
+      background: linear-gradient(180deg, #4de8f0, #0e7490);
+      border-color: rgba(14, 116, 144, 0.55);
+    }
+
+    .ability-row + .ability-row {
+      border-top: 1px solid rgba(13, 18, 32, 0.08);
     }
   `,
   template: `
@@ -104,62 +148,68 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
     <!-- Front: RPG character select -->
     <div class="face front relative chrome-border rounded-2xl overflow-hidden">
       <div class="gloss absolute inset-0 z-10 pointer-events-none"></div>
-      <div class="relative z-20 p-5 flex flex-col h-full">
-        <!-- Avatar + name -->
-        <div class="flex gap-4">
-          <div
-            class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-[#0e7490]/30 flex-shrink-0"
-            style="box-shadow: 0 0 18px rgba(14, 116, 144, 0.2);"
-          >
-            <img
-              src="assets/ember-avatar.jpg"
-              alt="Ember Mills"
-              fetchpriority="high"
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-2xl font-black italic uppercase leading-none" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
-              Full Stack Engineer
-            </p>
-          </div>
+      <div class="relative z-20 flex flex-col h-full">
+        <!-- Title bar -->
+        <div class="title-bar flex items-baseline justify-between px-4 py-2.5">
+          <p class="text-3xl font-black italic uppercase leading-none text-white" style="font-family: 'Barlow Condensed', sans-serif;">
+            Full Stack Engineer
+          </p>
+          <span class="text-xs font-bold uppercase tracking-[0.2em] text-white/80">Lv. {{ yearsExperience }}</span>
         </div>
 
-        <div class="flex-1 flex flex-col justify-center">
-        <!-- Special Abilities -->
-        <div class="mt-4">
-          <p class="text-[10px] font-black italic uppercase tracking-widest text-[#0e7490]" style="font-family: 'Barlow Condensed', sans-serif;">Special Abilities</p>
-          <div class="mt-1.5 space-y-1.5">
+        <div class="flex-1 flex flex-col gap-3 p-4">
+          <!-- Portrait + stats -->
+          <div class="flex gap-3">
+            <div
+              class="portrait w-48 h-48 overflow-hidden flex-shrink-0"
+              style="box-shadow: 0 0 18px rgba(14, 116, 144, 0.2);"
+            >
+              <picture>
+                <source srcset="assets/ember-avatar-384.webp" type="image/webp" />
+                <img
+                  src="assets/ember-avatar-384.jpg"
+                  alt="Ember Mills"
+                  width="384"
+                  height="384"
+                  fetchpriority="high"
+                  class="w-full h-full object-cover"
+                />
+              </picture>
+            </div>
+
+            <div class="flex-1 min-w-0 flex flex-col justify-center gap-3">
+              @for (stat of stats; track stat.label) {
+                <div class="stat-row flex items-center gap-2">
+                  <span class="text-xs font-bold uppercase tracking-[0.1em] text-[#0d1220]/70 w-[76px] flex-shrink-0">{{ stat.label }}</span>
+                  <span class="flex-1 flex gap-[3px]" [attr.aria-label]="stat.value + ' out of 5'">
+                    @for (pip of pips; track pip) {
+                      <span class="pip flex-1" [class.filled]="pip <= stat.value"></span>
+                    }
+                  </span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Abilities -->
+          <div class="flex-1 flex flex-col justify-evenly">
             @for (ability of abilities; track ability.name) {
-              <div class="text-xs leading-snug">
-                <span class="font-bold text-[#0d1220]">&#9656; {{ ability.name }}</span>
-                <span class="text-[#0d1220]/70"> &mdash; {{ ability.desc }}</span>
+              <div class="ability-row flex gap-3 py-2">
+                <span class="text-base font-black uppercase tracking-wide text-[#0e7490] w-[120px] flex-shrink-0 leading-tight" style="font-family: 'Barlow Condensed', sans-serif;">
+                  {{ ability.name }}
+                </span>
+                <span class="flex-1 text-sm text-[#0d1220]/75 leading-snug">{{ ability.desc }}</span>
               </div>
             }
           </div>
-        </div>
 
-        <!-- Current Quest -->
-        <div class="mt-3">
-          <p class="text-[10px] font-black italic uppercase tracking-widest text-[#ff3d7f]" style="font-family: 'Barlow Condensed', sans-serif;">Current Quest</p>
-          <p class="mt-1.5 text-xs text-[#0d1220]/80 leading-relaxed">{{ quest }}</p>
-        </div>
+          <p class="text-sm italic text-[#0d1220]/65 leading-snug">{{ quest }}</p>
         </div>
 
         <!-- Footer -->
-        <div class="mt-auto pt-3 border-t border-[#0d1220]/10">
-          <div class="flex flex-wrap gap-1.5 mb-2">
-            @for (badge of techBadges; track badge) {
-              <span
-                class="text-[10px] px-2 py-0.5 border text-[#0d1220]"
-                style="background: rgba(14,116,144,0.1); border-color: rgba(14,116,144,0.3)"
-              >
-                {{ badge }}
-              </span>
-            }
-          </div>
+        <div class="px-4 py-2.5 border-t border-[#0d1220]/10">
           <div class="flex items-center justify-between">
-            <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">Active since 2017</span>
+            <span class="registry-text text-[11px] text-[#0d1220]/85 uppercase tracking-widest">Active since 2017</span>
             <div class="flex items-center gap-3">
               @for (link of socialLinks; track link.label) {
                 <a
@@ -207,7 +257,7 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
           </span>
         </div>
 
-        <div class="flex-1 flex flex-col justify-center gap-2 overflow-hidden">
+        <div class="flex-1 flex flex-col justify-between gap-2 overflow-hidden">
           @for (category of skillCategories; track category.name) {
             <div class="block p-2">
               <p class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/75 mb-1.5">
@@ -249,12 +299,23 @@ export class DevCardComponent {
   readonly skillCount = SKILL_CATEGORIES.reduce((sum, category) => sum + category.skills.length, 0);
 
   readonly abilities = [
-    { name: 'FULL STACK', desc: 'Builds across frontend, backend & infrastructure' },
-    { name: 'SYSTEM BUILDER', desc: '.NET • Angular • Python • Docker • Azure' },
-    { name: 'HOMELAB ENGINEER', desc: 'Self-hosted services • automation • monitoring' },
+    { name: 'Full Stack', desc: 'Builds across frontend, backend & infrastructure' },
+    { name: 'System Builder', desc: '.NET • Angular • Python • Docker • Azure' },
+    { name: 'Homelab Engineer', desc: 'Self-hosted services • automation • monitoring' },
   ];
 
-  readonly quest = 'Building things that are useful, automated, and slightly over-engineered.';
+  private readonly careerStartYear = 2017;
+  readonly yearsExperience = new Date().getFullYear() - this.careerStartYear;
+  readonly pips = [1, 2, 3, 4, 5];
+
+  readonly stats = [
+    { label: 'Backend', value: 5 },
+    { label: 'Frontend', value: 5 },
+    { label: 'DevOps', value: 4 },
+    { label: 'Data', value: 4 },
+  ];
+
+  readonly quest = 'Building accessible, automated systems end to end, from schema to pixel.';
 
   readonly socialLinks = [
     { label: 'GitHub', url: 'https://github.com/embmeals', icon: 'github' },
@@ -276,8 +337,6 @@ export class DevCardComponent {
   chipBorder(color: string): string {
     return this.chipColors[color]?.border ?? 'rgba(77, 232, 240, 0.4)';
   }
-
-  readonly techBadges = ['.NET', 'Angular', 'Python', 'Azure', 'Docker', 'SQL', 'TypeScript', 'React'];
 
   toggle(event?: Event): void {
     event?.preventDefault();
