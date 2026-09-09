@@ -1,4 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+
+import { EXPERIENCES } from '@/data/experience.data';
+
+const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
 
 @Component({
   selector: 'app-dev-card',
@@ -34,9 +38,37 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     }
 
     .crew-card {
+      perspective: 1200px;
+      cursor: pointer;
+      will-change: transform;
+      outline: none;
+    }
+
+    .crew-card:focus-visible .face {
+      box-shadow: 0 0 0 2px #00e5ff, 0 0 20px rgba(0, 160, 255, 0.3);
+    }
+
+    .flipper {
+      display: grid;
+      transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .is-flipped .flipper {
+      transform: rotateY(180deg);
+    }
+
+    .face {
+      grid-area: 1 / 1;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       box-shadow: 0 0 20px rgba(0, 160, 255, 0.3), inset 0 0 20px rgba(0, 160, 255, 0.05);
-      will-change: transform, opacity;
       animation: borderGlow 4s ease-in-out infinite;
+      background: linear-gradient(135deg, #0a0f1a 0%, #060a12 100%);
+    }
+
+    .face.back {
+      transform: rotateY(180deg);
     }
 
     @media (pointer: fine) {
@@ -86,6 +118,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       }
       .holographic { animation: none; }
       .cant-watermark { animation: none; opacity: 0.12; }
+      .flipper { transition: none; }
     }
 
     .barcode {
@@ -127,9 +160,18 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   `,
   template: `
     <div
-      class="crew-card relative w-full max-w-lg border-2 rounded-xl overflow-hidden"
-      style="background: linear-gradient(135deg, #0a0f1a 0%, #060a12 100%);"
+      class="crew-card relative w-full max-w-lg"
+      [class.is-flipped]="flipped()"
+      role="button"
+      tabindex="0"
+      [attr.aria-pressed]="flipped()"
+      aria-label="Crew card. Activate to flip and show service record."
+      (click)="toggle()"
+      (keydown.enter)="toggle()"
+      (keydown.space)="toggle($event)"
     >
+    <div class="flipper">
+    <div class="face front relative border-2 rounded-xl overflow-hidden">
       <!-- Film grain noise -->
       <div class="noise absolute inset-0 z-10 pointer-events-none"></div>
 
@@ -233,13 +275,84 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         </div>
 
         <!-- Legitimate salvage footer -->
-        <div class="mt-3 flex justify-center">
+        <div class="mt-3 flex justify-between items-center">
           <span class="registry-text text-[8px] tracking-[0.4em] text-[#00aaff]/20 uppercase" aria-hidden="true">
             Legitimate Salvage
+          </span>
+          <span class="registry-text text-[8px] tracking-[0.3em] text-[#00aaff]/40 uppercase" aria-hidden="true">
+            Tap to flip
           </span>
         </div>
       </div>
     </div>
+
+    <!-- Back face: service record -->
+    <div class="face back relative border-2 rounded-xl overflow-hidden" [attr.aria-hidden]="!flipped()">
+      <div class="noise absolute inset-0 z-10 pointer-events-none"></div>
+      <div class="scanlines absolute inset-0 z-10 pointer-events-none"></div>
+      <div class="holographic absolute inset-0 z-10 pointer-events-none"></div>
+
+      <div class="relative z-20 p-6 h-full flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+          <span class="registry-text text-[10px] uppercase tracking-[0.3em] text-[#00aaff] font-semibold">
+            Service Record
+          </span>
+          <span class="registry-text text-[10px] uppercase tracking-[0.2em] text-foreground/50" aria-hidden="true">
+            {{ postings.length }} postings
+          </span>
+        </div>
+
+        <ol class="list-none m-0 p-0 space-y-3 flex-1 flex flex-col justify-center">
+          @for (posting of postings; track posting.company) {
+            <li class="flex gap-3 items-start">
+              <span
+                class="mt-1.5 w-2 h-2 rounded-full flex-shrink-0"
+                [style.background]="posting.color"
+                [style.box-shadow]="'0 0 8px ' + posting.color"
+                aria-hidden="true"
+              ></span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-baseline justify-between gap-3">
+                  <p class="text-sm font-bold text-foreground leading-tight truncate" style="font-family: 'Montserrat', sans-serif">
+                    {{ posting.company }}
+                  </p>
+                  <span class="registry-text text-[9px] text-foreground/50 whitespace-nowrap">
+                    {{ posting.startDate }} &ndash; {{ posting.endDate }}
+                  </span>
+                </div>
+                <p class="text-xs text-[#00ccff] leading-tight mt-0.5">{{ posting.role }}</p>
+              </div>
+            </li>
+          }
+        </ol>
+
+        <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#00aaff]/10">
+          <a
+            href="#experience"
+            (click)="$event.stopPropagation()"
+            class="registry-text text-[10px] uppercase tracking-widest text-[#00aaff] hover:text-[#00e5ff] transition-colors"
+          >
+            Full record &darr;
+          </a>
+          <span class="registry-text text-[8px] tracking-[0.3em] text-[#00aaff]/40 uppercase" aria-hidden="true">
+            Tap to flip back
+          </span>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
   `,
 })
-export class DevCardComponent {}
+export class DevCardComponent {
+  readonly flipped = signal(false);
+  readonly postings = EXPERIENCES.map((experience, index) => ({
+    ...experience,
+    color: ROLE_COLORS[index % ROLE_COLORS.length],
+  }));
+
+  toggle(event?: Event): void {
+    event?.preventDefault();
+    this.flipped.update((value) => !value);
+  }
+}
