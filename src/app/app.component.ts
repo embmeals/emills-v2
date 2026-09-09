@@ -54,7 +54,7 @@ import { ZardSkeletonComponent } from '@/shared/components/skeleton/skeleton.com
           <p class="text-[10px] tracking-[0.4em] uppercase text-[#4de8f0]/60"
             style="font-family: 'Barlow Condensed', sans-serif; font-style: italic; font-weight: 800;"
           >
-            Loading the Mountain
+            Loading...
           </p>
           <div class="flex gap-3">
             <z-skeleton class="h-1 w-16 bg-[#4de8f0]/10!" />
