@@ -128,7 +128,7 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
         <!-- Avatar + info side-by-side -->
         <div class="flex gap-5">
           <div
-            class="w-40 h-40 rounded-2xl overflow-hidden border-2 border-[#0e7490]/30 flex-shrink-0"
+            class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-[#0e7490]/30 flex-shrink-0"
             style="box-shadow: 0 0 18px rgba(14, 116, 144, 0.2);"
           >
             <img
@@ -139,25 +139,25 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
             />
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-2xl font-black italic uppercase leading-none" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
+            <p class="text-3xl font-black italic uppercase leading-none" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
               Full Stack Engineer
             </p>
             <div class="mt-3 space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Class</span>
-                <span class="text-base font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">Full Stack</span>
+                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Class</span>
+                <span class="text-lg font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">Full Stack</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Specialty</span>
-                <span class="text-base font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">.NET / Angular / Python</span>
+                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Specialty</span>
+                <span class="text-lg font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">.NET / Angular / Python</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Level</span>
-                <span class="text-base font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #ff3d7f">99</span>
+                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Level</span>
+                <span class="text-lg font-black italic uppercase" style="font-family: 'Barlow Condensed', sans-serif; color: #ff3d7f">99</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Status</span>
-                <span class="text-base font-black italic uppercase flex items-center gap-1.5" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
+                <span class="text-[11px] font-black italic uppercase tracking-widest text-[#0d1220]/60" style="font-family: 'Barlow Condensed', sans-serif;">Status</span>
+                <span class="text-lg font-black italic uppercase flex items-center gap-1.5" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
                   <span class="w-2 h-2 rounded-full bg-green-500" aria-hidden="true"></span>Online
                 </span>
               </div>
@@ -191,9 +191,20 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
         </div>
 
         <!-- Footer -->
-        <div class="flex items-center justify-between mt-4 pt-3 border-t border-[#0d1220]/10">
-          <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">Active since 2017</span>
-          <div class="flex items-center gap-3">
+        <div class="mt-4 pt-3 border-t border-[#0d1220]/10">
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            @for (badge of techBadges; track badge) {
+              <span
+                class="text-[10px] px-2 py-0.5 border text-[#0d1220]"
+                style="background: rgba(14,116,144,0.1); border-color: rgba(14,116,144,0.3)"
+              >
+                {{ badge }}
+              </span>
+            }
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="registry-text text-[10px] text-[#0d1220]/85 uppercase tracking-widest">Active since 2017</span>
+            <div class="flex items-center gap-3">
             @for (link of socialLinks; track link.label) {
               <a
                 [href]="link.url"
@@ -221,6 +232,7 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
             <span class="registry-text text-[8px] tracking-[0.3em] text-[#0e7490]/80 uppercase" aria-hidden="true">
               Tap to flip
             </span>
+          </div>
           </div>
         </div>
       </div>
