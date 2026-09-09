@@ -120,9 +120,8 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
           </div>
           <div class="flex-1 min-w-0">
             <p class="text-2xl font-black italic uppercase leading-none" style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220">
-              Ember Mills
+              Full Stack Engineer
             </p>
-            <p class="text-sm font-semibold mt-1" style="color: #0e7490">Full Stack Engineer</p>
           </div>
         </div>
 
