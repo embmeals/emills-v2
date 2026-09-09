@@ -29,11 +29,6 @@ describe('NavbarComponent', () => {
       'Experience',
       'Contact',
     ];
-    const visibleButtons = Array.from(buttons).filter(
-      (btn) =>
-        btn.closest('.hidden') === null ||
-        btn.closest('[id="mobile-menu"]') !== null
-    );
     // Desktop buttons are in .hidden.md:flex container
     expect(buttons.length).toBeGreaterThanOrEqual(expectedLabels.length);
     const labels = Array.from(buttons)

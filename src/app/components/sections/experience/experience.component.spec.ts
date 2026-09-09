@@ -4,7 +4,6 @@ import { ExperienceComponent } from './experience.component';
 import { EXPERIENCES } from '@/data/experience.data';
 
 describe('ExperienceComponent', () => {
-  let component: ExperienceComponent;
   let fixture: ComponentFixture<ExperienceComponent>;
   let element: HTMLElement;
 
@@ -14,7 +13,6 @@ describe('ExperienceComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExperienceComponent);
-    component = fixture.componentInstance;
     element = fixture.nativeElement as HTMLElement;
     fixture.detectChanges();
   });

@@ -2,8 +2,6 @@ import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 
 import { SKILL_CATEGORIES } from '@/data/skills.data';
 
-const STAT_COLOR = '#4de8f0';
-
 @Component({
   selector: 'app-dev-card',
   standalone: true,
