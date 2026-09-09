@@ -108,7 +108,7 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
         <!-- Avatar + name -->
         <div class="flex gap-4">
           <div
-            class="w-32 h-32 rounded-2xl overflow-hidden border-2 border-[#0e7490]/30 flex-shrink-0"
+            class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-[#0e7490]/30 flex-shrink-0"
             style="box-shadow: 0 0 18px rgba(14, 116, 144, 0.2);"
           >
             <img
@@ -126,6 +126,7 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
           </div>
         </div>
 
+        <div class="flex-1 flex flex-col justify-center">
         <!-- Special Abilities -->
         <div class="mt-4">
           <p class="text-[10px] font-black italic uppercase tracking-widest text-[#0e7490]" style="font-family: 'Barlow Condensed', sans-serif;">Special Abilities</p>
@@ -143,6 +144,7 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
         <div class="mt-3">
           <p class="text-[10px] font-black italic uppercase tracking-widest text-[#ff3d7f]" style="font-family: 'Barlow Condensed', sans-serif;">Current Quest</p>
           <p class="mt-1.5 text-xs text-[#0d1220]/80 leading-relaxed">{{ quest }}</p>
+        </div>
         </div>
 
         <!-- Footer -->
@@ -206,16 +208,16 @@ import { SKILL_CATEGORIES } from '@/data/skills.data';
           </span>
         </div>
 
-        <div class="flex-1 flex flex-col justify-center gap-3 overflow-hidden">
+        <div class="flex-1 flex flex-col justify-center gap-2 overflow-hidden">
           @for (category of skillCategories; track category.name) {
-            <div class="block p-3">
-              <p class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/75 mb-2">
+            <div class="block p-2">
+              <p class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/75 mb-1.5">
                 {{ category.name }}
               </p>
-              <div class="flex flex-wrap gap-1.5">
+              <div class="flex flex-wrap gap-1">
                 @for (skill of category.skills; track skill.name) {
                   <span
-                    class="text-[11px] px-2 py-0.5 border text-[#0d1220] flex items-center gap-1"
+                    class="text-[10px] px-1.5 py-0.5 border text-[#0d1220] flex items-center gap-1"
                     [style.background]="chipBg(category.color)"
                     [style.border-color]="chipBorder(category.color)"
                   >
