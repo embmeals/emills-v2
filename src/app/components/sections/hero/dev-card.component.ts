@@ -219,7 +219,7 @@ const ROLE_COLORS = ['#00e5ff', '#ff2d7b', '#ffb300'] as const;
               style="box-shadow: 0 0 12px rgba(0, 160, 255, 0.2);"
             >
               <img
-                src="assets/ember_avatar.jpg"
+                src="assets/ember.png"
                 alt="Ember Mills avatar"
                 width="96"
                 height="96"

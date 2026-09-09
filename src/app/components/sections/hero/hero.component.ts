@@ -51,7 +51,7 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
   `,
   template: `
     <section
-      class="relative min-h-screen flex items-center justify-center overflow-hidden"
+      class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       aria-labelledby="hero-heading"
     >
       <!-- Particle background -->

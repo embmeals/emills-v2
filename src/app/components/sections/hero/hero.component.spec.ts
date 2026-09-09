@@ -54,6 +54,11 @@ describe('HeroComponent', () => {
     expect(section?.getAttribute('aria-labelledby')).toBe('hero-heading');
   });
 
+  it('should offset content below the fixed navbar', () => {
+    const section = compiled.querySelector('section');
+    expect(section?.className).toContain('pt-20');
+  });
+
   it('should have an id on the h1 matching aria-labelledby', () => {
     const h1 = compiled.querySelector('h1');
     expect(h1?.id).toBe('hero-heading');
