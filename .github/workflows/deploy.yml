@@ -33,6 +33,9 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit
 
+      - name: Lint
+        run: npx ng lint
+
       - name: Unit tests
         run: npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
 
