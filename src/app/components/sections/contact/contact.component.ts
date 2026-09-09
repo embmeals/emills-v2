@@ -17,9 +17,6 @@ interface ContactLink {
         <h2 id="contact-heading" class="font-heading text-3xl font-bold text-foreground mb-4">
           Let's Connect
         </h2>
-        <p class="text-muted-foreground text-lg">
-          Have a project in mind or just want to chat? Reach out!
-        </p>
 
         <div class="flex gap-8 justify-center mt-8 flex-wrap">
           @for (link of contactLinks; track link.label) {

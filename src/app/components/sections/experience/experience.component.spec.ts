@@ -25,36 +25,34 @@ describe('ExperienceComponent', () => {
   });
 
   it('should render all experience entries', () => {
-    const desktopEntries = element.querySelectorAll('.hidden.md\\:grid .timeline-entry');
-    const mobileEntries = element.querySelectorAll('.md\\:hidden .timeline-entry');
-    expect(desktopEntries.length).toBe(EXPERIENCES.length);
-    expect(mobileEntries.length).toBe(EXPERIENCES.length);
+    const cards = element.querySelectorAll('.hidden.md\\:grid .exp-card');
+    expect(cards.length).toBe(EXPERIENCES.length);
   });
 
   it('should display role for each entry', () => {
-    const entries = element.querySelectorAll('.timeline-entry');
-    const entryTexts = Array.from(entries).map((e) => e.textContent);
+    const cards = Array.from(element.querySelectorAll('.exp-card'));
+    const cardTexts = cards.map((c) => c.textContent);
 
     for (const exp of EXPERIENCES) {
-      expect(entryTexts.some((text) => text?.includes(exp.role))).toBeTrue();
+      expect(cardTexts.some((text) => text?.includes(exp.role))).toBeTrue();
     }
   });
 
   it('should display company for each entry', () => {
-    const entries = element.querySelectorAll('.timeline-entry');
-    const entryTexts = Array.from(entries).map((e) => e.textContent);
+    const cards = Array.from(element.querySelectorAll('.exp-card'));
+    const cardTexts = cards.map((c) => c.textContent);
 
     for (const exp of EXPERIENCES) {
-      expect(entryTexts.some((text) => text?.includes(exp.company))).toBeTrue();
+      expect(cardTexts.some((text) => text?.includes(exp.company))).toBeTrue();
     }
   });
 
   it('should display date range for each entry', () => {
-    const entries = element.querySelectorAll('.timeline-entry');
-    const entryTexts = Array.from(entries).map((e) => e.textContent);
+    const cards = Array.from(element.querySelectorAll('.exp-card'));
+    const cardTexts = cards.map((c) => c.textContent);
 
     for (const exp of EXPERIENCES) {
-      const hasDate = entryTexts.some(
+      const hasDate = cardTexts.some(
         (text) => text?.includes(exp.startDate) && text?.includes(exp.endDate),
       );
       expect(hasDate).toBeTrue();
@@ -62,16 +60,16 @@ describe('ExperienceComponent', () => {
   });
 
   it('should render all accomplishments as list items', () => {
-    const desktopItems = element.querySelectorAll('.hidden.md\\:grid li');
+    const items = element.querySelectorAll('.hidden.md\\:grid .exp-card li');
     const totalAccomplishments = EXPERIENCES.reduce(
       (sum, exp) => sum + exp.accomplishments.length,
       0,
     );
-    expect(desktopItems.length).toBe(totalAccomplishments);
+    expect(items.length).toBe(totalAccomplishments);
   });
 
   it('should contain expected accomplishment text', () => {
-    const listItemTexts = Array.from(element.querySelectorAll('li')).map(
+    const listItemTexts = Array.from(element.querySelectorAll('.exp-card li')).map(
       (el) => el.textContent?.trim(),
     );
 
@@ -87,12 +85,5 @@ describe('ExperienceComponent', () => {
     const heading = element.querySelector('h2');
     expect(section?.getAttribute('aria-labelledby')).toBe('experience-heading');
     expect(heading?.id).toBe('experience-heading');
-  });
-
-  it('should render timeline nodes for each entry', () => {
-    const desktopNodes = element.querySelectorAll('.hidden.md\\:grid .timeline-node');
-    const mobileNodes = element.querySelectorAll('.md\\:hidden .timeline-node');
-    expect(desktopNodes.length).toBe(EXPERIENCES.length);
-    expect(mobileNodes.length).toBe(EXPERIENCES.length);
   });
 });

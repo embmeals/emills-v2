@@ -31,6 +31,23 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
       }
     }
 
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    .shine-text {
+      background: linear-gradient(90deg, #4de8f0, #ff3d7f, #ffb300, #4de8f0);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 2.5s linear infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shine-text { animation: none; }
+    }
+
     .animate-fade-in-up {
       animation: fadeInUp 0.8s ease-out both;
     }
@@ -61,14 +78,21 @@ import { ZardTooltipImports } from '@/shared/components/tooltip';
         <div class="flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-in-up">
           <h1
             id="hero-heading"
-            class="text-6xl sm:text-7xl md:text-8xl font-black italic uppercase tracking-tight leading-[1.4] pb-6 overflow-visible"
-            style="font-family: 'Barlow Condensed', sans-serif; background: linear-gradient(90deg, #4de8f0 0%, #ff3d7f 50%, #ffb300 100%); -webkit-background-clip: text; background-clip: text; color: transparent;"
+            class="shine-text text-6xl sm:text-7xl md:text-8xl font-black italic uppercase tracking-tight leading-[1.4] pb-6 overflow-visible"
+            style="font-family: 'Barlow Condensed', sans-serif;"
           >
             Ember Mills
           </h1>
 
           <p class="mt-4 text-xl text-neon-cyan">
             Senior Full Stack Engineer
+          </p>
+
+          <p
+            class="mt-2 text-sm italic font-semibold text-[#ff3d7f]"
+            style="font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 0.12em;"
+          >
+            Full-stack. Full send.
           </p>
 
           <p class="mt-4 text-muted-foreground max-w-lg text-base">

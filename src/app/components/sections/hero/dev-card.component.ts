@@ -253,19 +253,22 @@ const STAT_COLOR = '#4de8f0';
           </span>
         </div>
 
-        <div class="flex-1 flex flex-col justify-center gap-4 overflow-hidden">
+        <div class="flex-1 flex flex-col justify-center gap-3 overflow-hidden">
           @for (category of skillCategories; track category.name) {
-            <div>
-              <p class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/75 mb-1.5">
+            <div class="block p-3">
+              <p class="registry-text text-[9px] uppercase tracking-widest text-[#0d1220]/75 mb-2">
                 {{ category.name }}
               </p>
               <div class="flex flex-wrap gap-1.5">
                 @for (skill of category.skills; track skill.name) {
                   <span
-                    class="text-[11px] px-2 py-0.5 border text-[#0d1220]"
+                    class="text-[11px] px-2 py-0.5 border text-[#0d1220] flex items-center gap-1"
                     [style.background]="chipBg(category.color)"
                     [style.border-color]="chipBorder(category.color)"
                   >
+                    @if (skill.icon) {
+                      <img [src]="skill.icon" [alt]="skill.name" loading="lazy" class="w-3 h-3" />
+                    }
                     {{ skill.name }}
                   </span>
                 }

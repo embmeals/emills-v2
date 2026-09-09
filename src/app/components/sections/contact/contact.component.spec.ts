@@ -64,12 +64,6 @@ describe('ContactComponent', () => {
     });
   });
 
-  it('should render subtitle text', () => {
-    expect(compiled.textContent).toContain(
-      'Have a project in mind or just want to chat? Reach out!',
-    );
-  });
-
   function getAllHrefs(): string[] {
     const links = compiled.querySelectorAll('a');
     return Array.from(links).map((link) => link.getAttribute('href') ?? '');

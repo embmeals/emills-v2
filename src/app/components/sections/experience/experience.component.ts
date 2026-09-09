@@ -2,16 +2,15 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { EXPERIENCES, type Experience } from '@/data/experience.data';
 
-interface Station extends Experience {
-  readonly id: string;
+interface Role extends Experience {
   readonly color: string;
-  readonly colorGlow: string;
+  readonly glow: string;
 }
 
-const STATION_COLORS = [
-  { color: '#4de8f0', glow: 'rgba(77, 232, 240, 0.6)' },
-  { color: '#ff2d7b', glow: 'rgba(255, 45, 123, 0.6)' },
-  { color: '#ffb300', glow: 'rgba(255, 179, 0, 0.6)' },
+const ROLE_COLORS = [
+  { color: '#0e7490', glow: 'rgba(14, 116, 144, 0.5)' },
+  { color: '#ff3d7f', glow: 'rgba(255, 61, 127, 0.5)' },
+  { color: '#ffb300', glow: 'rgba(255, 179, 0, 0.5)' },
 ];
 
 @Component({
@@ -19,17 +18,7 @@ const STATION_COLORS = [
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
-    /* Grid background */
-    .transit-map-bg {
-      background-image:
-        linear-gradient(rgba(77, 232, 240, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(77, 232, 240, 0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      border: 1px solid rgba(77, 232, 240, 0.08);
-      border-radius: 12px;
-    }
-
-    /* Route line */
+    /* Connecting route line */
     .route {
       position: relative;
     }
@@ -37,18 +26,17 @@ const STATION_COLORS = [
     .route::before {
       content: '';
       position: absolute;
-      top: 1.75rem;
+      top: 1.5rem;
       left: calc(100% / 6);
       right: calc(100% / 6);
       height: 2px;
       background: repeating-linear-gradient(
         90deg,
-        rgba(77, 232, 240, 0.5) 0px,
-        rgba(77, 232, 240, 0.5) 8px,
+        rgba(14, 116, 144, 0.5) 0px,
+        rgba(14, 116, 144, 0.5) 8px,
         transparent 8px,
         transparent 16px
       );
-      box-shadow: 0 0 6px rgba(77, 232, 240, 0.3);
     }
 
     @keyframes routeScan {
@@ -59,54 +47,46 @@ const STATION_COLORS = [
     .route::after {
       content: '';
       position: absolute;
-      top: 1.75rem;
+      top: 1.5rem;
       left: calc(100% / 6);
       right: calc(100% / 6);
       height: 2px;
       background: repeating-linear-gradient(
         90deg,
-        rgba(77, 232, 240, 0.8) 0px,
+        rgba(14, 116, 144, 0.8) 0px,
         transparent 4px,
         transparent 32px
       );
       animation: routeScan 2s linear infinite;
     }
 
-    /* Station node */
-    @keyframes stationNodePulse {
+    /* Glowing node */
+    @keyframes nodePulse {
       0%, 100% { opacity: 0.9; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.15); }
+      50% { opacity: 1; transform: scale(1.2); }
     }
 
-    @keyframes stationRingPulse {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.1); }
+    .node {
+      animation: nodePulse 3s ease-in-out infinite;
     }
 
-    .station-node {
-      animation: stationNodePulse 3s ease-in-out infinite;
+    .exp-card {
+      background: linear-gradient(160deg, #eaf7ff, #d6ecf9);
+      border: 1px solid rgba(13, 18, 32, 0.12);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
     }
 
-    .station-ring {
-      animation: stationRingPulse 3s ease-in-out infinite;
-      animation-delay: 0.5s;
-    }
-
-    .station-card {
-      background: rgba(20, 20, 31, 0.9);
-      border: 1px solid rgba(77, 232, 240, 0.15);
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .station-card:hover {
-      border-color: rgba(77, 232, 240, 0.35);
-      box-shadow: 0 0 20px rgba(77, 232, 240, 0.08);
+    .exp-card:hover {
+      border-color: rgba(14, 116, 144, 0.4);
+      box-shadow: 0 0 20px rgba(77, 232, 240, 0.15);
+      transform: translateY(-2px);
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .station-node,
-      .station-ring { animation: none; }
+      .node { animation: none; }
       .route::after { animation: none; }
+      .exp-card { transition: none; }
+      .exp-card:hover { transform: none; }
     }
 
     /* Mobile: vertical route */
@@ -121,8 +101,8 @@ const STATION_COLORS = [
         height: auto;
         background: repeating-linear-gradient(
           180deg,
-          rgba(77, 232, 240, 0.5) 0px,
-          rgba(77, 232, 240, 0.5) 8px,
+          rgba(14, 116, 144, 0.5) 0px,
+          rgba(14, 116, 144, 0.5) 8px,
           transparent 8px,
           transparent 16px
         );
@@ -131,7 +111,7 @@ const STATION_COLORS = [
       .route::after {
         background: repeating-linear-gradient(
           180deg,
-          rgba(77, 232, 240, 0.8) 0px,
+          rgba(14, 116, 144, 0.8) 0px,
           transparent 4px,
           transparent 32px
         );
@@ -146,125 +126,118 @@ const STATION_COLORS = [
   `,
   template: `
     <section
-      class="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       aria-labelledby="experience-heading"
     >
       <h2
         id="experience-heading"
-        class="text-3xl font-bold text-center mb-2 text-[#e0e0e0]"
+        class="text-3xl font-bold text-center mb-10 text-foreground"
         style="font-family: 'Montserrat', sans-serif"
       >
         Experience
       </h2>
-      <p
-        class="text-center text-[9px] tracking-[0.35em] uppercase text-[#4de8f0]/30 mb-10"
-        aria-hidden="true"
-        style="font-family: 'Montserrat', sans-serif"
-      >
-        Transit Route Active
-      </p>
 
-      <div class="transit-map-bg p-4 sm:p-6 lg:p-8">
-        <!-- Desktop: horizontal route -->
-        <div class="route hidden md:grid grid-cols-3 gap-6 relative">
-          @for (station of stations; track station.company; let i = $index) {
-            <div class="timeline-entry flex flex-col items-center">
-              <!-- Station node -->
-              <div class="relative flex flex-col items-center mb-6">
-                <div class="station-ring absolute w-10 h-10 rounded-full border-2" [style.border-color]="station.colorGlow"></div>
-                <div class="timeline-node station-node w-4 h-4 rounded-full mt-3" [style.background]="station.color" [style.box-shadow]="'0 0 10px ' + station.colorGlow + ', 0 0 25px ' + station.colorGlow"></div>
-                <span
-                  class="mt-3 text-[10px] tracking-[0.3em] uppercase" [style.color]="station.color" style="opacity: 0.6"
-                  style="font-family: 'Montserrat', sans-serif"
-                  aria-hidden="true"
-                >
-                  {{ station.id }}
-                </span>
-              </div>
-
-              <!-- Station card -->
-              <div class="station-card rounded-lg p-4 w-full flex-1">
-                <div class="mb-3">
-                  <span
-                    class="text-[10px] tracking-wider uppercase text-[#4de8f0]/50 block mb-1"
-                    style="font-family: 'Montserrat', sans-serif"
-                  >
-                    {{ station.startDate }} - {{ station.endDate }}
-                  </span>
-                  <h3
-                    class="text-sm font-semibold text-[#e0e0e0] leading-tight"
-                    style="font-family: 'Montserrat', sans-serif"
-                  >
-                    {{ station.role }}
-                  </h3>
-                  <p class="text-xs text-[#a0a0b0] mt-0.5">{{ station.company }}</p>
-                </div>
-                <ul class="space-y-1.5 list-none m-0 p-0">
-                  @for (item of station.accomplishments; track item) {
-                    <li class="text-xs text-[#a0a0b0] pl-3 relative before:content-[''] before:absolute before:left-0 before:top-[0.45rem] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#4de8f0]/30">
-                      {{ item }}
-                    </li>
-                  }
-                </ul>
-              </div>
+      <!-- Desktop: horizontal timeline -->
+      <div class="route hidden md:grid grid-cols-3 gap-6">
+        @for (role of roles; track role.company) {
+          <div class="flex flex-col items-center">
+            <div class="relative flex flex-col items-center mb-6">
+              <div
+                class="node w-4 h-4 rounded-full mt-3"
+                [style.background]="role.color"
+                [style.box-shadow]="'0 0 10px ' + role.glow + ', 0 0 25px ' + role.glow"
+              ></div>
             </div>
-          }
-        </div>
 
-        <!-- Mobile: vertical route -->
-        <div class="route md:hidden flex flex-col gap-8 relative pl-10">
-          @for (station of stations; track station.company; let i = $index) {
-            <div class="timeline-entry relative">
-              <!-- Station node (on the left line) -->
-              <div class="absolute -left-10 top-0 flex flex-col items-center w-10">
-                <div class="station-ring absolute w-10 h-10 rounded-full border-2" [style.border-color]="station.colorGlow"></div>
-                <div class="timeline-node station-node w-4 h-4 rounded-full mt-3" [style.background]="station.color" [style.box-shadow]="'0 0 10px ' + station.colorGlow + ', 0 0 25px ' + station.colorGlow"></div>
-              </div>
-
-              <!-- Station card -->
-              <div class="station-card rounded-lg p-4">
+            <article class="exp-card rounded-2xl p-5 w-full flex-1">
+              <div class="mb-4">
                 <span
-                  class="text-[9px] tracking-[0.3em] uppercase block mb-1"
-                  style="font-family: 'Montserrat', sans-serif; opacity: 0.5"
-                  [style.color]="station.color"
-                  aria-hidden="true"
+                  class="text-[10px] tracking-wider uppercase block mb-1"
+                  style="font-family: 'Montserrat', sans-serif; color: rgba(13, 18, 32, 0.6)"
                 >
-                  {{ station.id }}
-                </span>
-                <span
-                  class="text-[10px] tracking-wider uppercase text-[#4de8f0]/50 block mb-1"
-                  style="font-family: 'Montserrat', sans-serif"
-                >
-                  {{ station.startDate }} - {{ station.endDate }}
+                  {{ role.startDate }} &ndash; {{ role.endDate }}
                 </span>
                 <h3
-                  class="text-sm font-semibold text-[#e0e0e0] leading-tight"
-                  style="font-family: 'Montserrat', sans-serif"
+                  class="text-lg font-black italic uppercase leading-tight"
+                  style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220"
                 >
-                  {{ station.role }}
+                  {{ role.role }}
                 </h3>
-                <p class="text-xs text-[#a0a0b0] mt-0.5 mb-3">{{ station.company }}</p>
-                <ul class="space-y-1.5 list-none m-0 p-0">
-                  @for (item of station.accomplishments; track item) {
-                    <li class="text-xs text-[#a0a0b0] pl-3 relative before:content-[''] before:absolute before:left-0 before:top-[0.45rem] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#4de8f0]/30">
-                      {{ item }}
-                    </li>
-                  }
-                </ul>
+                <p class="text-sm mt-0.5" style="color: #0e7490">{{ role.company }}</p>
               </div>
+
+              <ul class="space-y-2 list-none m-0 p-0">
+                @for (item of role.accomplishments; track item) {
+                  <li
+                    class="text-xs leading-relaxed pl-3 relative"
+                    style="color: rgba(13, 18, 32, 0.85)"
+                  >
+                    <span
+                      class="absolute left-0 top-[0.4rem] w-1.5 h-1.5"
+                      [style.background]="role.color"
+                      aria-hidden="true"
+                    ></span>
+                    {{ item }}
+                  </li>
+                }
+              </ul>
+            </article>
+          </div>
+        }
+      </div>
+
+      <!-- Mobile: vertical timeline -->
+      <div class="route md:hidden flex flex-col gap-8 relative pl-10">
+        @for (role of roles; track role.company) {
+          <div class="relative">
+            <div class="absolute -left-10 top-0 flex flex-col items-center w-10">
+              <div
+                class="node w-4 h-4 rounded-full mt-3"
+                [style.background]="role.color"
+                [style.box-shadow]="'0 0 10px ' + role.glow + ', 0 0 25px ' + role.glow"
+              ></div>
             </div>
-          }
-        </div>
+
+            <article class="exp-card rounded-2xl p-5">
+              <span
+                class="text-[10px] tracking-wider uppercase block mb-1"
+                style="font-family: 'Montserrat', sans-serif; color: rgba(13, 18, 32, 0.6)"
+              >
+                {{ role.startDate }} &ndash; {{ role.endDate }}
+              </span>
+              <h3
+                class="text-lg font-black italic uppercase leading-tight"
+                style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220"
+              >
+                {{ role.role }}
+              </h3>
+              <p class="text-sm mt-0.5 mb-3" style="color: #0e7490">{{ role.company }}</p>
+              <ul class="space-y-2 list-none m-0 p-0">
+                @for (item of role.accomplishments; track item) {
+                  <li
+                    class="text-xs leading-relaxed pl-3 relative"
+                    style="color: rgba(13, 18, 32, 0.85)"
+                  >
+                    <span
+                      class="absolute left-0 top-[0.4rem] w-1.5 h-1.5"
+                      [style.background]="role.color"
+                      aria-hidden="true"
+                    ></span>
+                    {{ item }}
+                  </li>
+                }
+              </ul>
+            </article>
+          </div>
+        }
       </div>
     </section>
   `,
 })
 export class ExperienceComponent {
-  readonly stations: readonly Station[] = EXPERIENCES
-    .map((exp, i, arr) => ({
-      ...exp,
-      id: `REC-${String(arr.length - i).padStart(2, '0')}`,
-      color: STATION_COLORS[i % STATION_COLORS.length].color,
-      colorGlow: STATION_COLORS[i % STATION_COLORS.length].glow,
-    }));
+  readonly roles: readonly Role[] = EXPERIENCES.map((exp, i) => ({
+    ...exp,
+    color: ROLE_COLORS[i % ROLE_COLORS.length].color,
+    glow: ROLE_COLORS[i % ROLE_COLORS.length].glow,
+  }));
 }
