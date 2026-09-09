@@ -115,18 +115,18 @@ const ROLE_COLORS = [
                   {{ role.startDate }} &ndash; {{ role.endDate }}
                 </span>
                 <h3
-                  class="text-lg font-black italic uppercase leading-tight"
-                  style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220"
+                  class="text-base font-bold leading-snug"
+                  style="font-family: 'Montserrat', sans-serif; color: #0d1220"
                 >
                   {{ role.role }}
                 </h3>
-                <p class="text-sm mt-0.5 font-semibold" [style.color]="role.color">{{ role.company }}</p>
+                <p class="text-sm mt-1 font-semibold" [style.color]="role.color">{{ role.company }}</p>
               </div>
 
               <ul class="space-y-2 list-none m-0 p-0">
                 @for (item of role.accomplishments; track item) {
                   <li
-                    class="text-xs leading-relaxed pl-3 relative"
+                    class="text-[13px] leading-relaxed pl-3 relative"
                     style="color: rgba(13, 18, 32, 0.85)"
                   >
                     <span
@@ -166,16 +166,16 @@ const ROLE_COLORS = [
                 {{ role.startDate }} &ndash; {{ role.endDate }}
               </span>
               <h3
-                class="text-lg font-black italic uppercase leading-tight"
-                style="font-family: 'Barlow Condensed', sans-serif; color: #0d1220"
+                class="text-base font-bold leading-snug"
+                style="font-family: 'Montserrat', sans-serif; color: #0d1220"
               >
                 {{ role.role }}
               </h3>
-              <p class="text-sm mt-0.5 mb-3 font-semibold" [style.color]="role.color">{{ role.company }}</p>
+              <p class="text-sm mt-1 mb-3 font-semibold" [style.color]="role.color">{{ role.company }}</p>
               <ul class="space-y-2 list-none m-0 p-0">
                 @for (item of role.accomplishments; track item) {
                   <li
-                    class="text-xs leading-relaxed pl-3 relative"
+                    class="text-[13px] leading-relaxed pl-3 relative"
                     style="color: rgba(13, 18, 32, 0.85)"
                   >
                     <span

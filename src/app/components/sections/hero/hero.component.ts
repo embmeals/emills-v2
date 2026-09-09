@@ -1,12 +1,11 @@
 import { Component, ChangeDetectionStrategy, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DevCardComponent } from './dev-card.component';
-import { ZardTooltipImports } from '@/shared/components/tooltip';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [DevCardComponent, ...ZardTooltipImports],
+  imports: [DevCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     @keyframes fadeInUp {

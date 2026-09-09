@@ -155,9 +155,9 @@ const STAT_COLOR = '#4de8f0';
         </p>
 
         <!-- Bio -->
-        <p class="mt-4 text-sm text-[#0d1220]/90 leading-relaxed">
-          Building accessible, inclusive web experiences for 6+ years &mdash; from
-          enterprise .NET backends to polished Angular frontends.
+        <p class="mt-4 text-sm text-[#0d1220]/85 leading-relaxed">
+          I build full-stack .NET apps, from backend APIs to clean,
+          usable frontends
         </p>
 
         <!-- Stats -->
