@@ -97,10 +97,13 @@
     @apply bg-background text-foreground;
     font-family: 'Barlow', sans-serif;
     background-image:
-      radial-gradient(1100px 600px at 12% -8%, oklch(0.34 0.14 330 / 0.55) 0%, transparent 60%),
-      radial-gradient(1000px 520px at 92% 0%, oklch(0.36 0.13 200 / 0.5) 0%, transparent 55%),
-      radial-gradient(900px 520px at 50% 112%, oklch(0.34 0.13 50 / 0.4) 0%, transparent 60%),
-      linear-gradient(180deg, oklch(0.17 0.06 285) 0%, oklch(0.13 0.05 265) 55%, oklch(0.16 0.06 305) 100%);
+      linear-gradient(rgba(77, 232, 240, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77, 232, 240, 0.045) 1px, transparent 1px),
+      radial-gradient(1100px 600px at 12% -8%, oklch(0.4 0.16 330 / 0.6) 0%, transparent 60%),
+      radial-gradient(1000px 520px at 92% 0%, oklch(0.42 0.15 200 / 0.55) 0%, transparent 55%),
+      radial-gradient(900px 520px at 50% 112%, oklch(0.4 0.15 50 / 0.45) 0%, transparent 60%),
+      linear-gradient(180deg, oklch(0.19 0.07 285) 0%, oklch(0.14 0.06 265) 55%, oklch(0.17 0.07 305) 100%);
+    background-size: 40px 40px, 40px 40px, auto, auto, auto, auto;
     background-attachment: fixed;
   }
   h1, h2, h3, h4, h5, h6 {

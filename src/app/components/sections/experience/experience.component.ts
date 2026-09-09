@@ -30,34 +30,7 @@ const ROLE_COLORS = [
       left: calc(100% / 6);
       right: calc(100% / 6);
       height: 2px;
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(14, 116, 144, 0.5) 0px,
-        rgba(14, 116, 144, 0.5) 8px,
-        transparent 8px,
-        transparent 16px
-      );
-    }
-
-    @keyframes routeScan {
-      0% { background-position: 0 0; }
-      100% { background-position: 32px 0; }
-    }
-
-    .route::after {
-      content: '';
-      position: absolute;
-      top: 1.5rem;
-      left: calc(100% / 6);
-      right: calc(100% / 6);
-      height: 2px;
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(14, 116, 144, 0.8) 0px,
-        transparent 4px,
-        transparent 32px
-      );
-      animation: routeScan 2s linear infinite;
+      background: linear-gradient(90deg, rgba(14, 116, 144, 0.6), rgba(255, 61, 127, 0.5), rgba(255, 179, 0, 0.5));
     }
 
     /* Glowing node */
@@ -84,43 +57,25 @@ const ROLE_COLORS = [
 
     @media (prefers-reduced-motion: reduce) {
       .node { animation: none; }
-      .route::after { animation: none; }
       .exp-card { transition: none; }
       .exp-card:hover { transform: none; }
     }
 
     /* Mobile: vertical route */
     @media (max-width: 767px) {
-      .route::before,
-      .route::after {
+      .route::before {
         top: 0;
         bottom: 0;
         left: calc(1.25rem - 1px);
         right: auto;
         width: 2px;
         height: auto;
-        background: repeating-linear-gradient(
+        background: linear-gradient(
           180deg,
-          rgba(14, 116, 144, 0.5) 0px,
-          rgba(14, 116, 144, 0.5) 8px,
-          transparent 8px,
-          transparent 16px
+          rgba(14, 116, 144, 0.6),
+          rgba(255, 61, 127, 0.5),
+          rgba(255, 179, 0, 0.5)
         );
-      }
-
-      .route::after {
-        background: repeating-linear-gradient(
-          180deg,
-          rgba(14, 116, 144, 0.8) 0px,
-          transparent 4px,
-          transparent 32px
-        );
-        animation-name: routeScanVertical;
-      }
-
-      @keyframes routeScanVertical {
-        0% { background-position: 0 0; }
-        100% { background-position: 0 32px; }
       }
     }
   `,
@@ -149,10 +104,12 @@ const ROLE_COLORS = [
               ></div>
             </div>
 
-            <article class="exp-card rounded-2xl p-5 w-full flex-1">
+            <article class="exp-card rounded-2xl overflow-hidden w-full flex-1">
+              <div class="h-1.5" [style.background]="role.color"></div>
+              <div class="p-5">
               <div class="mb-4">
                 <span
-                  class="text-[10px] tracking-wider uppercase block mb-1"
+                  class="text-[10px] tracking-wider uppercase block mb-1 font-semibold"
                   style="font-family: 'Montserrat', sans-serif; color: rgba(13, 18, 32, 0.6)"
                 >
                   {{ role.startDate }} &ndash; {{ role.endDate }}
@@ -163,7 +120,7 @@ const ROLE_COLORS = [
                 >
                   {{ role.role }}
                 </h3>
-                <p class="text-sm mt-0.5" style="color: #0e7490">{{ role.company }}</p>
+                <p class="text-sm mt-0.5 font-semibold" [style.color]="role.color">{{ role.company }}</p>
               </div>
 
               <ul class="space-y-2 list-none m-0 p-0">
@@ -181,6 +138,7 @@ const ROLE_COLORS = [
                   </li>
                 }
               </ul>
+              </div>
             </article>
           </div>
         }
@@ -198,9 +156,11 @@ const ROLE_COLORS = [
               ></div>
             </div>
 
-            <article class="exp-card rounded-2xl p-5">
+            <article class="exp-card rounded-2xl overflow-hidden">
+              <div class="h-1.5" [style.background]="role.color"></div>
+              <div class="p-5">
               <span
-                class="text-[10px] tracking-wider uppercase block mb-1"
+                class="text-[10px] tracking-wider uppercase block mb-1 font-semibold"
                 style="font-family: 'Montserrat', sans-serif; color: rgba(13, 18, 32, 0.6)"
               >
                 {{ role.startDate }} &ndash; {{ role.endDate }}
@@ -211,7 +171,7 @@ const ROLE_COLORS = [
               >
                 {{ role.role }}
               </h3>
-              <p class="text-sm mt-0.5 mb-3" style="color: #0e7490">{{ role.company }}</p>
+              <p class="text-sm mt-0.5 mb-3 font-semibold" [style.color]="role.color">{{ role.company }}</p>
               <ul class="space-y-2 list-none m-0 p-0">
                 @for (item of role.accomplishments; track item) {
                   <li
@@ -227,6 +187,7 @@ const ROLE_COLORS = [
                   </li>
                 }
               </ul>
+              </div>
             </article>
           </div>
         }
