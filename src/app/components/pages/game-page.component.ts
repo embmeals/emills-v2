@@ -107,7 +107,7 @@ const SITE_DESCRIPTION =
             <ul class="space-y-1.5 text-sm" style="color: #9aa0c0">
               <li>WASD or arrow keys to fly</li>
               <li>Space to rise, C to descend</li>
-              <li>R to restart, Esc to quit</li>
+              <li>V to recenter the camera, R to restart</li>
             </ul>
           </div>
           <div>
