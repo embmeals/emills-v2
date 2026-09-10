@@ -39,7 +39,7 @@ const SITE_DESCRIPTION =
           </h1>
           <p class="text-base max-w-2xl" style="color: #9aa0c0">
             Fly a little alien saucer around a night sky, collect every star, and
-            dodge all the spikes.
+            dodge the spike balls.
           </p>
           <p class="text-base max-w-2xl mt-2" style="color: #9aa0c0">
             Built in Godot, with the characters modelled procedurally in Blender
