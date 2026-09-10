@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 interface NavLink {
   readonly label: string;
@@ -18,7 +18,7 @@ interface NavLink {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav
@@ -42,15 +42,24 @@ interface NavLink {
             <button
               role="menuitem"
               class="text-sm font-medium transition-colors duration-200 cursor-pointer bg-transparent border-none px-1 py-2"
-              [class]="activeSection() === link.id
+              [class]="isSectionActive(link.id)
                 ? 'text-neon-cyan'
                 : 'text-[#a0a0b0] hover:text-[#e0e0e0]'"
               (click)="scrollTo(link.id)"
-              [attr.aria-current]="activeSection() === link.id ? 'true' : null"
+              [attr.aria-current]="isSectionActive(link.id) ? 'true' : null"
             >
               {{ link.label }}
             </button>
           }
+          <!-- Routed, not scrolled: the game is its own page, not a section. -->
+          <a
+            role="menuitem"
+            routerLink="/game"
+            routerLinkActive="text-neon-cyan"
+            class="text-sm font-medium transition-colors duration-200 px-1 py-2 text-[#a0a0b0] hover:text-[#e0e0e0]"
+          >
+            Game
+          </a>
         </div>
 
         <!-- Mobile hamburger -->
@@ -89,15 +98,24 @@ interface NavLink {
             <button
               role="menuitem"
               class="block w-full text-left py-3 text-sm font-medium transition-colors duration-200 cursor-pointer bg-transparent border-none"
-              [class]="activeSection() === link.id
+              [class]="isSectionActive(link.id)
                 ? 'text-neon-cyan'
                 : 'text-[#a0a0b0] hover:text-[#e0e0e0]'"
               (click)="scrollTo(link.id); closeMobile()"
-              [attr.aria-current]="activeSection() === link.id ? 'true' : null"
+              [attr.aria-current]="isSectionActive(link.id) ? 'true' : null"
             >
               {{ link.label }}
             </button>
           }
+          <a
+            role="menuitem"
+            routerLink="/game"
+            routerLinkActive="text-neon-cyan"
+            (click)="closeMobile()"
+            class="block w-full text-left py-3 text-sm font-medium transition-colors duration-200 text-[#a0a0b0] hover:text-[#e0e0e0]"
+          >
+            Game
+          </a>
         </div>
       }
     </nav>
@@ -146,6 +164,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     } else if (isPlatformBrowser(this.platformId)) {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  isSectionActive(id: string): boolean {
+    return this.onHomePage() && this.activeSection() === id;
+  }
+
+  private onHomePage(): boolean {
+    return this.router.url === '/' || this.router.url.startsWith('/#');
   }
 
   toggleMobile(): void {
