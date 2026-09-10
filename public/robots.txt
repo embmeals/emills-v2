@@ -1,6 +1,5 @@
 User-agent: *
 Disallow: /assets/gallery/
-Disallow: /assets/audio/
 
 User-agent: GPTBot
 Disallow: /

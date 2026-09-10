@@ -3,13 +3,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '@/components/layout/navbar/navbar.component';
 import { FooterComponent } from '@/components/layout/footer/footer.component';
-import { MusicPlayerComponent } from '@/components/layout/music-player/music-player.component';
 import { ZardSkeletonComponent } from '@/shared/components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, MusicPlayerComponent, ZardSkeletonComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, ZardSkeletonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     @keyframes loadFadeOut {
@@ -76,7 +75,6 @@ import { ZardSkeletonComponent } from '@/shared/components/skeleton/skeleton.com
       <router-outlet />
     </main>
     <app-footer />
-    <app-music-player />
   `,
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
