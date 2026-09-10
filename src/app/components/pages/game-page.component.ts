@@ -53,7 +53,7 @@ const SITE_DESCRIPTION =
             (click)="launch()"
             class="group relative w-full cursor-pointer overflow-hidden rounded-xl border-none p-0 transition-all duration-200 hover:scale-[1.01] hover:brightness-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             style="aspect-ratio: 16 / 9; background: linear-gradient(160deg, #1a1233 0%, #0d0a1a 100%); border: 1px solid rgba(77,232,240,0.25)"
-            [attr.aria-label]="'Load and play Starlight. Downloads about ' + downloadSizeMb + ' megabytes, ' + uncompressedSizeMb + ' megabytes uncompressed.'"
+            [attr.aria-label]="'Load and play Starlight. Downloads about ' + downloadSizeMb + ' megabytes.'"
           >
             <span class="absolute inset-0 flex flex-col items-center justify-center gap-4">
               <span
@@ -75,7 +75,7 @@ const SITE_DESCRIPTION =
                 Play in browser
               </span>
               <span class="text-xs" style="color: #6a7090">
-                Loads about {{ downloadSizeMb }}MB ({{ uncompressedSizeMb }}MB uncompressed) &middot; desktop browser recommended
+                About {{ downloadSizeMb }}MB to load &middot; desktop browser recommended
               </span>
             </span>
           </button>
@@ -84,6 +84,21 @@ const SITE_DESCRIPTION =
             class="relative w-full overflow-hidden rounded-xl"
             style="aspect-ratio: 16 / 9; border: 1px solid rgba(77,232,240,0.25)"
           >
+            @if (!ready()) {
+              <div
+                class="absolute inset-0 flex flex-col items-center justify-center gap-3"
+                style="background: #0d0a1a"
+                role="status"
+                aria-live="polite"
+              >
+                <span
+                  class="h-8 w-8 animate-spin rounded-full"
+                  style="border: 2px solid rgba(77,232,240,0.25); border-top-color: #4de8f0"
+                  aria-hidden="true"
+                ></span>
+                <span class="text-sm" style="color: #9aa0c0">Loading Starlight&hellip;</span>
+              </div>
+            }
             <iframe
               #gameFrame
               [src]="gameUrl"
@@ -136,8 +151,8 @@ export class GamePageComponent implements OnInit, OnDestroy {
   // The WASM bundle is only fetched once the visitor asks for it, so the page
   // itself stays light for anyone who just wants to read about the project.
   protected readonly launched = signal(false);
-  protected readonly downloadSizeMb = 10;
-  protected readonly uncompressedSizeMb = 40;
+  protected readonly ready = signal(false);
+  protected readonly downloadSizeMb = 7;
   // Angular blocks raw string iframe sources; this path is our own build
   // output. It lives at /starlight, not /game: a public/game folder would
   // shadow the /game route and serve the bare Godot page instead of this page.
@@ -164,6 +179,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   }
 
   protected focusGame(frame: HTMLIFrameElement): void {
+    this.ready.set(true);
     frame.focus();
   }
 }

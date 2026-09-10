@@ -210,8 +210,19 @@ const engine = new Engine(GODOT_CONFIG);
 				}
 			},
 		}).then(() => {
+			clearTimeout(stallTimer);
 			setStatusMode('hidden');
-		}, displayFailureNotice);
+		}, (err) => {
+			clearTimeout(stallTimer);
+			displayFailureNotice(err);
+		});
+
+		// The engine bootstrap can leave startGame() pending forever if a fetch
+		// fails, which leaves the player staring at a progress bar with no
+		// explanation. Surface something actionable instead.
+		var stallTimer = setTimeout(function () {
+			displayFailureNotice('The game is taking longer than expected to load. Check your connection and reload the page.');
+		}, 90000);
 	}
 }());
 		</script>
