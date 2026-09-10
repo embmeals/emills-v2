@@ -17,25 +17,16 @@ Personal portfolio for **Ember Mills** -- Senior Full-Stack Engineer, multi-disc
 
 ## Overview
 
-A single-page portfolio with a dark cyberpunk aesthetic inspired by the Rocinante from *The Expanse*. Neon cyan and magenta accents, particle backgrounds, holographic effects, and a custom orbital skills visualization.
+A single-page portfolio with a dark cyberpunk aesthetic inspired by the Rocinante from *The Expanse*. Neon cyan and magenta accents, holographic effects, and a custom flip-card dev profile.
 
 ### Sections
 
 | Section | Description |
 |---------|-------------|
-| **Hero** | Protomolecule particle background with bezier-curved tendrils, crew manifest dev card with holographic shimmer |
-| **About** | Background, philosophy, what drives the work |
-| **Skills** | Interactive orbital SVG diagram with rotating dashed rings + list toggle view |
-| **Projects** | Case study showcase with detail dialogs |
-| **Experience** | Timeline with alternating layout |
+| **Hero** | Name with animated shine effect, location, and a flip-card dev profile with stats, skills, and links |
+| **Experience** | Career timeline |
+| **Education** | Academic background |
 | **Contact** | Reach out form |
-| **Studio** | Folder-based art gallery -- mixed media collages, film photography, screenprints, stained glass |
-
-### Studio
-
-The gallery is organized into five folders: **Ember** (collages), **Casey** (collages), **Film** (photography), **Screenprint** (apparel), and **Stained Glass**. All artwork is physical -- collages are handmade with mixed media from printed books, scanned on an Epson scanner. Photography is shot on film. Screenprints are pulled by hand.
-
-Images are optimized to 1000px max width, JPEG 82% quality, with a centered `emills.net` watermark. A lightbox with keyboard navigation (arrow keys, escape) handles fullscreen viewing.
 
 ## Tech Stack
 
@@ -67,7 +58,7 @@ Open [http://localhost:4200](http://localhost:4200).
 ## Testing
 
 ```bash
-ng test                              # unit tests (100 specs)
+ng test                              # unit tests (12 specs)
 ng test --watch=false --code-coverage # with coverage report
 ```
 
