@@ -56,6 +56,7 @@ interface NavLink {
             role="menuitem"
             routerLink="/game"
             routerLinkActive="text-neon-cyan"
+            ariaCurrentWhenActive="page"
             class="text-sm font-medium transition-colors duration-200 px-1 py-2 text-[#a0a0b0] hover:text-[#e0e0e0]"
           >
             Game
@@ -111,6 +112,7 @@ interface NavLink {
             role="menuitem"
             routerLink="/game"
             routerLinkActive="text-neon-cyan"
+            ariaCurrentWhenActive="page"
             (click)="closeMobile()"
             class="block w-full text-left py-3 text-sm font-medium transition-colors duration-200 text-[#a0a0b0] hover:text-[#e0e0e0]"
           >
@@ -171,7 +173,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   private onHomePage(): boolean {
-    return this.router.url === '/' || this.router.url.startsWith('/#');
+    const path = this.router.url.split(/[?#]/)[0];
+    return path === '/' || path === '';
   }
 
   toggleMobile(): void {
