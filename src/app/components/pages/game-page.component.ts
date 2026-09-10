@@ -39,7 +39,7 @@ const SITE_DESCRIPTION =
           </h1>
           <p class="text-base max-w-2xl" style="color: #9aa0c0">
             Fly a little alien saucer around a night sky, collect every star, and
-            keep clear of the spike balls.
+            dodge all the spikes.
           </p>
           <p class="text-base max-w-2xl mt-2" style="color: #9aa0c0">
             Built in Godot, with the characters modelled procedurally in Blender
@@ -107,7 +107,7 @@ const SITE_DESCRIPTION =
             <ul class="space-y-1.5 text-sm" style="color: #9aa0c0">
               <li>WASD or arrow keys to fly</li>
               <li>Space to rise, C to descend</li>
-              <li>V to recenter the camera, R to restart</li>
+              <li>V to recenter, R to restart</li>
             </ul>
           </div>
           <div>
