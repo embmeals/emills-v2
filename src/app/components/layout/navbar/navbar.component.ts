@@ -8,7 +8,8 @@ import {
   inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 
 interface NavLink {
   readonly label: string;
@@ -18,7 +19,7 @@ interface NavLink {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav
@@ -42,15 +43,25 @@ interface NavLink {
             <button
               role="menuitem"
               class="text-sm font-medium transition-colors duration-200 cursor-pointer bg-transparent border-none px-1 py-2"
-              [class]="activeSection() === link.id
+              [class]="isSectionActive(link.id)
                 ? 'text-neon-cyan'
                 : 'text-[#a0a0b0] hover:text-[#e0e0e0]'"
               (click)="scrollTo(link.id)"
-              [attr.aria-current]="activeSection() === link.id ? 'true' : null"
+              [attr.aria-current]="isSectionActive(link.id) ? 'true' : null"
             >
               {{ link.label }}
             </button>
           }
+          <!-- Routed, not scrolled: the game is its own page, not a section. -->
+          <a
+            role="menuitem"
+            routerLink="/game"
+            routerLinkActive="text-neon-cyan"
+            ariaCurrentWhenActive="page"
+            class="text-sm font-medium transition-colors duration-200 px-1 py-2 text-[#a0a0b0] hover:text-[#e0e0e0]"
+          >
+            Game
+          </a>
         </div>
 
         <!-- Mobile hamburger -->
@@ -89,15 +100,25 @@ interface NavLink {
             <button
               role="menuitem"
               class="block w-full text-left py-3 text-sm font-medium transition-colors duration-200 cursor-pointer bg-transparent border-none"
-              [class]="activeSection() === link.id
+              [class]="isSectionActive(link.id)
                 ? 'text-neon-cyan'
                 : 'text-[#a0a0b0] hover:text-[#e0e0e0]'"
               (click)="scrollTo(link.id); closeMobile()"
-              [attr.aria-current]="activeSection() === link.id ? 'true' : null"
+              [attr.aria-current]="isSectionActive(link.id) ? 'true' : null"
             >
               {{ link.label }}
             </button>
           }
+          <a
+            role="menuitem"
+            routerLink="/game"
+            routerLinkActive="text-neon-cyan"
+            ariaCurrentWhenActive="page"
+            (click)="closeMobile()"
+            class="block w-full text-left py-3 text-sm font-medium transition-colors duration-200 text-[#a0a0b0] hover:text-[#e0e0e0]"
+          >
+            Game
+          </a>
         </div>
       }
     </nav>
@@ -107,6 +128,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private observer: IntersectionObserver | null = null;
+  private navigation: Subscription | null = null;
 
   readonly navLinks: readonly NavLink[] = [
     { label: 'Home', id: 'home' },
@@ -119,13 +141,32 @@ export class NavbarComponent implements OnInit, OnDestroy {
   readonly mobileOpen = signal(false);
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.setupIntersectionObserver();
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
     }
+    this.setupIntersectionObserver();
+    // The navbar outlives route changes, so the observer would keep watching
+    // nodes from a destroyed home component and leave a stale section lit.
+    this.navigation = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => this.rebindSectionTracking());
   }
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    this.navigation?.unsubscribe();
+  }
+
+  private rebindSectionTracking(): void {
+    this.observer?.disconnect();
+    this.observer = null;
+    if (!this.onHomePage()) {
+      return;
+    }
+    this.activeSection.set('home');
+    // Sections mount with the freshly created home component, so observe on
+    // the next frame rather than against nodes that do not exist yet.
+    requestAnimationFrame(() => this.setupIntersectionObserver());
   }
 
   goHome(): void {
@@ -146,6 +187,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
     } else if (isPlatformBrowser(this.platformId)) {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  isSectionActive(id: string): boolean {
+    return this.onHomePage() && this.activeSection() === id;
+  }
+
+  private onHomePage(): boolean {
+    const path = this.router.url.split(/[?#]/)[0];
+    return path === '/' || path === '';
   }
 
   toggleMobile(): void {

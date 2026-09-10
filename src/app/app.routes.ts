@@ -7,6 +7,11 @@ export const routes: Routes = [
       import('@/components/pages/home-page.component').then((m) => m.HomePageComponent),
   },
   {
+    path: 'game',
+    loadComponent: () =>
+      import('@/components/pages/game-page.component').then((m) => m.GamePageComponent),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('@/components/pages/not-found-page.component').then((m) => m.NotFoundPageComponent),
