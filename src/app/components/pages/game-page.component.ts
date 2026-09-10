@@ -42,7 +42,7 @@ import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-br
             (click)="launch()"
             class="group relative w-full cursor-pointer overflow-hidden rounded-xl border-none p-0 transition-all duration-200 hover:scale-[1.01] hover:brightness-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             style="aspect-ratio: 16 / 9; background: linear-gradient(160deg, #1a1233 0%, #0d0a1a 100%); border: 1px solid rgba(77,232,240,0.25)"
-            [attr.aria-label]="'Load and play Starlight. Downloads about ' + downloadSizeMb + ' megabytes.'"
+            [attr.aria-label]="'Load and play Starlight. Downloads about ' + downloadSizeMb + ' megabytes, ' + uncompressedSizeMb + ' megabytes uncompressed.'"
           >
             <span class="absolute inset-0 flex flex-col items-center justify-center gap-4">
               <span
@@ -64,7 +64,7 @@ import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-br
                 Play in browser
               </span>
               <span class="text-xs" style="color: #6a7090">
-                Loads about {{ downloadSizeMb }}MB &middot; desktop browser recommended
+                Loads about {{ downloadSizeMb }}MB ({{ uncompressedSizeMb }}MB uncompressed) &middot; desktop browser recommended
               </span>
             </span>
           </button>
@@ -74,7 +74,9 @@ import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-br
             style="aspect-ratio: 16 / 9; border: 1px solid rgba(77,232,240,0.25)"
           >
             <iframe
+              #gameFrame
               [src]="gameUrl"
+              (load)="focusGame(gameFrame)"
               title="Starlight, a browser game"
               class="absolute inset-0 h-full w-full"
               style="border: 0"
@@ -124,6 +126,7 @@ export class GamePageComponent implements OnInit {
   // itself stays light for anyone who just wants to read about the project.
   protected readonly launched = signal(false);
   protected readonly downloadSizeMb = 10;
+  protected readonly uncompressedSizeMb = 40;
   // Angular blocks raw string iframe sources; this path is our own build
   // output. It lives at /starlight, not /game: a public/game folder would
   // shadow the /game route and serve the bare Godot page instead of this page.
@@ -141,5 +144,9 @@ export class GamePageComponent implements OnInit {
 
   protected launch(): void {
     this.launched.set(true);
+  }
+
+  protected focusGame(frame: HTMLIFrameElement): void {
+    frame.focus();
   }
 }
