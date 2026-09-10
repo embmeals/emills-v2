@@ -1,6 +1,17 @@
-import { Component, ChangeDetectionStrategy, OnInit, signal, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+  signal,
+  inject,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+const SITE_DESCRIPTION =
+  'Portfolio of Ember Mills: Senior Full Stack Engineer in Saint Louis building ' +
+  'accessible, inclusive web apps with .NET, Angular, Python, and more.';
 
 @Component({
   selector: 'app-game-page',
@@ -8,7 +19,7 @@ import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-br
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <main class="min-h-screen px-6 pt-32 pb-12" style="background: #0d0a1a" aria-labelledby="game-heading">
+    <div class="min-h-screen px-6 pt-32 pb-12" style="background: #0d0a1a" aria-labelledby="game-heading">
       <div class="mx-auto max-w-5xl">
         <a
           routerLink="/"
@@ -114,10 +125,10 @@ import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-br
           </div>
         </section>
       </div>
-    </main>
+    </div>
   `,
 })
-export class GamePageComponent implements OnInit {
+export class GamePageComponent implements OnInit, OnDestroy {
   private readonly title = inject(Title);
   private readonly meta = inject(Meta);
   private readonly sanitizer = inject(DomSanitizer);
@@ -140,6 +151,12 @@ export class GamePageComponent implements OnInit {
       content:
         'Starlight: fly an alien saucer and collect stars. A Godot game with Blender models generated from Python.',
     });
+  }
+
+  ngOnDestroy(): void {
+    // updateTag edits the document-wide description, so leaving this page
+    // client-side would otherwise carry the game's copy back to the site.
+    this.meta.updateTag({ name: 'description', content: SITE_DESCRIPTION });
   }
 
   protected launch(): void {

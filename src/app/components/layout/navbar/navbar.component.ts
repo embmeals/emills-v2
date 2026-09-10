@@ -8,7 +8,8 @@ import {
   inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 
 interface NavLink {
   readonly label: string;
@@ -127,6 +128,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private observer: IntersectionObserver | null = null;
+  private navigation: Subscription | null = null;
 
   readonly navLinks: readonly NavLink[] = [
     { label: 'Home', id: 'home' },
@@ -139,13 +141,32 @@ export class NavbarComponent implements OnInit, OnDestroy {
   readonly mobileOpen = signal(false);
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.setupIntersectionObserver();
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
     }
+    this.setupIntersectionObserver();
+    // The navbar outlives route changes, so the observer would keep watching
+    // nodes from a destroyed home component and leave a stale section lit.
+    this.navigation = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => this.rebindSectionTracking());
   }
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    this.navigation?.unsubscribe();
+  }
+
+  private rebindSectionTracking(): void {
+    this.observer?.disconnect();
+    this.observer = null;
+    if (!this.onHomePage()) {
+      return;
+    }
+    this.activeSection.set('home');
+    // Sections mount with the freshly created home component, so observe on
+    // the next frame rather than against nodes that do not exist yet.
+    requestAnimationFrame(() => this.setupIntersectionObserver());
   }
 
   goHome(): void {
