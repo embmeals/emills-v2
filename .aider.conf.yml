@@ -1,3 +1,0 @@
-# Repo-level Aider config. Merged on top of the global ~/.aider.conf.yml.
-read:
-  - CONVENTIONS.md
