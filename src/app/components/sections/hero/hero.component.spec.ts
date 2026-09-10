@@ -32,13 +32,6 @@ describe('HeroComponent', () => {
     expect(text).toContain('Senior Full Stack Engineer');
   });
 
-  it('should render the tagline', () => {
-    const text = compiled.textContent;
-    expect(text).toContain(
-      'Building accessible, inclusive digital experiences'
-    );
-  });
-
   it('should have aria-labelledby on the hero section', () => {
     const section = compiled.querySelector('section');
     expect(section?.getAttribute('aria-labelledby')).toBe('hero-heading');

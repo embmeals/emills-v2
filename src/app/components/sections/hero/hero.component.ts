@@ -90,10 +90,6 @@ import { DevCardComponent } from './dev-card.component';
             Saint Louis, MO
           </p>
 
-          <p class="mt-4 text-muted-foreground max-w-lg text-base">
-            Building accessible, inclusive digital experiences
-          </p>
-
           <a
             href="#experience"
             (click)="scrollToExperience($event)"
