@@ -64,18 +64,6 @@ const SITE_DESCRIPTION =
             style="aspect-ratio: 16 / 9; background: linear-gradient(160deg, #1a1233 0%, #0d0a1a 100%); border: 1px solid rgba(77,232,240,0.25)"
             [attr.aria-label]="'Load and play Starcatcher. Downloads about ' + downloadSizeMb + ' megabytes.'"
           >
-            <video
-              class="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity duration-200 group-hover:opacity-90"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              poster="starcatcher-trailer.jpg"
-              aria-hidden="true"
-            >
-              <source src="starcatcher-trailer.mp4" type="video/mp4" />
-            </video>
             <span class="absolute inset-0 flex flex-col items-center justify-center gap-4">
               <span
                 class="flex h-16 w-16 items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 group-hover:shadow-[0_0_28px_rgba(255,61,127,0.55)]"
