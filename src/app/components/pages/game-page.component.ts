@@ -170,7 +170,7 @@ export class GamePageComponent implements OnInit, OnDestroy {
   protected readonly gameUrl: SafeResourceUrl =
     this.sanitizer.bypassSecurityTrustResourceUrl('starlight/index.html');
   // The same build, hosted on its own so the game can be shared without the site.
-  protected readonly standaloneUrl = 'https://embmeals.github.io/starcatcher/';
+  protected readonly standaloneUrl = 'https://starcatcher.emills.net/';
 
   ngOnInit(): void {
     this.title.setTitle('Starcatcher — a browser game by Ember Mills');
