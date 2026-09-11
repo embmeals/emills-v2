@@ -2,8 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Starlight</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+		<title>Starcatcher</title>
 		<style>
 html, body, #canvas {
 	margin: 0;
@@ -15,7 +15,8 @@ body {
 	color: white;
 	background-color: black;
 	overflow: hidden;
-	touch-action: pinch-zoom;
+	touch-action: none;
+	overscroll-behavior: none;
 }
 
 #canvas {
@@ -24,6 +25,24 @@ body {
 
 #canvas:focus {
 	outline: none;
+}
+
+#rotate {
+	display: none;
+	position: absolute;
+	inset: 0;
+	z-index: 10;
+	align-items: center;
+	justify-content: center;
+	background: #0a0620;
+	font: 600 22px system-ui, sans-serif;
+	text-align: center;
+}
+
+@media (orientation: portrait) and (pointer: coarse) {
+	#rotate {
+		display: flex;
+	}
 }
 
 #status, #status-splash, #status-progress {
@@ -95,6 +114,7 @@ body {
 
 	</head>
 	<body>
+		<div id="rotate">Turn your phone sideways to play</div>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
 		</canvas>

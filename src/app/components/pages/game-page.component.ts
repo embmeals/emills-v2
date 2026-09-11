@@ -35,16 +35,25 @@ const SITE_DESCRIPTION =
             class="text-4xl font-black tracking-tight mb-3"
             style="font-family: 'Barlow Condensed', sans-serif; color: #4de8f0; text-shadow: 0 0 32px rgba(77,232,240,0.4)"
           >
-            STARLIGHT
+            STARCATCHER
           </h1>
           <p class="text-base max-w-2xl" style="color: #9aa0c0">
-            Fly a little alien saucer around a night sky, collect every star, and
-            dodge the spike balls.
+            Fly as a little cat alien around a night sky collecting stars and
+            dodging spiked balls.
           </p>
           <p class="text-base max-w-2xl mt-2" style="color: #9aa0c0">
             Built in Godot, with the characters modelled procedurally in Blender
             from a Python script.
           </p>
+          <a
+            [href]="standaloneUrl"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 mt-4 text-sm font-semibold transition-colors hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded"
+            style="color: #4de8f0"
+          >
+            Open the game on its own page <span aria-hidden="true">&nearr;</span>
+          </a>
         </header>
 
         @if (!launched()) {
@@ -53,8 +62,20 @@ const SITE_DESCRIPTION =
             (click)="launch()"
             class="group relative w-full cursor-pointer overflow-hidden rounded-xl border-none p-0 transition-all duration-200 hover:scale-[1.01] hover:brightness-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             style="aspect-ratio: 16 / 9; background: linear-gradient(160deg, #1a1233 0%, #0d0a1a 100%); border: 1px solid rgba(77,232,240,0.25)"
-            [attr.aria-label]="'Load and play Starlight. Downloads about ' + downloadSizeMb + ' megabytes.'"
+            [attr.aria-label]="'Load and play Starcatcher. Downloads about ' + downloadSizeMb + ' megabytes.'"
           >
+            <video
+              class="absolute inset-0 h-full w-full object-cover opacity-70 transition-opacity duration-200 group-hover:opacity-90"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="starcatcher-trailer.jpg"
+              aria-hidden="true"
+            >
+              <source src="starcatcher-trailer.mp4" type="video/mp4" />
+            </video>
             <span class="absolute inset-0 flex flex-col items-center justify-center gap-4">
               <span
                 class="flex h-16 w-16 items-center justify-center rounded-full transition-all duration-200 group-hover:scale-110 group-hover:shadow-[0_0_28px_rgba(255,61,127,0.55)]"
@@ -96,14 +117,14 @@ const SITE_DESCRIPTION =
                   style="border: 2px solid rgba(77,232,240,0.25); border-top-color: #4de8f0"
                   aria-hidden="true"
                 ></span>
-                <span class="text-sm" style="color: #9aa0c0">Loading Starlight&hellip;</span>
+                <span class="text-sm" style="color: #9aa0c0">Loading Starcatcher&hellip;</span>
               </div>
             }
             <iframe
               #gameFrame
               [src]="gameUrl"
               (load)="focusGame(gameFrame)"
-              title="Starlight, a browser game"
+              title="Starcatcher, a browser game"
               class="absolute inset-0 h-full w-full"
               style="border: 0"
               allow="autoplay; fullscreen; gamepad"
@@ -158,13 +179,15 @@ export class GamePageComponent implements OnInit, OnDestroy {
   // shadow the /game route and serve the bare Godot page instead of this page.
   protected readonly gameUrl: SafeResourceUrl =
     this.sanitizer.bypassSecurityTrustResourceUrl('starlight/index.html');
+  // The same build, hosted on its own so the game can be shared without the site.
+  protected readonly standaloneUrl = 'https://embmeals.github.io/starcatcher/';
 
   ngOnInit(): void {
-    this.title.setTitle('Starlight — a browser game by Ember Mills');
+    this.title.setTitle('Starcatcher — a browser game by Ember Mills');
     this.meta.updateTag({
       name: 'description',
       content:
-        'Starlight: fly an alien saucer and collect stars. A Godot game with Blender models generated from Python.',
+        'Starcatcher: fly as a little cat alien around a night sky collecting stars and dodging spiked balls. A Godot game with Blender models generated from Python.',
     });
   }
 
