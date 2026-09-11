@@ -94,18 +94,19 @@ const SITE_DESCRIPTION =
             style="aspect-ratio: 16 / 9; border: 1px solid rgba(77,232,240,0.25)"
           >
             @if (!ready()) {
+              <!-- Sits below the frame, not over it: the engine draws its own
+                   progress bar, and covering it made the wait look frozen. -->
               <div
-                class="absolute inset-0 flex flex-col items-center justify-center gap-3"
-                style="background: #0d0a1a"
+                class="absolute inset-x-0 bottom-0 flex flex-col items-center gap-1 pb-4"
                 role="status"
                 aria-live="polite"
               >
-                <span
-                  class="h-8 w-8 animate-spin rounded-full"
-                  style="border: 2px solid rgba(77,232,240,0.25); border-top-color: #4de8f0"
-                  aria-hidden="true"
-                ></span>
-                <span class="text-sm" style="color: #9aa0c0">Loading Starcatcher&hellip;</span>
+                <span class="text-sm font-semibold" style="color: #9aa0c0">
+                  Unpacking the game engine&hellip;
+                </span>
+                <span class="text-xs" style="color: #6a7090">
+                  About {{ downloadSizeMb }}MB. First load takes a few seconds.
+                </span>
               </div>
             }
             <iframe
@@ -161,14 +162,15 @@ export class GamePageComponent implements OnInit, OnDestroy {
   // itself stays light for anyone who just wants to read about the project.
   protected readonly launched = signal(false);
   protected readonly ready = signal(false);
-  protected readonly downloadSizeMb = 7;
+  // Measured over the wire, gzip encoded: 10.2MB engine plus 1.3MB assets.
+  protected readonly downloadSizeMb = 12;
   // Angular blocks raw string iframe sources; this path is our own build
   // output. It lives at /starlight, not /game: a public/game folder would
   // shadow the /game route and serve the bare Godot page instead of this page.
   protected readonly gameUrl: SafeResourceUrl =
     this.sanitizer.bypassSecurityTrustResourceUrl('starlight/index.html');
   // The same build, hosted on its own so the game can be shared without the site.
-  protected readonly standaloneUrl = 'https://embmeals.github.io/starcatcher/';
+  protected readonly standaloneUrl = 'https://starcatcher.emills.net/';
 
   ngOnInit(): void {
     this.title.setTitle('Starcatcher — a browser game by Ember Mills');
