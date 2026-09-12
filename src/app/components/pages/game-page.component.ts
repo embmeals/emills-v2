@@ -164,13 +164,14 @@ export class GamePageComponent implements OnInit, OnDestroy {
   protected readonly ready = signal(false);
   // Measured over the wire, gzip encoded: 10.2MB engine plus 1.3MB assets.
   protected readonly downloadSizeMb = 12;
-  // Angular blocks raw string iframe sources; this path is our own build
-  // output. It lives at /starlight, not /game: a public/game folder would
-  // shadow the /game route and serve the bare Godot page instead of this page.
-  protected readonly gameUrl: SafeResourceUrl =
-    this.sanitizer.bypassSecurityTrustResourceUrl('starlight/index.html');
-  // The same build, hosted on its own so the game can be shared without the site.
+  // The game is served from its own host, which the starlight repo redeploys
+  // on every merge. The site used to ship a copy of the build under
+  // public/starlight, and that copy only changed when someone remembered to
+  // paste a new export in, so the embed sat weeks behind the standalone page.
   protected readonly standaloneUrl = 'https://starcatcher.emills.net/';
+  // Angular blocks raw string iframe sources; this is our own deploy.
+  protected readonly gameUrl: SafeResourceUrl =
+    this.sanitizer.bypassSecurityTrustResourceUrl(this.standaloneUrl);
 
   ngOnInit(): void {
     this.title.setTitle('Starcatcher — a browser game by Ember Mills');
