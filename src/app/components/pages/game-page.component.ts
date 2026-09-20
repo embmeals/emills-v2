@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { BeatsPlayerComponent } from '@/components/game/beats-player.component';
 
 const SITE_DESCRIPTION =
   'Portfolio of Ember Mills: Senior Full Stack Engineer in Saint Louis building ' +
@@ -16,7 +17,7 @@ const SITE_DESCRIPTION =
 @Component({
   selector: 'app-game-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, BeatsPlayerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen px-6 pt-32 pb-12" style="background: #0d0a1a" aria-labelledby="game-heading">
@@ -177,29 +178,11 @@ const SITE_DESCRIPTION =
             Patterns in, WAV out.
           </p>
           <p class="text-base max-w-2xl mt-2" style="color: #9aa0c0">
-            The clip below is the sequencer that ships with it: every icon is
-            a note, and the anglerfish is the playhead.
+            The player below is that sequencer running live in your browser:
+            every icon is a note, and the anglerfish is the playhead.
           </p>
 
-          <img
-            src="assets/beats-sequencer.gif"
-            alt="The beats dive sequencer: rows of instrument icons scroll right past an anglerfish playhead that hops each note in time."
-            class="mt-6 w-full max-w-[720px] rounded-xl"
-            style="border: 1px solid rgba(77,232,240,0.25)"
-            width="560"
-            height="263"
-          />
-
-          <p class="mt-6 text-sm font-semibold" style="color: #9aa0c0">
-            Listen: the full dive, abyss into trench.
-          </p>
-          <audio
-            controls
-            preload="none"
-            src="assets/beats-dive.mp3"
-            class="mt-2 w-full max-w-[720px]"
-            aria-label="Recording of the beats dive track, abyss crossfading into trench"
-          ></audio>
+          <app-beats-player class="mt-6 block" />
 
           <a
             href="https://github.com/embmeals/beats"
