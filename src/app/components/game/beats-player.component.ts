@@ -130,7 +130,7 @@ function gridH(lanes: number): number {
         }
       </button>
     </div>
-    <audio #audio src="assets/beats-dive.mp3" preload="none" loop></audio>
+    <audio #audio src="assets/beats/dive.mp3" preload="none" loop></audio>
   `,
 })
 export class BeatsPlayerComponent implements AfterViewInit, OnDestroy {
