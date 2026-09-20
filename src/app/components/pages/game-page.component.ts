@@ -32,11 +32,21 @@ const SITE_DESCRIPTION =
         <header class="mb-8">
           <h1
             id="game-heading"
-            class="text-4xl font-black tracking-tight mb-3"
+            class="text-4xl font-black tracking-tight mb-10"
+            style="font-family: 'Barlow Condensed', sans-serif; color: #4de8f0; text-shadow: 0 0 32px rgba(77,232,240,0.4)"
+          >
+            GAMES
+          </h1>
+        </header>
+
+        <section aria-labelledby="starcatcher-heading">
+          <h2
+            id="starcatcher-heading"
+            class="text-3xl font-black tracking-tight mb-3"
             style="font-family: 'Barlow Condensed', sans-serif; color: #4de8f0; text-shadow: 0 0 32px rgba(77,232,240,0.4)"
           >
             STARCATCHER
-          </h1>
+          </h2>
           <p class="text-base max-w-2xl" style="color: #9aa0c0">
             Fly as a little cat alien around a night sky collecting stars and
             dodging spiked balls.
@@ -54,7 +64,6 @@ const SITE_DESCRIPTION =
           >
             Open the game on its own page <span aria-hidden="true">&nearr;</span>
           </a>
-        </header>
 
         @if (!launched()) {
           <button
@@ -149,6 +158,73 @@ const SITE_DESCRIPTION =
             </ul>
           </div>
         </section>
+        </section>
+
+        <section
+          class="mt-16 pt-10"
+          style="border-top: 1px solid rgba(77,232,240,0.15)"
+          aria-labelledby="beats-heading"
+        >
+          <h2
+            id="beats-heading"
+            class="text-3xl font-black tracking-tight mb-3"
+            style="font-family: 'Barlow Condensed', sans-serif; color: #4de8f0; text-shadow: 0 0 32px rgba(77,232,240,0.4)"
+          >
+            BEATS
+          </h2>
+          <p class="text-base max-w-2xl" style="color: #9aa0c0">
+            A drum machine and a pair of deep-sea tracks, written in Python.
+            Patterns in, WAV out.
+          </p>
+          <p class="text-base max-w-2xl mt-2" style="color: #9aa0c0">
+            The clip below is the sequencer that ships with it: every icon is
+            a note, and the anglerfish is the playhead.
+          </p>
+
+          <img
+            src="assets/beats-sequencer.gif"
+            alt="The beats dive sequencer: rows of instrument icons scroll right past an anglerfish playhead that hops each note in time."
+            class="mt-6 w-full max-w-[720px] rounded-xl"
+            style="border: 1px solid rgba(77,232,240,0.25)"
+            width="560"
+            height="263"
+          />
+
+          <p class="mt-6 text-sm font-semibold" style="color: #9aa0c0">
+            Listen: the full dive, abyss into trench.
+          </p>
+          <audio
+            controls
+            preload="none"
+            src="assets/beats-dive.mp3"
+            class="mt-2 w-full max-w-[720px]"
+            aria-label="Recording of the beats dive track, abyss crossfading into trench"
+          ></audio>
+
+          <a
+            href="https://github.com/embmeals/beats"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 mt-4 text-sm font-semibold transition-colors hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded"
+            style="color: #4de8f0"
+          >
+            Read the code on GitHub <span aria-hidden="true">&nearr;</span>
+          </a>
+
+          <div class="mt-8">
+            <h3
+              class="text-sm font-semibold uppercase tracking-wider mb-3"
+              style="color: #ff3d7f"
+            >
+              Built with
+            </h3>
+            <ul class="space-y-1.5 text-sm" style="color: #9aa0c0">
+              <li>Python and numpy - no DAW, no samples</li>
+              <li>A tkinter sequencer with Mario Paint-style sprites</li>
+              <li>Two chained tracks: deep-sea synthwave into 8-bit</li>
+            </ul>
+          </div>
+        </section>
       </div>
     </div>
   `,
@@ -174,11 +250,11 @@ export class GamePageComponent implements OnInit, OnDestroy {
     this.sanitizer.bypassSecurityTrustResourceUrl(this.standaloneUrl);
 
   ngOnInit(): void {
-    this.title.setTitle('Starcatcher — a browser game by Ember Mills');
+    this.title.setTitle('Games — Starcatcher and Beats by Ember Mills');
     this.meta.updateTag({
       name: 'description',
       content:
-        'Starcatcher: fly as a little cat alien around a night sky collecting stars and dodging spiked balls. A Godot game with Blender models generated from Python.',
+        'Games by Ember Mills: Starcatcher, a Godot browser game, and Beats, a Python drum machine and deep-sea tracks with a live sequencer.',
     });
   }
 
