@@ -204,7 +204,7 @@ const SITE_DESCRIPTION =
             <ul class="space-y-1.5 text-sm" style="color: #9aa0c0">
               <li>Python and numpy - no DAW, no samples</li>
               <li>A tkinter sequencer with Mario Paint-style sprites</li>
-              <li>Two chained tracks: deep-sea synthwave into 8-bit</li>
+              <li>Three chained tracks: deep-sea synthwave into 8-bit into the merfolk finale</li>
             </ul>
           </div>
         </section>
