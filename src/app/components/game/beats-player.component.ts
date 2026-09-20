@@ -111,9 +111,11 @@ function gridH(lanes: number): number {
         @if (playing()) {
           <span
             aria-hidden="true"
-            class="absolute inset-0 m-auto rounded-[2px]"
-            style="width: 6px; height: 20px; background: #fff8e7; box-shadow: 14px 0 0 #fff8e7; left: -7px"
-          ></span>
+            class="absolute inset-0 flex items-center justify-center gap-2"
+          >
+            <span class="rounded-[2px]" style="width: 6px; height: 20px; background: #fff8e7"></span>
+            <span class="rounded-[2px]" style="width: 6px; height: 20px; background: #fff8e7"></span>
+          </span>
         } @else {
           <svg
             aria-hidden="true"
