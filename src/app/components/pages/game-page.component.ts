@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Title, Meta, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { BeatsPlayerComponent } from '@/components/game/beats-player.component';
 
 const SITE_DESCRIPTION =
   'Portfolio of Ember Mills: Senior Full Stack Engineer in Saint Louis building ' +
@@ -17,7 +16,7 @@ const SITE_DESCRIPTION =
 @Component({
   selector: 'app-game-page',
   standalone: true,
-  imports: [RouterLink, BeatsPlayerComponent],
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen px-6 pt-32 pb-12" style="background: #0d0a1a" aria-labelledby="game-heading">
@@ -181,8 +180,31 @@ const SITE_DESCRIPTION =
             The player below is that sequencer running live in your browser:
             every icon is a note, and the anglerfish is the playhead.
           </p>
+          <a
+            [href]="diveUrl"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 mt-4 text-sm font-semibold transition-colors hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded"
+            style="color: #4de8f0"
+          >
+            Open the dive on its own page <span aria-hidden="true">&nearr;</span>
+          </a>
 
-          <app-beats-player class="mt-6 block" />
+          <!-- The stage is 1128 wide by 688 tall at full size; the frame keeps
+               that shape so the sequencer scales without letterboxing. -->
+          <div
+            class="relative mt-6 w-full overflow-hidden rounded-xl"
+            style="aspect-ratio: 1128 / 688; border: 1px solid rgba(77,232,240,0.25); background: #0a2440"
+          >
+            <iframe
+              [src]="diveEmbedUrl"
+              title="The dive, a live sequencer for the beats tracks"
+              class="absolute inset-0 h-full w-full"
+              style="border: 0"
+              loading="lazy"
+              allow="autoplay"
+            ></iframe>
+          </div>
 
           <a
             href="https://github.com/embmeals/beats"
@@ -203,8 +225,8 @@ const SITE_DESCRIPTION =
             </h3>
             <ul class="space-y-1.5 text-sm" style="color: #9aa0c0">
               <li>Python and numpy - no DAW, no samples</li>
-              <li>A tkinter sequencer with Mario Paint-style sprites</li>
-              <li>Three chained tracks: deep-sea synthwave into 8-bit into the merfolk finale</li>
+              <li>A Mario Paint-style sequencer, in tkinter and on a canvas</li>
+              <li>Three chained tracks: the merfolk opener, the 8-bit trench, the abyss</li>
             </ul>
           </div>
         </section>
@@ -231,6 +253,11 @@ export class GamePageComponent implements OnInit, OnDestroy {
   // Angular blocks raw string iframe sources; this is our own deploy.
   protected readonly gameUrl: SafeResourceUrl =
     this.sanitizer.bypassSecurityTrustResourceUrl(this.standaloneUrl);
+  // Same story for the dive: the beats repo deploys its player to
+  // dive.emills.net, and ?embed hides its own heading under ours.
+  protected readonly diveUrl = 'https://dive.emills.net/';
+  protected readonly diveEmbedUrl: SafeResourceUrl =
+    this.sanitizer.bypassSecurityTrustResourceUrl(this.diveUrl + '?embed');
 
   ngOnInit(): void {
     this.title.setTitle('Games — Starcatcher and Beats by Ember Mills');
