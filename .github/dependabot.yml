@@ -26,6 +26,11 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "@angular-devkit/*"
         update-types: ["version-update:semver-major"]
+      # angular-eslint's major tracks Angular's, so it moves with the Angular upgrade
+      - dependency-name: "angular-eslint"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-eslint/*"
+        update-types: ["version-update:semver-major"]
       # zone.js and TypeScript must stay in lockstep with Angular — never update independently
       - dependency-name: "zone.js"
       - dependency-name: "typescript"
